@@ -1,0 +1,60 @@
+{
+  "delivery_slots": [
+    {
+      "id": 1,
+      "store_id": 1,
+      "date": "2025-11-08",
+      "window": "10:00–12:00",
+      "capacity": 20,
+      "available": 12
+    },
+    {
+      "id": 2,
+      "store_id": 1,
+      "date": "2025-11-08",
+      "window": "12:00–14:00",
+      "capacity": 20,
+      "available": 4
+    },
+    {
+      "id": 3,
+      "store_id": 1,
+      "date": "2025-11-08",
+      "window": "18:00–20:00",
+      "capacity": 15,
+      "available": 0
+    },
+    {
+      "id": 4,
+      "store_id": 1,
+      "date": "2025-11-09",
+      "window": "09:00–11:00",
+      "capacity": 15,
+      "available": 9
+    },
+    {
+      "id": 5,
+      "store_id": 2,
+      "date": "2025-11-08",
+      "window": "11:00–13:00",
+      "capacity": 15,
+      "available": 7
+    },
+    {
+      "id": 6,
+      "store_id": 2,
+      "date": "2025-11-08",
+      "window": "15:00–17:00",
+      "capacity": 15,
+      "available": 3
+    },
+    {
+      "id": 7,
+      "store_id": 2,
+      "date": "2025-11-09",
+      "window": "13:00–15:00",
+      "capacity": 10,
+      "available": 6
+    }
+  ]
+}

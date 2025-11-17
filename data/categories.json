@@ -1,0 +1,12 @@
+{
+  "categories": [
+    { "id": 1, "name": "Produce", "slug": "produce" },
+    { "id": 2, "name": "Meat & Seafood", "slug": "meat-seafood" },
+    { "id": 3, "name": "Dairy & Eggs", "slug": "dairy-eggs" },
+    { "id": 4, "name": "Bakery", "slug": "bakery" },
+    { "id": 5, "name": "Pantry", "slug": "pantry" },
+    { "id": 6, "name": "Frozen", "slug": "frozen" },
+    { "id": 7, "name": "Beverages", "slug": "beverages" },
+    { "id": 8, "name": "Prepared Foods", "slug": "prepared-foods" }
+  ]
+}

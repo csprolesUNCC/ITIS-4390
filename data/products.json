@@ -1,0 +1,593 @@
+{
+  "products": [
+    {
+      "id": 101,
+      "name": "Organic Bananas",
+      "category_id": 1,
+      "category_name": "Produce",
+      "image_url": "/img/produce/bananas.jpg",
+      "description": "Fresh, ripe organic bananas sourced from certified organic farms.",
+      "nutrition": {
+        "serving_size": "118g (1 medium banana)",
+        "calories": 105,
+        "carbohydrates": "27g",
+        "sugar": "14g",
+        "protein": "1.3g"
+      },
+      "variants": [
+        {
+          "id": 10001,
+          "sku": "SKU-101-BASE",
+          "size": "1 bunch (6 bananas)",
+          "unit": "ea",
+          "price_cents": 299,
+          "price_display": "$2.99"
+        }
+      ],
+      "rating": 4.8,
+      "rating_count": 213,
+      "tags": ["organic", "fruit", "staple"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic"],
+      "is_active": true
+    },
+    {
+      "id": 102,
+      "name": "Organic Honeycrisp Apples",
+      "category_id": 1,
+      "category_name": "Produce",
+      "image_url": "/img/produce/honeycrisp_apples.jpg",
+      "description": "Crisp, sweet-tart organic Honeycrisp apples perfect for snacking.",
+      "nutrition": {
+        "serving_size": "182g (1 medium apple)",
+        "calories": 95,
+        "carbohydrates": "25g",
+        "sugar": "19g",
+        "protein": "0.5g"
+      },
+      "variants": [
+        {
+          "id": 10002,
+          "sku": "SKU-102-BASE",
+          "size": "1 lb",
+          "unit": "lb",
+          "price_cents": 349,
+          "price_display": "$3.49"
+        }
+      ],
+      "rating": 4.9,
+      "rating_count": 158,
+      "tags": ["organic", "fruit"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic", "Customer Favorite"],
+      "is_active": true
+    },
+    {
+      "id": 103,
+      "name": "Organic Baby Spinach",
+      "category_id": 1,
+      "category_name": "Produce",
+      "image_url": "/img/produce/baby_spinach.jpg",
+      "description": "Tender organic baby spinach leaves, triple-washed and ready to eat.",
+      "nutrition": {
+        "serving_size": "85g (3 cups)",
+        "calories": 20,
+        "carbohydrates": "3g",
+        "sugar": "0g",
+        "protein": "2g"
+      },
+      "variants": [
+        {
+          "id": 10003,
+          "sku": "SKU-103-5OZ",
+          "size": "5 oz clamshell",
+          "unit": "ea",
+          "price_cents": 499,
+          "price_display": "$4.99"
+        }
+      ],
+      "rating": 4.6,
+      "rating_count": 94,
+      "tags": ["organic", "greens", "salad"],
+      "dietary": ["vegan", "gluten_free", "keto_friendly"],
+      "badges": ["Organic"],
+      "is_active": true
+    },
+    {
+      "id": 201,
+      "name": "Grass-Fed Ground Beef 85% Lean",
+      "category_id": 2,
+      "category_name": "Meat & Seafood",
+      "image_url": "/img/meat/beef_ground_grassfed.jpg",
+      "description": "Responsibly raised, grass-fed ground beef ideal for tacos, burgers, and more.",
+      "nutrition": {
+        "serving_size": "113g (4 oz)",
+        "calories": 240,
+        "carbohydrates": "0g",
+        "sugar": "0g",
+        "protein": "21g"
+      },
+      "variants": [
+        {
+          "id": 20001,
+          "sku": "SKU-201-1LB",
+          "size": "1 lb",
+          "unit": "lb",
+          "price_cents": 899,
+          "price_display": "$8.99"
+        }
+      ],
+      "rating": 4.7,
+      "rating_count": 76,
+      "tags": ["grass_fed", "meat"],
+      "dietary": ["keto_friendly"],
+      "badges": ["Responsibly Raised"],
+      "is_active": true
+    },
+    {
+      "id": 202,
+      "name": "Wild-Caught Atlantic Salmon Fillet",
+      "category_id": 2,
+      "category_name": "Meat & Seafood",
+      "image_url": "/img/seafood/atlantic_salmon.jpg",
+      "description": "Skin-on, wild-caught Atlantic salmon fillet rich in omega-3 fatty acids.",
+      "nutrition": {
+        "serving_size": "113g (4 oz)",
+        "calories": 230,
+        "carbohydrates": "0g",
+        "sugar": "0g",
+        "protein": "23g"
+      },
+      "variants": [
+        {
+          "id": 20002,
+          "sku": "SKU-202-PERLB",
+          "size": "per lb",
+          "unit": "lb",
+          "price_cents": 1499,
+          "price_display": "$14.99"
+        }
+      ],
+      "rating": 4.8,
+      "rating_count": 51,
+      "tags": ["seafood", "wild_caught"],
+      "dietary": ["pescatarian", "keto_friendly"],
+      "badges": ["Sustainably Sourced"],
+      "is_active": true
+    },
+    {
+      "id": 203,
+      "name": "Organic Free-Range Chicken Breast",
+      "category_id": 2,
+      "category_name": "Meat & Seafood",
+      "image_url": "/img/meat/chicken_breast_organic.jpg",
+      "description": "Boneless, skinless organic chicken breasts from free-range chickens.",
+      "nutrition": {
+        "serving_size": "113g (4 oz)",
+        "calories": 120,
+        "carbohydrates": "0g",
+        "sugar": "0g",
+        "protein": "26g"
+      },
+      "variants": [
+        {
+          "id": 20003,
+          "sku": "SKU-203-PERLB",
+          "size": "per lb",
+          "unit": "lb",
+          "price_cents": 1099,
+          "price_display": "$10.99"
+        }
+      ],
+      "rating": 4.5,
+      "rating_count": 63,
+      "tags": ["organic", "meat"],
+      "dietary": ["keto_friendly"],
+      "badges": ["Organic"],
+      "is_active": true
+    },
+    {
+      "id": 301,
+      "name": "Organic Whole Milk",
+      "category_id": 3,
+      "category_name": "Dairy & Eggs",
+      "image_url": "/img/dairy/whole_milk_organic.jpg",
+      "description": "Rich, creamy organic whole milk from pasture-raised cows.",
+      "nutrition": {
+        "serving_size": "240ml (1 cup)",
+        "calories": 150,
+        "carbohydrates": "12g",
+        "sugar": "11g",
+        "protein": "8g"
+      },
+      "variants": [
+        {
+          "id": 30001,
+          "sku": "SKU-301-64OZ",
+          "size": "64 fl oz",
+          "unit": "ea",
+          "price_cents": 529,
+          "price_display": "$5.29"
+        }
+      ],
+      "rating": 4.6,
+      "rating_count": 82,
+      "tags": ["organic", "milk"],
+      "dietary": ["vegetarian"],
+      "badges": ["Organic"],
+      "is_active": true
+    },
+    {
+      "id": 302,
+      "name": "Cage-Free Large Brown Eggs",
+      "category_id": 3,
+      "category_name": "Dairy & Eggs",
+      "image_url": "/img/dairy/eggs_cage_free.jpg",
+      "description": "Grade A large brown eggs from cage-free hens.",
+      "nutrition": {
+        "serving_size": "50g (1 egg)",
+        "calories": 70,
+        "carbohydrates": "0g",
+        "sugar": "0g",
+        "protein": "6g"
+      },
+      "variants": [
+        {
+          "id": 30002,
+          "sku": "SKU-302-12CT",
+          "size": "12 count carton",
+          "unit": "ea",
+          "price_cents": 429,
+          "price_display": "$4.29"
+        }
+      ],
+      "rating": 4.4,
+      "rating_count": 69,
+      "tags": ["eggs", "cage_free"],
+      "dietary": ["vegetarian", "keto_friendly"],
+      "badges": ["Cage-Free"],
+      "is_active": true
+    },
+    {
+      "id": 303,
+      "name": "Organic Greek Yogurt, Plain",
+      "category_id": 3,
+      "category_name": "Dairy & Eggs",
+      "image_url": "/img/dairy/greek_yogurt_plain.jpg",
+      "description": "Thick, creamy organic Greek yogurt with no added sugar.",
+      "nutrition": {
+        "serving_size": "170g (3/4 cup)",
+        "calories": 130,
+        "carbohydrates": "5g",
+        "sugar": "5g",
+        "protein": "17g"
+      },
+      "variants": [
+        {
+          "id": 30003,
+          "sku": "SKU-303-32OZ",
+          "size": "32 oz tub",
+          "unit": "ea",
+          "price_cents": 649,
+          "price_display": "$6.49"
+        }
+      ],
+      "rating": 4.7,
+      "rating_count": 55,
+      "tags": ["organic", "yogurt", "high_protein"],
+      "dietary": ["vegetarian", "keto_friendly"],
+      "badges": ["Organic"],
+      "is_active": true
+    },
+    {
+      "id": 401,
+      "name": "Sourdough Artisan Bread Loaf",
+      "category_id": 4,
+      "category_name": "Bakery",
+      "image_url": "/img/bakery/sourdough_loaf.jpg",
+      "description": "Handcrafted sourdough loaf with a crisp crust and soft interior.",
+      "nutrition": {
+        "serving_size": "57g (1 slice)",
+        "calories": 160,
+        "carbohydrates": "32g",
+        "sugar": "1g",
+        "protein": "6g"
+      },
+      "variants": [
+        {
+          "id": 40001,
+          "sku": "SKU-401-LOAF",
+          "size": "1 loaf",
+          "unit": "ea",
+          "price_cents": 499,
+          "price_display": "$4.99"
+        }
+      ],
+      "rating": 4.9,
+      "rating_count": 132,
+      "tags": ["bread", "fresh_baked"],
+      "dietary": [],
+      "badges": ["Baked In-Store"],
+      "is_active": true
+    },
+    {
+      "id": 402,
+      "name": "Gluten-Free Chocolate Chip Cookies",
+      "category_id": 4,
+      "category_name": "Bakery",
+      "image_url": "/img/bakery/gf_chocolate_chip_cookies.jpg",
+      "description": "Soft-baked gluten-free cookies loaded with chocolate chips.",
+      "nutrition": {
+        "serving_size": "28g (2 cookies)",
+        "calories": 140,
+        "carbohydrates": "18g",
+        "sugar": "10g",
+        "protein": "2g"
+      },
+      "variants": [
+        {
+          "id": 40002,
+          "sku": "SKU-402-8CT",
+          "size": "8 count package",
+          "unit": "ea",
+          "price_cents": 599,
+          "price_display": "$5.99"
+        }
+      ],
+      "rating": 4.3,
+      "rating_count": 41,
+      "tags": ["gluten_free", "dessert"],
+      "dietary": ["gluten_free"],
+      "badges": ["Gluten-Free"],
+      "is_active": true
+    },
+    {
+      "id": 501,
+      "name": "Organic Black Beans, No Salt Added",
+      "category_id": 5,
+      "category_name": "Pantry",
+      "image_url": "/img/pantry/black_beans_can.jpg",
+      "description": "Organic black beans with no salt added, perfect for soups and bowls.",
+      "nutrition": {
+        "serving_size": "130g (1/2 cup)",
+        "calories": 110,
+        "carbohydrates": "20g",
+        "sugar": "1g",
+        "protein": "7g"
+      },
+      "variants": [
+        {
+          "id": 50001,
+          "sku": "SKU-501-15OZ",
+          "size": "15 oz can",
+          "unit": "ea",
+          "price_cents": 179,
+          "price_display": "$1.79"
+        }
+      ],
+      "rating": 4.6,
+      "rating_count": 73,
+      "tags": ["organic", "beans", "no_added_salt"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic"],
+      "is_active": true
+    },
+    {
+      "id": 502,
+      "name": "Organic Extra Virgin Olive Oil",
+      "category_id": 5,
+      "category_name": "Pantry",
+      "image_url": "/img/pantry/olive_oil_evoo.jpg",
+      "description": "Cold-pressed organic extra virgin olive oil with robust flavor.",
+      "nutrition": {
+        "serving_size": "15ml (1 tbsp)",
+        "calories": 120,
+        "carbohydrates": "0g",
+        "sugar": "0g",
+        "protein": "0g"
+      },
+      "variants": [
+        {
+          "id": 50002,
+          "sku": "SKU-502-16OZ",
+          "size": "16.9 fl oz bottle",
+          "unit": "ea",
+          "price_cents": 1199,
+          "price_display": "$11.99"
+        }
+      ],
+      "rating": 4.7,
+      "rating_count": 64,
+      "tags": ["organic", "oil", "staple"],
+      "dietary": ["vegan", "gluten_free", "keto_friendly"],
+      "badges": ["Organic"],
+      "is_active": true
+    },
+    {
+      "id": 601,
+      "name": "Organic Frozen Blueberries",
+      "category_id": 6,
+      "category_name": "Frozen",
+      "image_url": "/img/frozen/blueberries_organic.jpg",
+      "description": "Sweet organic blueberries picked at peak ripeness and flash-frozen.",
+      "nutrition": {
+        "serving_size": "140g (1 cup)",
+        "calories": 80,
+        "carbohydrates": "21g",
+        "sugar": "14g",
+        "protein": "1g"
+      },
+      "variants": [
+        {
+          "id": 60001,
+          "sku": "SKU-601-10OZ",
+          "size": "10 oz bag",
+          "unit": "ea",
+          "price_cents": 399,
+          "price_display": "$3.99"
+        }
+      ],
+      "rating": 4.8,
+      "rating_count": 89,
+      "tags": ["organic", "fruit", "frozen"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic"],
+      "is_active": true
+    },
+    {
+      "id": 602,
+      "name": "Vegetable Stir-Fry Blend",
+      "category_id": 6,
+      "category_name": "Frozen",
+      "image_url": "/img/frozen/veggie_stirfry_blend.jpg",
+      "description": "Colorful mix of frozen vegetables ready for quick stir-fries.",
+      "nutrition": {
+        "serving_size": "90g (1 cup)",
+        "calories": 50,
+        "carbohydrates": "10g",
+        "sugar": "4g",
+        "protein": "3g"
+      },
+      "variants": [
+        {
+          "id": 60002,
+          "sku": "SKU-602-12OZ",
+          "size": "12 oz bag",
+          "unit": "ea",
+          "price_cents": 329,
+          "price_display": "$3.29"
+        }
+      ],
+      "rating": 4.4,
+      "rating_count": 47,
+      "tags": ["frozen", "vegetables"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": [],
+      "is_active": true
+    },
+    {
+      "id": 701,
+      "name": "Sparkling Mineral Water, Lime",
+      "category_id": 7,
+      "category_name": "Beverages",
+      "image_url": "/img/beverages/sparkling_lime.jpg",
+      "description": "Naturally flavored lime sparkling mineral water with no added sugar.",
+      "nutrition": {
+        "serving_size": "355ml (12 fl oz)",
+        "calories": 0,
+        "carbohydrates": "0g",
+        "sugar": "0g",
+        "protein": "0g"
+      },
+      "variants": [
+        {
+          "id": 70001,
+          "sku": "SKU-701-12PK",
+          "size": "12 pack cans",
+          "unit": "ea",
+          "price_cents": 599,
+          "price_display": "$5.99"
+        }
+      ],
+      "rating": 4.5,
+      "rating_count": 91,
+      "tags": ["sparkling", "no_sugar"],
+      "dietary": ["vegan", "gluten_free", "keto_friendly"],
+      "badges": ["No Added Sugar"],
+      "is_active": true
+    },
+    {
+      "id": 702,
+      "name": "Cold Brew Coffee Concentrate",
+      "category_id": 7,
+      "category_name": "Beverages",
+      "image_url": "/img/beverages/cold_brew_concentrate.jpg",
+      "description": "Smooth, strong cold brew coffee concentrate—just mix with water or milk.",
+      "nutrition": {
+        "serving_size": "118ml (4 fl oz, diluted)",
+        "calories": 15,
+        "carbohydrates": "3g",
+        "sugar": "1g",
+        "protein": "0g"
+      },
+      "variants": [
+        {
+          "id": 70002,
+          "sku": "SKU-702-32OZ",
+          "size": "32 fl oz bottle",
+          "unit": "ea",
+          "price_cents": 899,
+          "price_display": "$8.99"
+        }
+      ],
+      "rating": 4.6,
+      "rating_count": 38,
+      "tags": ["coffee", "cold_brew"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": [],
+      "is_active": true
+    },
+    {
+      "id": 801,
+      "name": "Lemon Herb Rotisserie Chicken",
+      "category_id": 8,
+      "category_name": "Prepared Foods",
+      "image_url": "/img/prepared/rotisserie_chicken_lemon_herb.jpg",
+      "description": "Hot, ready-to-eat rotisserie chicken seasoned with lemon and herbs.",
+      "nutrition": {
+        "serving_size": "85g (3 oz)",
+        "calories": 170,
+        "carbohydrates": "0g",
+        "sugar": "0g",
+        "protein": "23g"
+      },
+      "variants": [
+        {
+          "id": 80001,
+          "sku": "SKU-801-WHOLE",
+          "size": "1 whole chicken",
+          "unit": "ea",
+          "price_cents": 999,
+          "price_display": "$9.99"
+        }
+      ],
+      "rating": 4.7,
+      "rating_count": 112,
+      "tags": ["hot_bar", "ready_to_eat"],
+      "dietary": ["keto_friendly"],
+      "badges": ["Prepared In-Store"],
+      "is_active": true
+    },
+    {
+      "id": 802,
+      "name": "Quinoa & Roasted Veggie Salad",
+      "category_id": 8,
+      "category_name": "Prepared Foods",
+      "image_url": "/img/prepared/quinoa_roasted_veggie_salad.jpg",
+      "description": "High-protein quinoa salad with roasted vegetables and light vinaigrette.",
+      "nutrition": {
+        "serving_size": "198g (1 cup)",
+        "calories": 220,
+        "carbohydrates": "30g",
+        "sugar": "5g",
+        "protein": "8g"
+      },
+      "variants": [
+        {
+          "id": 80002,
+          "sku": "SKU-802-8OZ",
+          "size": "8 oz container",
+          "unit": "ea",
+          "price_cents": 599,
+          "price_display": "$5.99"
+        }
+      ],
+      "rating": 4.4,
+      "rating_count": 57,
+      "tags": ["salad", "high_fiber"],
+      "dietary": ["vegan"],
+      "badges": ["Prepared In-Store"],
+      "is_active": true
+    }
+  ]
+}

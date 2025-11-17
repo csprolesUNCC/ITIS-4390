@@ -1,0 +1,42 @@
+{
+  "stores": [
+    {
+      "id": 1,
+      "name": "Uptown Market",
+      "address": "123 Uptown Blvd, Charlotte, NC",
+      "city": "Charlotte",
+      "state": "NC",
+      "zip": "28202",
+      "coordinates": {
+        "lat": 35.2271,
+        "lng": -80.8431
+      },
+      "hours": {
+        "mon_fri": { "open": "07:00", "close": "22:00" },
+        "sat": { "open": "08:00", "close": "22:00" },
+        "sun": { "open": "08:00", "close": "21:00" }
+      },
+      "supports_delivery": true,
+      "supports_pickup": true
+    },
+    {
+      "id": 2,
+      "name": "South End Market",
+      "address": "55 Rail Yard Dr, Charlotte, NC",
+      "city": "Charlotte",
+      "state": "NC",
+      "zip": "28203",
+      "coordinates": {
+        "lat": 35.2155,
+        "lng": -80.8600
+      },
+      "hours": {
+        "mon_fri": { "open": "08:00", "close": "21:00" },
+        "sat": { "open": "08:00", "close": "21:00" },
+        "sun": { "open": "09:00", "close": "20:00" }
+      },
+      "supports_delivery": true,
+      "supports_pickup": true
+    }
+  ]
+}

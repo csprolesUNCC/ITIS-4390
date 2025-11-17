@@ -1,0 +1,69 @@
+{
+  "promotions": {
+    "banners": [
+      {
+        "id": 1,
+        "title": "Organic Produce Week",
+        "subtitle": "Save on fresh organic fruits & veggies",
+        "image_url": "/img/banners/organic_week.jpg",
+        "cta_label": "Shop Produce",
+        "link_type": "category",
+        "link_category_id": 1
+      },
+      {
+        "id": 2,
+        "title": "Dinner in 20 Minutes",
+        "subtitle": "Prepared foods & frozen shortcuts",
+        "image_url": "/img/banners/dinner_in_20.jpg",
+        "cta_label": "View Quick Meals",
+        "link_type": "category_group",
+        "link_category_ids": [6, 8]
+      }
+    ],
+    "product_promotions": [
+      {
+        "id": 10101,
+        "product_id": 102,
+        "label": "On Sale",
+        "sale_price_cents": 299,
+        "sale_price_display": "$2.99",
+        "starts_at": "2025-11-07T00:00:00Z",
+        "ends_at": "2025-11-14T23:59:59Z"
+      },
+      {
+        "id": 10102,
+        "product_id": 401,
+        "label": "Fresh Today",
+        "sale_price_cents": 449,
+        "sale_price_display": "$4.49",
+        "starts_at": "2025-11-07T00:00:00Z",
+        "ends_at": "2025-11-07T23:59:59Z"
+      },
+      {
+        "id": 10103,
+        "product_id": 601,
+        "label": "Member Deal",
+        "sale_price_cents": 349,
+        "sale_price_display": "$3.49",
+        "starts_at": "2025-11-06T00:00:00Z",
+        "ends_at": "2025-11-10T23:59:59Z"
+      }
+    ],
+    "category_promotions": [
+      {
+        "id": 20101,
+        "category_id": 6,
+        "message": "Frozen favorites — mix & match 2 for $7",
+        "starts_at": "2025-11-05T00:00:00Z",
+        "ends_at": "2025-11-12T23:59:59Z"
+      },
+      {
+        "id": 20102,
+        "category_id": 7,
+        "message": "Beverages — 10% off when you buy 3+",
+        "starts_at": "2025-11-01T00:00:00Z",
+        "ends_at": "2025-11-30T23:59:59Z"
+      }
+    ]
+  }
+}
