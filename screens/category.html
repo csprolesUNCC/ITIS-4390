@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Category - Whole Foods Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="app.css">
+  <script src="../data/data_api.js"></script>
+</head>
+<body class="bg-black">
+  <div class="mobile-container flex flex-col">
+    <div class="px-6 pt-6 pb-4 flex items-center">
+      <a href="shop.html" class="text-white mr-3">←</a>
+      <h1 id="category-title" class="text-white text-2xl font-light ml-3">Category</h1>
+    </div>
+    <div class="content-area px-6 pt-2 pb-20">
+      <div id="product-list" class="grid grid-cols-2 gap-4"></div>
+    </div>
+    <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+      <a href="home.html" class="flex flex-col items-center text-xs text-green-300">
+        <span class="text-lg">🏠</span>Home
+      </a>
+      <a href="shop.html" class="flex flex-col items-center text-xs font-bold">
+        <span class="text-lg">🛒</span>Shop
+      </a>
+      <a href="#" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🔎</span>Search
+      </a>
+      <a href="profile.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">👤</span>Profile
+      </a>
+    </nav>
+  </div>
+  <script>
+    async function renderCategory() {
+      await DataAPI.loadEverything();
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug');
+      let category = DataAPI.getCategories().find(c => c.slug === slug);
+      if (!category && slug !== null) {
+        document.getElementById('category-title').textContent = 'Category Not Found';
+        return;
+      }
+      document.getElementById('category-title').textContent = category ? category.name : 'All Products';
+      let products = category ? DataAPI.getProductsByCategory(category.id) : DataAPI.getAllProducts();
+      const list = document.getElementById('product-list');
+      list.innerHTML = '';
+      if (products.length === 0) {
+        list.innerHTML = '<p class="text-gray-400 col-span-2">No products found.</p>';
+        return;
+      }
+      for (const p of products) {
+        list.innerHTML += `
+          <a href="product.html?id=${p.id}" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+            <div class="h-24 bg-gray-700 rounded-md mb-2 flex items-center justify-center">
+              <img src="${p.image_url || ''}" alt="${p.name}" class="h-20 object-contain mx-auto" onerror="this.style.display='none'">
+            </div>
+            <p class="text-sm text-white font-medium">${p.name}</p>
+            <p class="text-xs text-emerald-300 font-semibold mt-1">${p.variants[0]?.price_display || ''}</p>
+          </a>
+        `;
+      }
+    }
+    renderCategory();
+  </script>
+</body>
+</html>

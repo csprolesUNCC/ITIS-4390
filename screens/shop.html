@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Whole Foods Shop</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -50,17 +50,17 @@
 
       <div class="mb-6">
         <div class="flex space-x-2 overflow-x-auto pb-2 -mx-1 px-1">
-          <button class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-700 text-white flex-shrink-0">All</button>
+          <a href="category.html" class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-700 text-white flex-shrink-0">All</a>
 
-          <button class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🥬 Produce</button>
+          <a href="category.html?slug=produce" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🥬 Produce</a>
 
-          <button class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🧀 Deli & Cheese</button>
+          <a href="category.html?slug=dairy-eggs" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🧀 Deli & Cheese</a>
 
-          <button class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🥩 Meat & Seafood</button>
+          <a href="category.html?slug=meat-seafood" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🥩 Meat & Seafood</a>
 
-          <button class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🍞 Bakery</button>
+          <a href="category.html?slug=bakery" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🍞 Bakery</a>
 
-          <button class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🥫 Pantry</button>
+          <a href="category.html?slug=pantry" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🥫 Pantry</a>
         </div>
       </div>
 
@@ -75,23 +75,23 @@
         </div>
 
         <div class="flex space-x-3 overflow-x-auto pb-1 -mx-1 px-1">
-          <div class="flex-shrink-0 w-36 bg-gray-900 rounded-xl border border-gray-800 p-3">
+          <a href="product.html?id=101" class="flex-shrink-0 w-36 bg-gray-900 rounded-xl border border-gray-800 p-3">
             <div class="h-20 bg-gray-700 rounded-md mb-3"></div>
-            <p class="text-xs text-gray-300">Organic Kale</p>
+            <p class="text-xs text-gray-300">Organic Bananas</p>
             <p class="text-xs text-emerald-300 font-semibold mt-1">$2.99 / bunch</p>
-          </div>
+          </a>
 
-          <div class="flex-shrink-0 w-36 bg-gray-900 rounded-xl border border-gray-800 p-3">
+          <a href="product.html?id=401" class="flex-shrink-0 w-36 bg-gray-900 rounded-xl border border-gray-800 p-3">
             <div class="h-20 bg-gray-700 rounded-md mb-3"></div>
             <p class="text-xs text-gray-300">Fresh Sourdough</p>
-            <p class="text-xs text-emerald-300 font-semibold mt-1">$4.49 / loaf</p>
-          </div>
+            <p class="text-xs text-emerald-300 font-semibold mt-1">$4.99 / loaf</p>
+          </a>
 
-          <div class="flex-shrink-0 w-36 bg-gray-900 rounded-xl border border-gray-800 p-3">
+          <a href="product.html?id=202" class="flex-shrink-0 w-36 bg-gray-900 rounded-xl border border-gray-800 p-3">
             <div class="h-20 bg-gray-700 rounded-md mb-3"></div>
             <p class="text-xs text-gray-300">Salmon Fillet</p>
-            <p class="text-xs text-emerald-300 font-semibold mt-1">$9.99 / lb</p>
-          </div>
+            <p class="text-xs text-emerald-300 font-semibold mt-1">$14.99 / lb</p>
+          </a>
         </div>
       </div>
 
@@ -101,7 +101,7 @@
 
         <div class="grid grid-cols-2 gap-3">
 
-          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+          <a href="category.html?slug=produce" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
 
             <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
 
@@ -112,7 +112,7 @@
             <p class="text-[11px] text-gray-400 leading-tight">Fresh fruits & veggies</p>
           </a>
 
-          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+          <a href="category.html?slug=dairy-eggs" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
 
             <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
               <span class="text-lg">🧀</span>
@@ -123,7 +123,7 @@
 
           </a>
 
-          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+          <a href="category.html?slug=meat-seafood" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
 
             <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
               <span class="text-lg">🥩</span>
@@ -133,7 +133,7 @@
             <p class="text-[11px] text-gray-400 leading-tight">Fresh cuts & fish</p>
           </a>
 
-          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+          <a href="category.html?slug=bakery" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
 
             <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
               <span class="text-lg">🍞</span>
@@ -143,7 +143,7 @@
             <p class="text-[11px] text-gray-400 leading-tight">Bread & pastries</p>
           </a>
 
-          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+          <a href="category.html?slug=pantry" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
 
             <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
               <span class="text-lg">🥫</span>
@@ -153,7 +153,7 @@
             <p class="text-[11px] text-gray-400 leading-tight">Staples & snacks</p>
           </a>
 
-          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+          <a href="category.html?slug=prepared-foods" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
 
             <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
               <span class="text-lg">🧼</span>
@@ -165,6 +165,25 @@
 
         </div>
       </div>
+
+      </div> <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+            <a href="#" class="flex flex-col items-center text-xs text-green-300">
+                <span class="text-lg">🏠</span>
+                Home
+            </a>
+            <a href="#" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🛒</span>
+                Shop
+            </a>
+            <a href="#" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🔎</span>
+                Search
+            </a>
+            <a href="#" class="flex flex-col items-center text-xs text-white font-bold">
+                <span class="text-lg">👤</span>
+                Profile
+            </a>
+        </nav>
 
     </div>
   </div>
