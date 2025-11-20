@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search - Whole Foods Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="app.css">
+  <script src="../data/data_api.js"></script>
+</head>
+<body class="bg-black">
+  <div class="mobile-container flex flex-col">
+    <div class="px-6 pt-6 pb-4 flex items-center">
+      <a href="home.html" class="text-white mr-3">←</a>
+      <h1 class="text-white text-2xl font-light ml-3">Search</h1>
+    </div>
+
+    <div class="content-area pt-0 px-6 pb-20">
+      <div class="mb-4">
+        <label for="search-input" class="sr-only">Search products</label>
+        <div class="flex items-center bg-black border border-gray-700 rounded-full px-3 py-2">
+          <span class="text-gray-400 mr-2">🔎</span>
+          <input id="search-input" type="text" placeholder="Search for products..." class="bg-transparent text-sm text-white placeholder:text-gray-500 flex-1 focus:outline-none" />
+        </div>
+      </div>
+
+      <div id="results" class="grid grid-cols-2 gap-3"></div>
+    </div>
+
+    <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+      <a href="home.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🏠</span>
+        Home
+      </a>
+      <a href="shop.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🛒</span>
+        Shop
+      </a>
+      <a href="search.html" class="flex flex-col items-center text-xs text-green-300">
+        <span class="text-lg">🔎</span>
+        Search
+      </a>
+      <a href="profile.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">👤</span>
+        Profile
+      </a>
+    </nav>
+  </div>
+
+  <script>
+    async function initSearch() {
+      await DataAPI.loadEverything();
+      const input = document.getElementById('search-input');
+      const resultsEl = document.getElementById('results');
+
+      function renderResults(list) {
+        resultsEl.innerHTML = '';
+        if (!list.length) {
+          resultsEl.innerHTML = '<p class="text-gray-400 col-span-2 text-sm">No products found.</p>';
+          return;
+        }
+        for (const p of list) {
+          const price = DataAPI.getEffectivePrice(p) || { display: p.variants?.[0]?.price_display || '' };
+          resultsEl.innerHTML += `
+            <a href="product.html?id=${p.id}" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+              <div class="h-24 bg-gray-700 rounded-md mb-2 flex items-center justify-center">
+                <img src="${p.image_url || ''}" alt="${p.name}" class="h-20 object-contain mx-auto" onerror="this.style.display='none'">
+              </div>
+              <p class="text-sm text-white font-medium truncate">${p.name}</p>
+              <p class="text-xs text-emerald-300 font-semibold mt-1">${price.display}</p>
+            </a>`;
+        }
+      }
+
+      // show all products initially
+      renderResults(DataAPI.getAllProducts());
+
+      input.addEventListener('input', () => {
+        const q = input.value.trim();
+        const results = q ? DataAPI.searchProducts(q) : DataAPI.getAllProducts();
+        renderResults(results);
+      });
+    }
+
+    initSearch();
+  </script>
+</body>
+</html>
