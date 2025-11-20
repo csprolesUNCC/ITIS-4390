@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whole Foods Account Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .mobile-container {
+            width: 100%;
+            max-width: 375px;
+            height: 812px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            background-color: #212121;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .content-area {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+            padding-bottom: 5rem;
+        }
+        .header-bg {
+            background-color: #047857; /* Darker green for header sections */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mobile-container">
+        <div class="content-area">
+            
+            <div class="flex items-center mb-8">
+                <div class="w-16 h-16 bg-green-700 rounded-full flex items-center justify-center mr-4">
+                    <span class="text-white font-serif text-sm font-bold leading-none">WHOLE<br>FOODS</span>
+                </div>
+                <h1 class="text-white text-3xl font-light">Profile</h1>
+            </div>
+
+            <div class="mb-8">
+                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+                    Order History
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="flex flex-col items-center text-white mr-4">
+                        <span class="text-3xl rotate-180 transform">&#x21B7;</span> 
+                        <span class="text-sm">Reorder</span>
+                    </div>
+
+                    <div class="flex space-x-2 flex-grow overflow-x-hidden">
+                        
+                        <div class="flex-shrink-0 w-32 h-32 bg-white rounded-md overflow-hidden relative shadow-lg">
+                            <div class="grid grid-cols-2 grid-rows-2 h-full">
+                                <div class="bg-gray-300 border border-gray-400"></div>
+                                <div class="bg-gray-400 border border-gray-500"></div>
+                                <div class="bg-gray-500 border border-gray-600"></div>
+                                <div class="bg-gray-600 border border-gray-700"></div>
+                            </div>
+                            <div class="absolute bottom-6 left-0 bg-purple-500 text-white text-xs px-2 py-0.5 rounded-r">
+                                $108.32
+                            </div>
+                            <div class="absolute bottom-0 right-0 bg-black text-white text-xs px-1 py-0.5 rounded-tl">
+                                10/18
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 w-32 h-32 bg-white border border-gray-300 rounded-md flex items-center justify-center text-gray-500 text-center">
+                            PLACE MORE ORDERS!
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-4">
+                    Personal Info
+                </div>
+
+                <div class="ml-4 space-y-4 text-white">
+                    
+                    <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
+                        <div>
+                            <p class="text-sm text-gray-400">Name:</p>
+                            <p class="font-medium">John Doe</p>
+                        </div>
+                        <button class="text-green-500 text-2xl pr-2">
+                            &#x270E; 
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
+                        <div>
+                            <p class="text-sm text-gray-400">Address:</p>
+                            <p class="font-medium">1776 Imaginary Dr<br>Charlotte, NC 28262</p>
+                        </div>
+                        <button class="text-green-500 text-2xl pr-2 self-start pt-1">
+                            &#x270E;
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <button class="w-full header-bg text-white font-medium py-3 rounded-md">
+                    Payment Info
+                </button>
+                <button class="w-full header-bg text-white font-medium py-3 rounded-md">
+                    Notification Settings
+                </button>
+            </div>
+
+        </div> <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+            <a href="home.html" class="flex flex-col items-center text-xs text-white font-bold">
+                <span class="text-lg">🏠</span>
+                Home
+            </a>
+            <a href="#" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🛒</span>
+                Shop
+            </a>
+            <a href="#" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🔎</span>
+                Search
+            </a>
+            <a href="profile.html" class="flex flex-col items-center text-xs text-green-300">
+                <span class="text-lg">👤</span>
+                Profile
+            </a>
+        </nav>
+
+    </div>
+
+</body>
+</html>
