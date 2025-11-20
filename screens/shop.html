@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device=device-width, initial-scale=1.0">
+  <title>Whole Foods Shop</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+  <div class="mobile-container flex flex-col">
+
+    <!-- Top bar -->
+    <div class="px-6 pt-6 pb-4 flex items-center">
+      <div class="w-10 h-10 bg-green-700 rounded-full flex items-center justify-center">
+        <span class="text-white font-serif text-[10px] font-bold leading-tight text-center">
+          WHOLE<br>FOODS
+        </span>
+      </div>
+      <h1 class="text-white text-2xl font-light ml-3">Shop</h1>
+    </div>
+
+    
+    <div class="content-area pt-0">
+
+      <!--Search bar-->
+      <div class="mb-6">
+        <label for="search" class="sr-only">Search products</label>
+        <div class="flex items-center bg-black border border-gray-700 rounded-full px-3 py-2">
+          <span class="text-gray-400 mr-2">🔎</span>
+          <input
+            id="search"
+            type="text"
+            placeholder="Search for products..."
+            class="bg-transparent text-sm text-white placeholder:text-gray-500 flex-1 focus:outline-none"
+          />
+        </div>
+      </div>
+
+      <!-- Top category bars -->
+      <div class="mb-6">
+        <div class="flex space-x-2 overflow-x-auto pb-2 -mx-1 px-1">
+          <button class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-700 text-white flex-shrink-0">All</button>
+          <button class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🥬 Produce</button>
+          <button class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🧀 Deli & Cheese</button>
+          <button class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🥩 Meat & Seafood</button>
+          <button class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🍞 Bakery</button>
+          <button class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-200 flex-shrink-0">🥫 Pantry</button>
+        </div>
+      </div>
+
+      <!-- Featured row -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between mb-2">
+          <h2 class="text-white text-sm font-semibold">Featured</h2>
+          <span class="text-[11px] text-gray-400">Swipe to see more</span>
+        </div>
+
+        <div class="flex space-x-3 overflow-x-auto pb-1 -mx-1 px-1">
+          <div class="flex-shrink-0 w-36 bg-gray-900 rounded-xl border border-gray-800 p-3">
+            <div class="h-20 bg-gray-700 rounded-md mb-3"></div>
+            <p class="text-xs text-gray-300">Organic Kale</p>
+            <p class="text-xs text-emerald-300 font-semibold mt-1">$2.99 / bunch</p>
+          </div>
+
+          <div class="flex-shrink-0 w-36 bg-gray-900 rounded-xl border border-gray-800 p-3">
+            <div class="h-20 bg-gray-700 rounded-md mb-3"></div>
+            <p class="text-xs text-gray-300">Fresh Sourdough</p>
+            <p class="text-xs text-emerald-300 font-semibold mt-1">$4.49 / loaf</p>
+          </div>
+
+          <div class="flex-shrink-0 w-36 bg-gray-900 rounded-xl border border-gray-800 p-3">
+            <div class="h-20 bg-gray-700 rounded-md mb-3"></div>
+            <p class="text-xs text-gray-300">Salmon Fillet</p>
+            <p class="text-xs text-emerald-300 font-semibold mt-1">$9.99 / lb</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Grid -->
+      <div class="mt-4">
+        <h2 class="text-white text-sm font-semibold mb-3">Browse by category</h2>
+
+        <div class="grid grid-cols-2 gap-3">
+
+          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+            <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
+              <span class="text-lg">🥬</span>
+            </div>
+            <p class="text-sm text-white font-medium">Produce</p>
+            <p class="text-[11px] text-gray-400 leading-tight">Fresh fruits & veggies</p>
+          </a>
+
+          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+            <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
+              <span class="text-lg">🧀</span>
+            </div>
+            <p class="text-sm text-white font-medium">Deli & Cheese</p>
+            <p class="text-[11px] text-gray-400 leading-tight">Cheese & prepared foods</p>
+          </a>
+
+          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+            <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
+              <span class="text-lg">🥩</span>
+            </div>
+            <p class="text-sm text-white font-medium">Meat & Seafood</p>
+            <p class="text-[11px] text-gray-400 leading-tight">Fresh cuts & fish</p>
+          </a>
+
+          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+            <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
+              <span class="text-lg">🍞</span>
+            </div>
+            <p class="text-sm text-white font-medium">Bakery</p>
+            <p class="text-[11px] text-gray-400 leading-tight">Bread & pastries</p>
+          </a>
+
+          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+            <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
+              <span class="text-lg">🥫</span>
+            </div>
+            <p class="text-sm text-white font-medium">Pantry</p>
+            <p class="text-[11px] text-gray-400 leading-tight">Staples & snacks</p>
+          </a>
+
+          <a href="#" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
+            <div class="w-10 h-10 bg-emerald-800 rounded-md flex items-center justify-center mb-3">
+              <span class="text-lg">🧼</span>
+            </div>
+            <p class="text-sm text-white font-medium">Household</p>
+            <p class="text-[11px] text-gray-400 leading-tight">Cleaning & home goods</p>
+          </a>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
