@@ -91,6 +91,11 @@ const DataAPI = (function () {
 
   function getProduct(id) {
     ensureLoaded();
+    //Alias name
+    function getProductById(id) {
+  return getProduct(id);
+}
+
 
     return dataStore.products.find(p => p.id === id) || null;
   }
