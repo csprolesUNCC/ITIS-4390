@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whole Foods Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+    <div class="mobile-container">
+        <div class="content-area">
+
+            <!-- Header -->
+            <div class="flex items-center mb-4">
+                <div class="w-16 h-16 bg-green-700 rounded-full flex items-center justify-center mr-4">
+                    <span class="text-white font-serif text-sm font-bold leading-none">
+                        WHOLE<br>FOODS
+                    </span>
+                </div>
+                <div>
+                    <p id="home-greeting" class="text-gray-300 text-xs">Welcome to Whole Foods</p>
+                    <h1 id="home-headline" class="text-white text-2xl font-semibold mt-1">
+                        Good to see you.
+                    </h1>
+                    <p id="home-subtitle" class="text-gray-400 text-xs mt-1">
+                        Sign in to see personalized picks and favorites.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Guest banner -->
+            <div id="guest-banner" class="mb-4 hidden">
+                <div class="bg-yellow-900/40 border border-yellow-700 text-yellow-100 rounded-md px-3 py-2 text-xs">
+                    <p class="font-medium mb-1">You’re browsing as a guest.</p>
+                    <p class="mb-2">Log in to see items tailored to your preferences and past activity.</p>
+                    <a href="login.html" class="inline-block mt-1 px-3 py-1 rounded-md bg-yellow-500 text-black font-medium">
+                        Login
+                    </a>
+                </div>
+            </div>
+
+            <!-- Dietary-based section -->
+            <section id="dietary-section" class="mb-6 hidden">
+                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-2">
+                    Based on your dietary preferences
+                </div>
+                <p id="dietary-summary" class="text-xs text-gray-400 px-3 mb-2">
+                    Loading preferences…
+                </p>
+                <div id="dietary-products" class="flex space-x-3 overflow-x-auto px-1 pb-2">
+                    <!-- Product cards loaded here -->
+                </div>
+            </section>
+
+            <!-- Recommendations -->
+            <section id="recommended-section" class="mb-6 hidden">
+                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-2">
+                    Recommended for you
+                </div>
+                <p class="text-xs text-gray-400 px-3 mb-2">
+                    A few things we think you’ll like.
+                </p>
+                <div id="recommended-products" class="flex space-x-3 overflow-x-auto px-1 pb-2">
+                    <!-- Product cards loaded -->
+                </div>
+            </section>
+
+            <!-- Favorite categories -->
+            <section id="favorite-categories-section" class="mb-8 hidden">
+                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-2">
+                    Your favorite categories
+                </div>
+                <div id="favorite-categories" class="flex flex-wrap gap-2 px-3">
+                    <!-- Category chips loaded -->
+                </div>
+            </section>
+
+            <!-- Order History -->
+            <section class="mb-10">
+                <div class="bg-green-700 text-white text-base py-2 px-3 rounded-md mb-3">
+                    Order History
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div class="flex space-x-2 flex-grow overflow-x-hidden">
+                        <div class="flex-shrink-0 w-32 h-32 bg-white rounded-md overflow-hidden relative shadow-lg">
+                            <div class="grid grid-cols-2 grid-rows-2 h-full">
+                                <div class="bg-gray-300 border border-gray-400"></div>
+                                <div class="bg-gray-400 border border-gray-500"></div>
+                                <div class="bg-gray-500 border border-gray-600"></div>
+                                <div class="bg-gray-600 border border-gray-700"></div>
+                            </div>
+                            <div class="absolute bottom-6 left-0 bg-purple-500 text-white text-xs px-2 py-0.5 rounded-r">
+                                $108.32
+                            </div>
+                            <div class="absolute bottom-0 right-0 bg-black text-white text-xs px-1 py-0.5 rounded-tl">
+                                10/18
+                            </div>
+                        </div>
+
+                        <div class="flex-shrink-0 w-32 h-32 bg-white border border-gray-300 rounded-md flex items-center justify-center text-gray-500 text-center">
+                            PLACE MORE ORDERS!
+                        </div>
+                    </div>
+                    <div class="text-white text-2xl ml-2">
+                        &rarr;
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Bottom Nav -->
+        <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+            <a href="home.html" class="flex flex-col items-center text-xs text-green-300">
+                <span class="text-lg">🏠</span>
+                Home
+            </a>
+            <a href="shop.html" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🛒</span>
+                Shop
+            </a>
+            <a href="search.html" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🔎</span>
+                Search
+            </a>
+            <a href="profile.html" class="flex flex-col items-center text-xs">
+                <span class="text-lg">👤</span>
+                Profile
+            </a>
+        </nav>
+    </div>
+
+    <!-- Supabase + DataAPI -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/data/supabaseAuth.js"></script>
+    <script src="/data/data_api.js"></script>
+
+    <script>
+        function createProductCard(product) {
+            //Create card
+            const card = document.createElement('div');
+            card.className = "flex-shrink-0 w-36 bg-gray-900 rounded-lg overflow-hidden shadow border border-gray-700";
+
+            const img = document.createElement('div');
+            img.className = "w-full h-20 bg-gray-700 flex items-center justify-center text-xs text-gray-300 px-2 text-center";
+            img.textContent = product.name;
+
+            const body = document.createElement('div');
+            body.className = "p-2";
+
+            //Product Name
+            const nameEl = document.createElement('p');
+            nameEl.className = "text-xs text-white font-medium truncate";
+            nameEl.textContent = product.name;
+            //Category
+            const categoryEl = document.createElement('p');
+            categoryEl.className = "text-[10px] text-gray-400 mt-1";
+            categoryEl.textContent = product.category_name || "";
+            //Price
+            const priceEl = document.createElement('p');
+            priceEl.className = "text-xs text-green-400 mt-1 font-semibold";
+            const firstVariant = Array.isArray(product.variants) ? product.variants[0] : null;
+            priceEl.textContent = firstVariant?.price_display || "";
+
+            body.appendChild(nameEl);
+            body.appendChild(categoryEl);
+            body.appendChild(priceEl);
+
+            card.appendChild(img);
+            card.appendChild(body);
+
+            //OnClick Listener
+            card.addEventListener('click', () => {
+                window.location.href = `product.html?id=${product.id}`;
+            });
+
+            return card;
+        }
+        //Create category chips
+        function createCategoryChip(category) {
+            const chip = document.createElement('button');
+            chip.type = "button";
+            chip.className = "px-3 py-1 rounded-full text-xs bg-gray-800 text-gray-100 border border-gray-600";
+            chip.textContent = category.name || `Category #${category.id}`;
+            chip.addEventListener('click', () => {
+                window.location.href = `category.html?id=${category.id}`;
+            });
+            return chip;
+        }
+
+        //Load everything
+        document.addEventListener('DOMContentLoaded', async () => {
+            const greetingEl = document.getElementById('home-greeting');
+            const headlineEl = document.getElementById('home-headline');
+            const subtitleEl = document.getElementById('home-subtitle');
+            const guestBanner = document.getElementById('guest-banner');
+
+            const dietarySection = document.getElementById('dietary-section');
+            const dietarySummary = document.getElementById('dietary-summary');
+            const dietaryProductsEl = document.getElementById('dietary-products');
+
+            const recommendedSection = document.getElementById('recommended-section');
+            const recommendedProductsEl = document.getElementById('recommended-products');
+
+            const favoriteCategoriesSection = document.getElementById('favorite-categories-section');
+            const favoriteCategoriesEl = document.getElementById('favorite-categories');
+
+            try {
+                // Load products/categories
+                await DataAPI.loadEverything();
+
+                // Get current user and profile from Supabase
+                const session = await SupabaseAuth.getCurrentUserWithProfile();
+
+                if (!session || !session.user) {
+                    // Guest view
+                    greetingEl.textContent = "Welcome to Whole Foods";
+                    headlineEl.textContent = "Let’s get shopping.";
+                    subtitleEl.textContent = "Sign in to unlock personalized picks and faster checkout.";
+                    guestBanner.classList.remove('hidden');
+                    return;
+                }
+
+                const { user, profile } = session;
+
+                const displayName =
+                    (profile && profile.name) ||
+                    (user.email ? user.email.split('@')[0] : 'Friend');
+
+                greetingEl.textContent = `Welcome back, ${displayName}`;
+                headlineEl.textContent = "Here’s what we picked for you.";
+                subtitleEl.textContent = user.email || '';
+
+                //  Dietary-based picks 
+                const prefs = (profile && Array.isArray(profile.dietary_preferences))
+                    ? profile.dietary_preferences
+                    : [];
+
+                if (prefs.length > 0) {
+                    dietarySection.classList.remove('hidden');
+                    dietarySummary.textContent = `We’re highlighting items that match: ${prefs.join(', ')}.`;
+
+                    const seen = new Set();
+                    const picks = [];
+
+                    prefs.forEach(tag => {
+                        const items = DataAPI.getProductsByDiet(tag) || [];
+                        items.forEach(p => {
+                            if (!seen.has(p.id)) {
+                                seen.add(p.id);
+                                picks.push(p);
+                            }
+                        });
+                    });
+
+                    picks.slice(0, 10).forEach(p => {
+                        dietaryProductsEl.appendChild(createProductCard(p));
+                    });
+
+                    if (picks.length === 0) {
+                        dietarySummary.textContent = "We didn’t find anything matching your preferences yet.";
+                    }
+                }
+
+                //Recommended products 
+                const recIds = (profile && Array.isArray(profile.recommended_product_ids))
+                    ? profile.recommended_product_ids
+                    : [];
+
+                if (recIds.length > 0) {
+                    recommendedSection.classList.remove('hidden');
+
+                    const recProducts = recIds
+                        .map(id => DataAPI.getProduct(id))
+                        .filter(Boolean);
+
+                    recProducts.slice(0, 10).forEach(p => {
+                        recommendedProductsEl.appendChild(createProductCard(p));
+                    });
+                }
+
+                //Favorite categories 
+                const favCatIds = (profile && Array.isArray(profile.favorite_categories))
+                    ? profile.favorite_categories
+                    : [];
+
+                if (favCatIds.length > 0) {
+                    favoriteCategoriesSection.classList.remove('hidden');
+
+                    const allCats = DataAPI.getCategories() || [];
+                    favCatIds.forEach(id => {
+                        const cat = DataAPI.getCategory(id) || allCats.find(c => c.id === id);
+                        if (cat) {
+                            favoriteCategoriesEl.appendChild(createCategoryChip(cat));
+                        }
+                    });
+                }
+
+            } catch (err) {
+                //Error handling for preferences
+                console.error('Error loading home preferences:', err);
+                greetingEl.textContent = "We had trouble loading your personalized home.";
+                subtitleEl.textContent = "You can still browse categories and search for products.";
+            }
+        });
+    </script>
+
+</body>
+</html>
