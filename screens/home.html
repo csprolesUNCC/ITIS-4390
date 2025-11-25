@@ -55,6 +55,7 @@
             </section>
 
             <!-- Recommendations -->
+
             <section id="recommended-section" class="mb-6 hidden">
                 <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-2">
                     Recommended for you
@@ -64,6 +65,7 @@
                 </p>
                 <div id="recommended-products" class="flex space-x-3 overflow-x-auto px-1 pb-2">
                     <!-- Product cards loaded -->
+
                 </div>
             </section>
 
@@ -185,6 +187,7 @@
             chip.className = "px-3 py-1 rounded-full text-xs bg-gray-800 text-gray-100 border border-gray-600";
             chip.textContent = category.name || `Category #${category.id}`;
             chip.addEventListener('click', () => {
+                //onClick to category by ID
                 window.location.href = `category.html?id=${category.id}`;
             });
             return chip;
@@ -256,10 +259,12 @@
                     });
 
                     picks.slice(0, 10).forEach(p => {
+                        //Append dietary products
                         dietaryProductsEl.appendChild(createProductCard(p));
                     });
 
                     if (picks.length === 0) {
+                        //No dietary picks
                         dietarySummary.textContent = "We didn’t find anything matching your preferences yet.";
                     }
                 }
@@ -277,6 +282,7 @@
                         .filter(Boolean);
 
                     recProducts.slice(0, 10).forEach(p => {
+                        //Append reccomended prodcts
                         recommendedProductsEl.appendChild(createProductCard(p));
                     });
                 }
@@ -293,6 +299,7 @@
                     favCatIds.forEach(id => {
                         const cat = DataAPI.getCategory(id) || allCats.find(c => c.id === id);
                         if (cat) {
+                            //Append small category chips
                             favoriteCategoriesEl.appendChild(createCategoryChip(cat));
                         }
                     });
