@@ -54,24 +54,16 @@
 
     </div>
 
-    <!-- Data + Auth -->
-    <script src="/data/data_api.js"></script>
-    <script src="/data/auth.js"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/data/supabaseAuth.js"></script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', async () => {
+  document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('login-form');
     const errorEl = document.getElementById('login-error');
 
-    // Seed from users.json 
-    if (Auth.seedFromJSONIfEmpty) {
-      await Auth.seedFromJSONIfEmpty();
-    }
-
-    //  confirm seeding
-    console.log('Auth users after seed:', Auth.loadUsers());
-
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorEl.textContent = '';
 
@@ -84,15 +76,14 @@
       }
 
       try {
-        Auth.login(email, password);
-        window.location.href = 'home.html';
+        await SupabaseAuth.login(email, password);
+        window.location.href = 'profile.html';
       } catch (err) {
         errorEl.textContent = err.message || 'Login failed.';
       }
     });
   });
 </script>
-
 
 </body>
 </html>

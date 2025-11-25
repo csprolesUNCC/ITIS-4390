@@ -9,52 +9,50 @@
 </head>
 <body class="bg-black">
 
-    <div class="mobile-container flex flex-col">
+    <div class="mobile-container">
         <div class="content-area">
-
+            
             <!-- Header -->
-            <div class="flex items-center mb-8">
+            <div class="flex items-center mb-2">
                 <div class="w-16 h-16 bg-green-700 rounded-full flex items-center justify-center mr-4">
-                    <span class="text-white font-serif text-sm font-bold leading-none">
-                        WHOLE<br>FOODS
-                    </span>
+                    <span class="text-white font-serif text-sm font-bold leading-none">WHOLE<br>FOODS</span>
                 </div>
                 <div>
                     <h1 class="text-white text-3xl font-light">Profile</h1>
-                    <p id="profile-greeting" class="text-gray-400 text-sm mt-1">
+                    <p id="profile-greeting" class="text-gray-400 text-xs mt-1">
                         Loading your account…
                     </p>
                 </div>
             </div>
 
-            <!-- Guest message  -->
-            <div id="guest-message" class="mb-6 hidden">
-                <div class="bg-yellow-900/40 border border-yellow-700 text-yellow-100 rounded-md px-3 py-2 text-sm">
-                    <p class="mb-1 font-medium">You’re not signed in.</p>
-                    <p class="mb-2">Sign in to see your saved info, stores, and recommendations.</p>
+            <!-- Guest message (hidden on login) -->
+            <div id="guest-message" class="mb-4 hidden">
+                <div class="bg-yellow-900/40 border border-yellow-700 text-yellow-100 rounded-md px-3 py-2 text-xs">
+                    <p class="font-medium mb-1">You’re not signed in.</p>
+                    <p class="mb-2">Sign in to see your saved info, stores, and preferences.</p>
                     <div class="flex space-x-2">
-                        <a href="login.html" class="px-3 py-1 rounded-md bg-yellow-600 text-sm text-black font-medium">
-                            Go to Login
+                        <a href="login.html" class="px-3 py-1 rounded-md bg-yellow-500 text-black font-medium">
+                            Login
                         </a>
-                        <a href="onboarding.html" class="px-3 py-1 rounded-md bg-gray-800 text-sm text-gray-100">
+                        <a href="onboarding.html" class="px-3 py-1 rounded-md bg-gray-800 text-gray-100">
                             Back to Start
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- Order History (Mock for RN) -->
+            <!-- Order History (still mock) -->
             <div class="mb-8">
-                <div class="bg-green-700 text-white text-base py-2 px-3 rounded-md mb-3">
+                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
                     Order History
                 </div>
-
+        
                 <div class="flex items-center space-x-4">
                     <div class="flex flex-col items-center text-white mr-4">
                         <span class="text-3xl rotate-180 transform">&#x21B7;</span>
                         <span class="text-sm">Reorder</span>
                     </div>
-
+        
                     <div class="flex space-x-2 flex-grow overflow-x-hidden">
                         <div class="flex-shrink-0 w-32 h-32 bg-white rounded-md overflow-hidden relative shadow-lg">
                             <div class="grid grid-cols-2 grid-rows-2 h-full">
@@ -70,7 +68,7 @@
                                 10/18
                             </div>
                         </div>
-
+        
                         <div class="flex-shrink-0 w-32 h-32 bg-white border border-gray-300 rounded-md flex items-center justify-center text-gray-500 text-center">
                             PLACE MORE ORDERS!
                         </div>
@@ -80,12 +78,11 @@
 
             <!-- Personal Info -->
             <div class="mb-8">
-                <div class="bg-green-700 text-white text-base py-2 px-3 rounded-md mb-4">
+                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-4">
                     Personal Info
                 </div>
 
                 <div class="ml-4 space-y-4 text-white">
-
                     <!-- Name -->
                     <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
                         <div>
@@ -106,7 +103,7 @@
                         <span class="text-xs text-gray-500 pr-3">Account</span>
                     </div>
 
-                    <!-- Dietary preferences -->
+                    <!-- Dietary -->
                     <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
                         <div>
                             <p class="text-sm text-gray-400">Dietary Preferences:</p>
@@ -116,7 +113,7 @@
                         </div>
                     </div>
 
-                    <!-- Default store  -->
+                    <!-- Preferred store -->
                     <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
                         <div>
                             <p class="text-sm text-gray-400">Preferred Store:</p>
@@ -125,28 +122,22 @@
                             </p>
                         </div>
                     </div>
-
                 </div>
             </div>
 
-            <!-- Account  -->
+            <!-- Account Actions -->
             <div class="space-y-4 mb-20">
-                <button
-                    type="button"
-                    class="w-full bg-gray-800 text-white font-medium py-3 rounded-full text-sm">
-                    Saved Addresses
-                </button>
-
-                <a
-                    href="payment.html"
-                    class="block w-full text-center bg-gray-800 text-white font-medium py-3 rounded-full text-sm">
-                    Saved Payments
+                <a href="payment.html" class="block w-full header-bg text-white font-medium py-3 rounded-md text-center">
+                    Payment Info
                 </a>
+
+                <button class="w-full header-bg text-white font-medium py-3 rounded-md">
+                    Notification Settings
+                </button>
 
                 <button
                     id="logout-button"
-                    type="button"
-                    class="w-full bg-red-700/80 hover:bg-red-700 text-white font-medium py-3 rounded-full text-sm">
+                    class="w-full bg-red-700/80 hover:bg-red-700 text-white font-medium py-3 rounded-md text-sm">
                     Log Out
                 </button>
             </div>
@@ -172,11 +163,15 @@
                 Profile
             </a>
         </nav>
+
     </div>
 
-    <!-- Auth logic -->
-    <script src="/data/auth.js"></script>
+    <!-- Supabase  -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/data/supabaseAuth.js"></script>
+
     <script>
+        //Load content
         document.addEventListener('DOMContentLoaded', async () => {
             const greetingEl = document.getElementById('profile-greeting');
             const nameEl = document.getElementById('profile-name');
@@ -186,61 +181,59 @@
             const guestMessage = document.getElementById('guest-message');
             const logoutBtn = document.getElementById('logout-button');
 
-            // If seed from json
-            if (Auth.seedFromJSONIfEmpty) {
-                await Auth.seedFromJSONIfEmpty();
+            try {
+                const session = await SupabaseAuth.getCurrentUserWithProfile();
+
+                if (!session || !session.user) {
+                    // Guest sesssion
+                    greetingEl.textContent = "You’re browsing as a guest.";
+                    nameEl.textContent = "Guest";
+                    emailEl.textContent = "Not signed in";
+                    dietaryEl.textContent = "—";
+                    storeEl.textContent = "—";
+                    guestMessage.classList.remove('hidden');
+
+                    logoutBtn.disabled = true;
+                    logoutBtn.classList.add('opacity-60', 'cursor-not-allowed');
+                    return;
+                }
+
+                const { user, profile } = session;
+                
+                //Top display
+                const displayName =
+                    (profile && profile.name) ||
+                    (user.email ? user.email.split('@')[0] : 'Your Account');
+
+                    //Greeting text
+                greetingEl.textContent = `Hi, ${displayName}`;
+                nameEl.textContent = displayName;
+                emailEl.textContent = user.email || 'Not available';
+
+                //Load user info
+                if (profile && Array.isArray(profile.dietary_preferences) && profile.dietary_preferences.length) {
+                    dietaryEl.textContent = profile.dietary_preferences.join(', ');
+                } else {
+                    dietaryEl.textContent = 'No saved preferences yet';
+                }
+
+                if (profile && profile.default_store_id) {
+                    storeEl.textContent = `Store #${profile.default_store_id}`;
+                } else {
+                    storeEl.textContent = 'No store selected';
+                }
+                //Logout
+                logoutBtn.addEventListener('click', async () => {
+                    await SupabaseAuth.logout();
+                    window.location.href = 'onboarding.html';
+                });
+                //Error handling
+            } catch (err) {
+                console.error('Error loading profile:', err);
+                greetingEl.textContent = 'Unable to load profile.';
             }
-
-            const user = Auth.getCurrentUser();
-
-            if (!user) {
-                // Guest state
-                greetingEl.textContent = 'You’re browsing as a guest.';
-                nameEl.textContent = 'Guest';
-                emailEl.textContent = 'Not signed in';
-                dietaryEl.textContent = '—';
-                storeEl.textContent = '—';
-                guestMessage.classList.remove('hidden');
-
-                // Hide logout if no one is logged in
-                logoutBtn.disabled = true;
-                logoutBtn.classList.add('opacity-60', 'cursor-not-allowed');
-                return;
-            }
-
-           
-            // - json_user_data (if seeded from users.json)
-            const profile = user.json_user_data || {};
-
-            const displayName =
-                profile.name ||
-                user.name ||
-                (user.email ? user.email.split('@')[0] : 'Your Account');
-
-            greetingEl.textContent = `Hi, ${displayName}`;
-            nameEl.textContent = displayName;
-            emailEl.textContent = user.email || 'Not available';
-
-            // Dietary preferences 
-            if (Array.isArray(profile.dietary_preferences) && profile.dietary_preferences.length) {
-                dietaryEl.textContent = profile.dietary_preferences.join(', ');
-            } else {
-                dietaryEl.textContent = 'No saved preferences yet';
-            }
-
-            // Preferred store 
-            if (profile.default_store_id) {
-                storeEl.textContent = `Store #${profile.default_store_id}`;
-            } else {
-                storeEl.textContent = 'No store selected';
-            }
-
-            // Logout
-            logoutBtn.addEventListener('click', () => {
-                Auth.logout();
-                window.location.href = 'onboarding.html';
-            });
         });
     </script>
+
 </body>
 </html>
