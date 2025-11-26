@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account Settings · Whole Foods</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body class="bg-black">
+  <div class="mobile-container">
+    <div class="content-area">
+      <!-- Header -->
+      <div class="flex items-center mb-4">
+        <button
+          type="button"
+          onclick="window.location.href='profile.html'"
+          class="text-gray-300 text-xl mr-3"
+        >
+          ←
+        </button>
+        <div class="w-12 h-12 bg-green-700 rounded-full flex items-center justify-center mr-3">
+          <span class="text-white font-serif text-xs font-bold leading-none">
+            WHOLE<br />FOODS
+          </span>
+        </div>
+        <div>
+          <h1 class="text-white text-2xl font-light">Settings</h1>
+          <p id="settings-greeting" class="text-gray-400 text-xs mt-1">
+            
+            Loading your settings…
+          </p>
+        </div>
+      </div>
+
+      <!-- Guest message hidden by default-->
+      <div id="guest-message" class="mb-4 hidden">
+        <div class="bg-yellow-900/40 border border-yellow-700 text-yellow-100 rounded-md px-3 py-2 text-xs">
+          <p class="font-medium mb-1">You’re not signed in.</p>
+          <p class="mb-2">Sign in to view and edit your account settings.</p>
+          <div class="flex space-x-2">
+            <a
+              href="login.html"
+              class="px-3 py-1 rounded-md bg-yellow-500 text-black font-medium"
+            >
+              Login
+            </a>
+            <a
+              href="onboarding.html"
+              class="px-3 py-1 rounded-md bg-gray-800 text-gray-100"
+            >
+              Back to Start
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERSONAL INFO -->
+      <section class="mb-6">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          Personal Info
+        </div>
+
+        <div class="ml-4 space-y-4 text-white">
+          <!-- Display Name -->
+          <div class="border-l-4 border-green-700 pl-3 py-1">
+            <p class="text-sm text-gray-400 mb-1">Display Name</p>
+            <input
+              id="name-input"
+              type="text"
+              class="w-full bg-gray-900 border border-gray-700 rounded-md px-2 py-1 text-sm text-white focus:outline-none focus:ring-1 focus:ring-green-500"
+              placeholder="Your name"
+            />
+          </div>
+
+          <!-- Email  -->
+          <div class="border-l-4 border-green-700 pl-3 py-1">
+            <p class="text-sm text-gray-400">Email</p>
+            <p id="email-text" class="font-medium text-sm mt-1">Loading…</p>
+            <p class="text-[10px] text-gray-500 mt-1">
+              Email is tied to your login and can’t be changed here.
+            </p>
+          </div>
+
+          <!-- Preferred Store -->
+          <div class="border-l-4 border-green-700 pl-3 py-1">
+            <p class="text-sm text-gray-400 mb-1">Preferred Store</p>
+            <select
+              id="store-select"
+              class="w-full bg-gray-900 border border-gray-700 rounded-md px-2 py-1 text-sm text-white focus:outline-none focus:ring-1 focus:ring-green-500"
+            >
+              <option value="">Select a store</option>
+            </select>
+            <p id="store-help" class="text-[11px] text-gray-400 mt-1">
+              Loading store locations…
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-4 px-4">
+          <button
+            id="save-personal"
+            class="w-full bg-green-700 hover:bg-green-600 text-white font-medium py-2 rounded-md text-sm"
+          >
+            Save Personal Info
+          </button>
+          <p id="personal-status" class="text-[11px] text-gray-400 mt-1"></p>
+        </div>
+      </section>
+
+      <!-- Preferences header -->
+      <section class="mb-8">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          Preferences
+        </div>
+
+        <!-- Dietary -->
+        <div class="ml-4 mb-4">
+          <p class="text-sm text-gray-300 mb-2">Dietary Preferences</p>
+          <div id="dietary-tags" class="flex flex-wrap gap-2"></div>
+          <p class="text-[11px] text-gray-500 mt-1">
+            We highlight products that match these preferences.
+          </p>
+        </div>
+
+        <!-- Fav Categories -->
+        <div class="ml-4 mb-4">
+          <p class="text-sm text-gray-300 mb-2">Favorite Categories</p>
+          <div id="category-chips" class="flex flex-wrap gap-2"></div>
+          <p class="text-[11px] text-gray-500 mt-1">
+            We’ll surface these first on your home screen.
+          </p>
+        </div>
+
+        <div class="mt-2 px-4 pb-2">
+          <button
+            id="save-preferences"
+            class="w-full bg-green-700 hover:bg-green-600 text-white font-medium py-2 rounded-md text-sm"
+          >
+            Save Preferences
+          </button>
+          <p id="preferences-status" class="text-[11px] text-gray-400 mt-1"></p>
+        </div>
+      </section>
+
+      <!-- Account actions -->
+      <section class="mb-16 px-4 space-y-3">
+        <button
+          id="logout-button"
+          class="w-full bg-red-700/80 hover:bg-red-700 text-white font-medium py-2 rounded-md text-sm"
+        >
+          Log Out
+        </button>
+      </section>
+    </div>
+
+    <!-- Bottom Nav  -->
+    <nav
+      class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3"
+    >
+      <a href="home.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🏠</span>
+        Home
+      </a>
+      <a href="shop.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🛒</span>
+        Shop
+      </a>
+      <a href="search.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🔎</span>
+        Search
+      </a>
+      <a href="profile.html" class="flex flex-col items-center text-xs text-green-300">
+        <span class="text-lg">👤</span>
+        Profile
+      </a>
+    </nav>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/data/supabaseAuth.js"></script>
+  <script src="/data/data_api.js"></script>
+
+  <script>
+    const DIET_TAGS = [
+      { value: "vegan", label: "Vegan" },
+      { value: "vegetarian", label: "Vegetarian" },
+      { value: "gluten_free", label: "Gluten-Free" },
+      { value: "dairy_free", label: "Dairy-Free" },
+      { value: "nut_free", label: "Nut-Free" },
+      { value: "keto", label: "Keto-Friendly" }
+    ];
+
+    function createDietTag(tagValue, label, selectedSet) {
+      const isSelected = selectedSet.has(tagValue);
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.dataset.value = tagValue;
+      btn.className =
+        "px-3 py-1 rounded-full text-xs border " +
+        (isSelected
+          ? "bg-green-700 border-green-500 text-white"
+          : "bg-gray-900 border-gray-600 text-gray-200");
+
+      btn.textContent = label;
+
+      btn.addEventListener("click", () => {
+        const nowSelected = btn.classList.contains("bg-green-700");
+        if (nowSelected) {
+          btn.className =
+            "px-3 py-1 rounded-full text-xs border bg-gray-900 border-gray-600 text-gray-200";
+          selectedSet.delete(tagValue);
+        } else {
+          btn.className =
+            "px-3 py-1 rounded-full text-xs border bg-green-700 border-green-500 text-white";
+          selectedSet.add(tagValue);
+        }
+      });
+
+      return btn;
+    }
+
+    //Create category chips
+    function createCategoryChip(category, selectedSet) {
+      const isSelected = selectedSet.has(category.id);
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.className =
+        "px-3 py-1 rounded-full text-xs border " +
+        (isSelected
+          ? "bg-green-700 border-green-500 text-white"
+          : "bg-gray-900 border-gray-600 text-gray-100");
+      chip.textContent = category.name || `Category #${category.id}`;
+
+      chip.addEventListener("click", () => {
+        const nowSelected = chip.classList.contains("bg-green-700");
+        if (nowSelected) {
+          chip.className =
+            "px-3 py-1 rounded-full text-xs border bg-gray-900 border-gray-600 text-gray-100";
+          selectedSet.delete(category.id);
+        } else {
+          chip.className =
+            "px-3 py-1 rounded-full text-xs border bg-green-700 border-green-500 text-white";
+          selectedSet.add(category.id);
+        }
+      });
+
+      return chip;
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const greetingEl = document.getElementById("settings-greeting");
+      const guestMessage = document.getElementById("guest-message");
+
+      const nameInput = document.getElementById("name-input");
+      const emailText = document.getElementById("email-text");
+
+      const storeSelect = document.getElementById("store-select");
+      const storeHelp = document.getElementById("store-help");
+
+      const dietaryTagsEl = document.getElementById("dietary-tags");
+      const categoryChipsEl = document.getElementById("category-chips");
+
+      const savePersonalBtn = document.getElementById("save-personal");
+      const personalStatus = document.getElementById("personal-status");
+
+      const savePrefsBtn = document.getElementById("save-preferences");
+      const prefsStatus = document.getElementById("preferences-status");
+
+      const logoutBtn = document.getElementById("logout-button");
+
+      const selectedDietTags = new Set();
+      const selectedCategoryIds = new Set();
+
+      let currentUser = null;
+      let currentProfile = null;
+
+      try {
+        await DataAPI.loadEverything();
+        const stores = DataAPI.getStoreLocations
+          ? DataAPI.getStoreLocations()
+          : [];
+        const categories = DataAPI.getCategories
+          ? DataAPI.getCategories()
+          : [];
+
+        const session = await SupabaseAuth.getCurrentUserWithProfile();
+
+            //Guest session
+        if (!session || !session.user) {
+          greetingEl.textContent = "You’re browsing as a guest.";
+          guestMessage.classList.remove("hidden");
+          logoutBtn.disabled = true;
+          logoutBtn.classList.add("opacity-60", "cursor-not-allowed");
+          return;
+        }
+        //Load session with profile
+        currentUser = session.user;
+        currentProfile = session.profile || {};
+
+        const displayName =
+          currentProfile.name ||
+          (currentUser.email ? currentUser.email.split("@")[0] : "Your Account");
+
+        greetingEl.textContent = `Hi, ${displayName}`;
+        nameInput.value = displayName;
+        emailText.textContent = currentUser.email || "Not available";
+
+        // Populate stores
+        storeHelp.textContent = stores.length
+          ? "Choose the Whole Foods location you usually shop at."
+          : "No stores loaded.";
+        stores.forEach((store) => {
+          const opt = document.createElement("option");
+          opt.value = store.id;
+          opt.textContent = store.name || `Store #${store.id}`;
+          storeSelect.appendChild(opt);
+        });
+        if (currentProfile.default_store_id) {
+          storeSelect.value = String(currentProfile.default_store_id);
+        }
+
+        // Dietary tags 
+        const existingDiet = Array.isArray(currentProfile.dietary_preferences)
+          ? currentProfile.dietary_preferences
+          : [];
+        existingDiet.forEach((tag) => selectedDietTags.add(tag));
+
+        DIET_TAGS.forEach((tag) => {
+          const btn = createDietTag(tag.value, tag.label, selectedDietTags);
+          dietaryTagsEl.appendChild(btn);
+        });
+
+        // Fav categories
+        const existingFavCats = Array.isArray(currentProfile.favorite_categories)
+          ? currentProfile.favorite_categories
+          : [];
+        existingFavCats.forEach((id) => selectedCategoryIds.add(id));
+            //Add chip per item in array
+        categories.forEach((cat) => {
+          const chip = createCategoryChip(cat, selectedCategoryIds);
+          categoryChipsEl.appendChild(chip);
+        });
+
+        // Save settings
+        savePersonalBtn.addEventListener("click", async () => {
+          personalStatus.textContent = "";
+          try {
+            const newName = nameInput.value.trim() || null;
+            const storeVal = storeSelect.value
+              ? Number(storeSelect.value)
+              : null;
+
+            const fields = {
+              name: newName,
+              default_store_id: storeVal
+            };
+
+            const updated = await SupabaseAuth.updateProfile(fields);
+            currentProfile = updated.profile;
+
+            personalStatus.textContent = "Personal info saved.";
+            setTimeout(() => (personalStatus.textContent = ""), 2000);
+          } catch (err) {
+            console.error("Error saving personal info:", err);
+            personalStatus.textContent =
+              err.message || "Could not save personal info.";
+          }
+        });
+
+        // Save preferences
+        savePrefsBtn.addEventListener("click", async () => {
+          prefsStatus.textContent = "";
+          try {
+            const dietArray = Array.from(selectedDietTags);
+            const favCatsArray = Array.from(selectedCategoryIds);
+
+            const fields = {
+              dietary_preferences: dietArray,
+              favorite_categories: favCatsArray
+            };
+
+            const updated = await SupabaseAuth.updateProfile(fields);
+            currentProfile = updated.profile;
+
+            prefsStatus.textContent = "Preferences saved.";
+            setTimeout(() => (prefsStatus.textContent = ""), 2000);
+          } catch (err) {
+            console.error("Error saving preferences:", err);
+            prefsStatus.textContent =
+              err.message || "Could not save preferences.";
+          }
+        });
+
+        logoutBtn.addEventListener("click", async () => {
+          await SupabaseAuth.logout();
+          window.location.href = "onboarding.html";
+        });
+      } catch (err) {
+        console.error("Error loading settings:", err);
+        greetingEl.textContent = "We couldn’t load your settings.";
+      }
+    });
+  </script>
+</body>
+</html>

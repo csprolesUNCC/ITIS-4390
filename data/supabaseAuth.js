@@ -64,6 +64,34 @@ const SupabaseAuth = {
     return { user, profile };
   },
 
+  //Method to update profile
+  async updateProfile(fields) {
+    // fields: { name?, default_store_id?, dietary_preferences?, favorite_categories? }
+    const { data: userData, error: userError } = await supabase.auth.getUser();
+    if (userError || !userData.user) {
+      throw new Error("You must be logged in to update your profile.");
+    }
+
+    const user = userData.user;
+
+    const { error } = await supabase
+      .from("profiles")
+      .update(fields)
+      .eq("id", user.id);
+
+    if (error) throw new Error(error.message);
+
+    const { data: profile, error: reloadError } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+
+    if (reloadError) throw new Error(reloadError.message);
+
+    return { user, profile };
+  },
+
   async logout() {
     await supabase.auth.signOut();
   }
