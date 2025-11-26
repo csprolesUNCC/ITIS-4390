@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Tracking · Whole Foods</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body class="bg-black">
+  <div class="mobile-container">
+    <div class="content-area pb-20">
+      <!-- Header -->
+      <div class="flex items-center mb-4">
+        <button
+          type="button"
+          onclick="window.location.href='home.html'"
+          class="text-gray-300 text-xl mr-3"
+          aria-label="Back to home"
+        >
+          ←
+        </button>
+        <div class="w-12 h-12 bg-green-700 rounded-full flex items-center justify-center mr-3">
+          <span class="text-white font-serif text-xs font-bold leading-none">
+            WHOLE<br />FOODS
+          </span>
+        </div>
+        <div>
+          <h1 class="text-white text-2xl font-light">Order Status</h1>
+          <p id="tracker-subtitle" class="text-gray-400 text-xs mt-1">
+            Loading your order…
+          </p>
+        </div>
+      </div>
+
+      <!-- Guest session message -->
+      <div id="guest-message" class="mb-4 hidden">
+        <div class="bg-yellow-900/40 border border-yellow-700 text-yellow-100 rounded-md px-3 py-2 text-xs">
+          <p class="font-medium mb-1">You’re not signed in.</p>
+          <p class="mb-2">
+            This is a mock tracker. Sign in to see your default store and delivery window.
+          </p>
+          <div class="flex space-x-2">
+            <a
+              href="login.html"
+              class="px-3 py-1 rounded-md bg-yellow-500 text-black font-medium"
+            >
+              Login
+            </a>
+            <a
+              href="onboarding.html"
+              class="px-3 py-1 rounded-md bg-gray-800 text-gray-100"
+            >
+              Back to Start
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- deliver/pickuip toggle -->
+      <section class="mb-4">
+        <div class="flex bg-gray-900 border border-gray-700 rounded-full p-1 text-xs text-gray-200 w-full max-w-xs mx-auto">
+          <button
+            id="mode-pickup"
+            type="button"
+            class="flex-1 py-1 rounded-full text-center"
+          >
+            Pickup
+          </button>
+          <button
+            id="mode-delivery"
+            type="button"
+            class="flex-1 py-1 rounded-full text-center"
+          >Delivery
+          </button>
+        </div>
+      </section>
+
+      <!-- Order summary -->
+      <section class="mb-6">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          Current order
+        </div>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-lg px-3 py-3 text-sm text-gray-100">
+          <p id="summary-type" class="text-emerald-300 text-xs font-semibold uppercase tracking-wide mb-1">
+            —
+          </p>
+          <p id="summary-window" class="text-sm font-medium">
+            Window: —
+          </p>
+          <p id="summary-date" class="text-[11px] text-gray-400 mt-1">
+            Date: —
+          </p>
+          <p id="summary-store" class="text-[11px] text-gray-400 mt-1">
+            Store: —
+          </p>
+        </div>
+      </section>
+
+      <!-- Status steps -->
+      <section class="mb-6">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          Status
+        </div>
+
+        <p id="status-label" class="text-sm text-white mb-2">
+          Determining status…
+        </p>
+        <p id="status-helper" class="text-[11px] text-gray-400 mb-3">
+          This is a mock tracker — status will advance automatically for demo purposes.
+        </p>
+
+        <div id="status-steps" class="space-y-2">
+          <!-- Steps loaded -->
+        </div>
+      </section>
+
+      <!-- Location + instructions -->
+      <section class="mb-10">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          Pickup / Delivery details
+        </div>
+
+        <div id="detail-card" class="bg-gray-900 border border-gray-800 rounded-lg px-3 py-3 text-xs text-gray-100">
+          <p id="detail-line-1" class="mb-1">
+            Loading details…
+          </p>
+          <p id="detail-line-2" class="mb-1 text-gray-300">
+          </p>
+          <div class="mt-3 h-24 bg-gray-800 rounded-md flex items-center justify-center text-[11px] text-gray-400">
+            Map / lane illustration placeholder
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav
+      class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3"
+    >
+      <a href="home.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🏠</span>
+        Home
+      </a>
+      <a href="shop.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🛒</span>
+        Shop
+      </a>
+      <a href="search.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🔎</span>
+        Search
+      </a>
+      <a href="profile.html" class="flex flex-col items-center text-xs text-green-300">
+        <span class="text-lg">👤</span>
+        Profile
+      </a>
+    </nav>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/data/supabaseAuth.js"></script>
+  <script src="/data/data_api.js"></script>
+
+  <script>
+    
+    const PHASES_PICKUP = [
+      "Order placed",
+      "We’re shopping your order",
+      "Ready for pickup",
+      "Picked up"
+    ];
+
+    const PHASES_DELIVERY = [
+      "Order placed",
+      "We’re shopping your order",
+      "Out for delivery",
+      "Delivered"
+    ];
+
+    function renderSteps(container, phases, currentIndex) {
+      container.innerHTML = "";
+
+      phases.forEach((label, index) => {
+        //Past the previous step-- current index greater than index
+        const isCompleted = index < currentIndex;
+        const isCurrent = index === currentIndex;
+
+        const row = document.createElement("div");
+        row.className = "flex items-center";
+
+        const circle = document.createElement("div");
+        circle.className =
+          "w-6 h-6 flex items-center justify-center rounded-full text-[11px] mr-2 " +
+          (isCompleted || isCurrent
+            ? "bg-emerald-500 text-black"
+            : "bg-gray-800 text-gray-400 border border-gray-600");
+
+            //+1 so no step 0
+        circle.textContent = index + 1;
+
+        const text = document.createElement("p");
+        text.className =
+          "text-xs " +
+          (isCurrent
+            ? "text-white font-semibold"
+            : isCompleted
+            ? "text-emerald-300"
+            : "text-gray-400");
+        text.textContent = label;
+
+        row.appendChild(circle);
+        row.appendChild(text);
+
+        container.appendChild(row);
+      });
+    }
+
+    function getQueryMode() {
+      const params = new URLSearchParams(window.location.search);
+      const modeParam = params.get("mode");
+      //Checks delivery or pickup
+      if (modeParam === "delivery") return "delivery";
+      return "pickup";
+    }
+
+    function highlightModeButtons(mode) {
+      const pickupBtn = document.getElementById("mode-pickup");
+      const deliveryBtn = document.getElementById("mode-delivery");
+
+      const base =
+        "flex-1 py-1 rounded-full text-center transition-colors duration-150";
+      const active = "bg-emerald-700 text-white";
+      const inactive = "bg-transparent text-gray-300";
+
+      pickupBtn.className = base + " " + (mode === "pickup" ? active : inactive);
+      deliveryBtn.className =
+        base + " " + (mode === "delivery" ? active : inactive);
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const subtitleEl = document.getElementById("tracker-subtitle");
+      const guestMessage = document.getElementById("guest-message");
+
+      const summaryTypeEl = document.getElementById("summary-type");
+      const summaryWindowEl = document.getElementById("summary-window");
+      const summaryDateEl = document.getElementById("summary-date");
+      const summaryStoreEl = document.getElementById("summary-store");
+
+      const statusLabelEl = document.getElementById("status-label");
+      const statusStepsEl = document.getElementById("status-steps");
+
+      const detailLine1 = document.getElementById("detail-line-1");
+      const detailLine2 = document.getElementById("detail-line-2");
+
+      const pickupBtn = document.getElementById("mode-pickup");
+      const deliveryBtn = document.getElementById("mode-delivery");
+
+      let mode = getQueryMode();
+      let currentPhaseIndex = 1; // Start at “We’re shopping your order”
+
+      highlightModeButtons(mode);
+
+      try {
+        await DataAPI.loadEverything();
+
+        const session = await SupabaseAuth.getCurrentUserWithProfile().catch(
+          () => null
+        );
+
+        let profile = null;
+        //guest session
+        if (!session || !session.user) {
+          subtitleEl.textContent =
+            "Mock tracker — sign in to see your default store.";
+          guestMessage.classList.remove("hidden");
+        } else {
+          profile = session.profile || {};
+          const displayName =
+            profile.name ||
+            (session.user.email
+              ? session.user.email.split("@")[0]
+              : "your order");
+
+          subtitleEl.textContent = `Tracking ${mode} for ${displayName}`;
+        }
+
+        // find  store
+        let storeId = profile?.default_store_id || DataAPI.getStoreLocations()[0]?.id;
+        let store =
+          storeId != null ? DataAPI.getStoreLocation(storeId) : null;
+
+        // next available slot for that store
+        let slots = storeId ? DataAPI.getDeliverySlots(storeId) : [];
+        let activeSlot = slots.length ? slots[0] : null;
+
+        //Sets green label to pickup/delivery
+        const typeLabel = mode === "pickup" ? "Pickup order" : "Delivery order";
+        summaryTypeEl.textContent = typeLabel;
+
+        if (activeSlot) {
+          summaryWindowEl.textContent = `Window: ${activeSlot.window}`;
+          summaryDateEl.textContent = `Date: ${activeSlot.date}`;
+          
+        } else {
+            //no slot available
+          summaryWindowEl.textContent = "Window: No slots available, try another time!";
+          summaryDateEl.textContent = "Date: —";
+        }
+
+        if (store) {
+          summaryStoreEl.textContent = `Store: ${store.name} — ${store.city}, ${store.state}`;
+        } else {
+          summaryStoreEl.textContent = "Store: Not available";
+        }
+
+        // Details/instructions text
+        if (mode === "pickup") {
+          detailLine1.textContent =
+            "Head to the curbside pickup area when your order is ready.";
+          detailLine2.textContent =
+            "Have your order code ready and follow the signs for Online Order Pickup.";
+        } else {
+          detailLine1.textContent =
+            "Your driver will deliver within the selected time window.";
+          detailLine2.textContent =
+            "You’ll receive a notification when the driver is nearby (mock behavior here).";
+        }
+
+        // Initial status render
+        const phases = mode === "pickup" ? PHASES_PICKUP : PHASES_DELIVERY;
+        statusLabelEl.textContent = `Currently: ${phases[currentPhaseIndex]}`;
+        renderSteps(statusStepsEl, phases, currentPhaseIndex);
+
+        // Mock phase progress
+        setInterval(() => {
+          const phasesNow = mode === "pickup" ? PHASES_PICKUP : PHASES_DELIVERY;
+          if (currentPhaseIndex < phasesNow.length - 1) {
+            currentPhaseIndex += 1;
+            statusLabelEl.textContent = `Currently: ${
+              phasesNow[currentPhaseIndex]
+            }`;
+            renderSteps(statusStepsEl, phasesNow, currentPhaseIndex);
+          }
+          //every 10 seconds
+        }, 10000);
+
+        // Mode toggle 
+        pickupBtn.addEventListener("click", () => {
+          mode = "pickup";
+          highlightModeButtons(mode);
+          currentPhaseIndex = 1;
+          const phasesNow = PHASES_PICKUP;
+          statusLabelEl.textContent = `Currently: ${phasesNow[currentPhaseIndex]}`;
+          renderSteps(statusStepsEl, phasesNow, currentPhaseIndex);
+
+            //Pickup messages
+          detailLine1.textContent =
+            "Head to the curbside pickup area when your order is ready.";
+          detailLine2.textContent =
+            "Have your order code ready and follow the signs for Online Order Pickup.";
+          summaryTypeEl.textContent = "Pickup order";
+        });
+
+        
+        deliveryBtn.addEventListener("click", () => {
+          mode = "delivery";
+          highlightModeButtons(mode);
+          currentPhaseIndex = 1;
+          const phasesNow = PHASES_DELIVERY;
+          statusLabelEl.textContent = `Currently: ${phasesNow[currentPhaseIndex]}`;
+          renderSteps(statusStepsEl, phasesNow, currentPhaseIndex);
+
+            //delivery messages
+          detailLine1.textContent =
+            "Your driver will deliver within the selected time window.";
+          detailLine2.textContent =
+            "You’ll receive a notification when the driver is nearby (mock behavior here).";
+          summaryTypeEl.textContent = "Delivery order";
+        });
+        //error handling
+      } catch (err) {
+        console.error("Error loading tracker:", err);
+        subtitleEl.textContent =
+          "We couldn’t load mock tracking data. Try refreshing.";
+      }
+    });
+  </script>
+</body>
+</html>
