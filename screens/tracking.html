@@ -329,7 +329,7 @@
             "You’ll receive a notification when the driver is nearby (mock behavior here).";
         }
 
-        // Initial status render
+        // Initial status 
         const phases = mode === "pickup" ? PHASES_PICKUP : PHASES_DELIVERY;
         statusLabelEl.textContent = `Currently: ${phases[currentPhaseIndex]}`;
         renderSteps(statusStepsEl, phases, currentPhaseIndex);
