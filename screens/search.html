@@ -48,6 +48,22 @@
   </div>
 
   <script>
+
+    const PRODUCT_IMAGE_MAP = {
+      101: 'img/bananas.png',
+      102: 'img/honeycrisp_apple.png',
+      103: 'img/baby_spinach.png',
+      201: 'img/85lean_beef.png',
+      202: 'img/salmon.png',
+      203: 'img/free_range_chicken.png',
+      301: 'img/milk.png',
+      302: 'img/eggs.png',
+      303: 'img/greek_yogurt.png',
+      401: 'img/sourdough.png',
+      801: 'img/rotisserie_chicken.png'
+      //add more mappings here as needed
+    };
+
     async function initSearch() {
       await DataAPI.loadEverything();
       const input = document.getElementById('search-input');
@@ -55,34 +71,52 @@
 
       function renderResults(list) {
         resultsEl.innerHTML = '';
+
         if (!list.length) {
-          resultsEl.innerHTML = '<p class="text-gray-400 col-span-2 text-sm">No products found.</p>';
+          resultsEl.innerHTML =
+            '<p class="text-gray-400 col-span-2 text-sm">No products found.</p>';
           return;
         }
+
         for (const p of list) {
-          const price = DataAPI.getEffectivePrice(p) || { display: p.variants?.[0]?.price_display || '' };
+          const price =
+            DataAPI.getEffectivePrice(p) ||
+            { display: p.variants?.[0]?.price_display || '' };
+
+          const imgSrc =
+            PRODUCT_IMAGE_MAP[p.id] ||
+            p.image_url ||
+            'img/placeholder.png';
+
           resultsEl.innerHTML += `
             <a href="product.html?id=${p.id}" class="bg-gray-900 border border-gray-800 rounded-lg p-3 flex flex-col">
-              <div class="h-24 bg-gray-700 rounded-md mb-2 flex items-center justify-center">
-                <img src="${p.image_url || ''}" alt="${p.name}" class="h-20 object-contain mx-auto" onerror="this.style.display='none'">
+              <div class="h-24 bg-gray-700 rounded-md mb-2 overflow-hidden">
+                <img
+                  src="${imgSrc}"
+                  alt="${p.name}"
+                  class="w-full h-full object-cover"
+                >
               </div>
               <p class="text-sm text-white font-medium truncate">${p.name}</p>
               <p class="text-xs text-emerald-300 font-semibold mt-1">${price.display}</p>
-            </a>`;
+            </a>
+          `;
         }
       }
 
-      // show all products initially
       renderResults(DataAPI.getAllProducts());
 
       input.addEventListener('input', () => {
         const q = input.value.trim();
-        const results = q ? DataAPI.searchProducts(q) : DataAPI.getAllProducts();
+        const results = q
+          ? DataAPI.searchProducts(q)
+          : DataAPI.getAllProducts();
         renderResults(results);
       });
     }
 
     initSearch();
   </script>
+
 </body>
 </html>

@@ -37,75 +37,104 @@
     </nav>
   </div>
   <script>
-    async function renderProduct() {
-      await DataAPI.loadEverything();
-      const params = new URLSearchParams(window.location.search);
-      const productId = parseInt(params.get('id'));
-      const product = DataAPI.getProduct(productId);
-      const productTitle = document.getElementById('product-title');
-      const productDetail = document.getElementById('product-detail');
+  async function renderProduct() {
+    await DataAPI.loadEverything();
+    const params = new URLSearchParams(window.location.search);
+    const productId = parseInt(params.get('id'));
+    const product = DataAPI.getProduct(productId);
+    const productTitle = document.getElementById('product-title');
+    const productDetail = document.getElementById('product-detail');
 
-      if (!product) {
-        productTitle.textContent = 'Product Not Found';
-        productDetail.innerHTML = '<p class="text-gray-400">No product found.</p>';
-        return;
-      }
-
-      productTitle.textContent = product.name;
-      const price = DataAPI.getEffectivePrice(product);
-
-      let imageSrc = 'img/placeholder.png';
-      if (product.id === 101) {
-        imageSrc = 'img/banana.png';
-      } else if (product.id === 202) {
-        imageSrc = 'img/salmon.png';
-      } else if (product.id === 401) {
-        imageSrc = 'img/sourdough.png';
-      } else if (product.image_url) {
-        imageSrc = product.image_url;
-      }
-
-      const nutritionText = product.nutrition
-        ? Object.entries(product.nutrition).map(([key, value]) => key + ': ' + value).join(', ')
-        : '';
-
-      productDetail.innerHTML = `
-        <div class="w-full flex flex-col items-center">
-          <div class="w-40 h-40 bg-gray-700 rounded-md flex items-center justify-center mb-4 overflow-hidden">
-            <img src="${imageSrc}" alt="${product.name || ''}" class="w-full h-full object-cover">
-          </div>
-          <h2 class="text-white text-lg font-semibold mb-1">${product.name}</h2>
-          <p class="text-gray-400 text-sm mb-2">${product.description || ''}</p>
-          <div class="mb-2">
-            <span class="text-emerald-300 text-lg font-bold mr-2">${price && price.display ? price.display : ''}</span>
-            ${price && price.original ? `<span class="text-gray-400 line-through text-sm">${price.original}</span>` : ''}
-          </div>
-          <div class="mb-2">
-            <span class="text-xs text-gray-400">${product.variants && product.variants[0] && product.variants[0].size ? product.variants[0].size : ''}</span>
-          </div>
-          <div class="mb-2">
-            <span class="text-xs text-gray-400">Category: ${product.category_name || ''}</span>
-          </div>
-          <div class="mb-2">
-            <span class="text-xs text-gray-400">Rating: ${product.rating || ''} (${product.rating_count || 0} reviews)</span>
-          </div>
-          <div class="mb-2">
-            <span class="text-xs text-gray-400">Tags: ${(product.tags || []).join(', ')}</span>
-          </div>
-          <div class="mb-2">
-            <span class="text-xs text-gray-400">Dietary: ${(product.dietary || []).join(', ')}</span>
-          </div>
-          <div class="mb-2">
-            <span class="text-xs text-gray-400">Badges: ${(product.badges || []).join(', ')}</span>
-          </div>
-          <div class="mb-2">
-            <span class="text-xs text-gray-400">Nutrition: ${nutritionText}</span>
-          </div>
-        </div>
-      `;
+    if (!product) {
+      productTitle.textContent = 'Product Not Found';
+      productDetail.innerHTML = '<p class="text-gray-400">No product found.</p>';
+      return;
     }
 
-    renderProduct();
-  </script>
+    productTitle.textContent = product.name;
+    const price = DataAPI.getEffectivePrice(product);
+
+    const PRODUCT_IMAGE_MAP = {
+      101: 'img/bananas.png',
+      102: 'img/honeycrisp_apple.png',
+      103: 'img/baby_spinach.png',
+      201: 'img/85lean_beef.png',
+      202: 'img/salmon.png',
+      203: 'img/free_range_chicken.png',
+      301: 'img/milk.png',
+      302: 'img/eggs.png',
+      303: 'img/greek_yogurt.png',
+      801: 'img/rotisserie_chicken.png',
+      401: 'img/sourdough.png'
+      // add the rest of the immage links here
+    };
+
+    const imageSrc =
+      PRODUCT_IMAGE_MAP[product.id] ||
+      product.image_url ||           // falls back to JSON path if you ever fix it
+      'img/placeholder.png';         // final fallback
+
+    const nutritionText = product.nutrition
+      ? Object.entries(product.nutrition)
+          .map(([key, value]) => key + ': ' + value)
+          .join(', ')
+      : '';
+
+    productDetail.innerHTML = `
+      <div class="w-full flex flex-col items-center">
+        <div class="w-40 h-40 bg-gray-700 rounded-md flex items-center justify-center mb-4 overflow-hidden">
+          <img src="${imageSrc}" alt="${product.name || ''}" class="w-full h-full object-cover">
+        </div>
+        <h2 class="text-white text-lg font-semibold mb-1">${product.name}</h2>
+        <p class="text-gray-400 text-sm mb-2">${product.description || ''}</p>
+        <div class="mb-2">
+          <span class="text-emerald-300 text-lg font-bold mr-2">
+            ${price && price.display ? price.display : ''}
+          </span>
+          ${
+            price && price.original
+              ? `<span class="text-gray-400 line-through text-sm">${price.original}</span>`
+              : ''
+          }
+        </div>
+        <div class="mb-2">
+          <span class="text-xs text-gray-400">
+            ${product.variants && product.variants[0] && product.variants[0].size ? product.variants[0].size : ''}
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-xs text-gray-400">Category: ${product.category_name || ''}</span>
+        </div>
+        <div class="mb-2">
+          <span class="text-xs text-gray-400">
+            Rating: ${product.rating || ''} (${product.rating_count || 0} reviews)
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-xs text-gray-400">
+            Tags: ${(product.tags || []).join(', ')}
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-xs text-gray-400">
+            Dietary: ${(product.dietary || []).join(', ')}
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-xs text-gray-400">
+            Badges: ${(product.badges || []).join(', ')}
+          </span>
+        </div>
+        <div class="mb-2">
+          <span class="text-xs text-gray-400">
+            Nutrition: ${nutritionText}
+          </span>
+        </div>
+      </div>
+    `;
+  }
+
+  renderProduct();
+</script>
 </body>
 </html>
