@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+    <div class="mobile-container">
+        <div class="content-area">
+
+            <div class="flex items-center mb-8">
+                <div class="h-12 w-12 rounded-full overflow-hidden">
+                    <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
+                </div>
+                <h1 class="text-white text-3xl font-light ml-4">Notification Settings</h1>
+            </div>
+
+            <div class="mb-8">
+                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-4">
+                    Notifications
+                </div>
+
+                <div class="space-y-4 text-white">
+
+                    <label class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-2">
+                        <span>Sales Notifications</span>
+                        <span class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <span class="w-10 h-6 bg-gray-500 rounded-full peer-checked:bg-green-500 transition"></span>
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transform peer-checked:translate-x-4 transition"></span>
+                        </span>
+                    </label>
+
+                    <label class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-2">
+                        <span>Personalized Offers</span>
+                        <span class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <span class="w-10 h-6 bg-gray-500 rounded-full peer-checked:bg-green-500 transition"></span>
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transform peer-checked:translate-x-4 transition"></span>
+                        </span>
+                    </label>
+
+                    <label class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-2">
+                        <span>Order Updates</span>
+                        <span class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer" checked>
+                            <span class="w-10 h-6 bg-gray-500 rounded-full peer-checked:bg-green-500 transition"></span>
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transform peer-checked:translate-x-4 transition"></span>
+                        </span>
+                    </label>
+
+                    <label class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-2">
+                        <span>Stock Alerts</span>
+                        <span class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" class="sr-only peer">
+                            <span class="w-10 h-6 bg-gray-500 rounded-full peer-checked:bg-green-500 transition"></span>
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transform peer-checked:translate-x-4 transition"></span>
+                        </span>
+                    </label>
+
+                </div>
+            </div>
+
+        </div>
+
+        <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+            <a href="home.html" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🏠</span>
+                Home
+            </a>
+            <a href="shop.html" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🛒</span>
+                Shop
+            </a>
+            <a href="search.html" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🔎</span>
+                Search
+            </a>
+            <a href="profile.html" class="flex flex-col items-center text-xs text-green-300">
+                <span class="text-lg">👤</span>
+                Profile
+            </a>
+        </nav>
+    </div>
+
+</body>
+</html>

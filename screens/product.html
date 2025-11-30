@@ -40,46 +40,71 @@
     async function renderProduct() {
       await DataAPI.loadEverything();
       const params = new URLSearchParams(window.location.search);
-      const id = parseInt(params.get('id'));
-      const product = DataAPI.getProduct(id);
+      const productId = parseInt(params.get('id'));
+      const product = DataAPI.getProduct(productId);
+      const productTitle = document.getElementById('product-title');
+      const productDetail = document.getElementById('product-detail');
+
       if (!product) {
-        document.getElementById('product-title').textContent = 'Product Not Found';
-        document.getElementById('product-detail').innerHTML = '<p class="text-gray-400">No product found.</p>';
+        productTitle.textContent = 'Product Not Found';
+        productDetail.innerHTML = '<p class="text-gray-400">No product found.</p>';
         return;
       }
-      document.getElementById('product-title').textContent = product.name;
+
+      productTitle.textContent = product.name;
       const price = DataAPI.getEffectivePrice(product);
-      document.getElementById('product-detail').innerHTML = `
-        <img src="${product.image_url || ''}" alt="${product.name}" class="h-32 object-contain mb-4" onerror="this.style.display='none'">
-        <h2 class="text-white text-lg font-semibold mb-1">${product.name}</h2>
-        <p class="text-gray-400 text-sm mb-2">${product.description || ''}</p>
-        <div class="mb-2">
-          <span class="text-emerald-300 text-lg font-bold mr-2">${price?.display || ''}</span>
-          ${price?.original ? `<span class='text-gray-400 line-through text-sm'>${price.original}</span>` : ''}
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">${product.variants[0]?.size || ''}</span>
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">Category: ${product.category_name || ''}</span>
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">Rating: ${product.rating || ''} (${product.rating_count || 0} reviews)</span>
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">Tags: ${(product.tags || []).join(', ')}</span>
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">Dietary: ${(product.dietary || []).join(', ')}</span>
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">Badges: ${(product.badges || []).join(', ')}</span>
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">Nutrition: ${product.nutrition ? Object.entries(product.nutrition).map(([k,v]) => `${k}: ${v}`).join(', ') : ''}</span>
+
+      let imageSrc = 'img/placeholder.png';
+      if (product.id === 101) {
+        imageSrc = 'img/banana.png';
+      } else if (product.id === 202) {
+        imageSrc = 'img/salmon.png';
+      } else if (product.id === 401) {
+        imageSrc = 'img/sourdough.png';
+      } else if (product.image_url) {
+        imageSrc = product.image_url;
+      }
+
+      const nutritionText = product.nutrition
+        ? Object.entries(product.nutrition).map(([key, value]) => key + ': ' + value).join(', ')
+        : '';
+
+      productDetail.innerHTML = `
+        <div class="w-full flex flex-col items-center">
+          <div class="w-40 h-40 bg-gray-700 rounded-md flex items-center justify-center mb-4 overflow-hidden">
+            <img src="${imageSrc}" alt="${product.name || ''}" class="w-full h-full object-cover">
+          </div>
+          <h2 class="text-white text-lg font-semibold mb-1">${product.name}</h2>
+          <p class="text-gray-400 text-sm mb-2">${product.description || ''}</p>
+          <div class="mb-2">
+            <span class="text-emerald-300 text-lg font-bold mr-2">${price && price.display ? price.display : ''}</span>
+            ${price && price.original ? `<span class="text-gray-400 line-through text-sm">${price.original}</span>` : ''}
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">${product.variants && product.variants[0] && product.variants[0].size ? product.variants[0].size : ''}</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Category: ${product.category_name || ''}</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Rating: ${product.rating || ''} (${product.rating_count || 0} reviews)</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Tags: ${(product.tags || []).join(', ')}</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Dietary: ${(product.dietary || []).join(', ')}</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Badges: ${(product.badges || []).join(', ')}</span>
+          </div>
+          <div class="mb-2">
+            <span class="text-xs text-gray-400">Nutrition: ${nutritionText}</span>
+          </div>
         </div>
       `;
     }
+
     renderProduct();
   </script>
 </body>

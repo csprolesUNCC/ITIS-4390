@@ -59,13 +59,13 @@ const DataAPI = (function () {
     ]
     = await Promise.all([
 
-      fetchJson('/data/products.json'),
-      fetchJson('/data/categories.json'),
-      fetchJson('/data/stores.json'),
-      fetchJson('/data/inventory.json'),
-      fetchJson('/data/delivery_slots.json'),
-      fetchJson('/data/promotions.json'),
-      fetchJson('/data/users.json')
+      fetchJson('../data/products.json'),
+      fetchJson('../data/categories.json'),
+      fetchJson('../data/stores.json'),
+      fetchJson('../data/inventory.json'),
+      fetchJson('../data/delivery_slots.json'),
+      fetchJson('../data/promotions.json'),
+      fetchJson('../data/users.json')
       
     ]);
 
