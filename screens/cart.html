@@ -160,3 +160,165 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whole Foods Cart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+
+<div class="mobile-container">
+
+    <!-- Header: back button, title, logo -->
+    <div class="px-4 relative mb-4 mt-4">
+        <div class="flex items-center justify-between">
+            <!-- Back button -->
+            <button onclick="history.back()" aria-label="Go back" class="px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded-full flex items-center space-x-2">
+            <span class="text-sm font-medium">← Back</span>
+            </button>
+
+            <!-- Logo -->
+            <div class="h-12 w-12 rounded-full overflow-hidden">
+                <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
+            </div>
+        </div>
+
+            <!-- Title-->
+            <h1 class="absolute inset-0 flex items-center justify-center text-white text-3xl font-light pointer-events-none">Cart</h1>
+    </div>
+    
+
+    <div class="content-area">
+
+        <!-- Cart Item -->
+        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow">
+            <div class="w-20 h-20 bg-gray-300 rounded-md mr-4"></div>
+
+            <div class="flex-grow">
+                <p class="font-medium text-gray-800 text-sm">Coffee</p>
+                <p class="text-xs text-gray-500 mb-1">description(info like weight, quantity, etc.)</p>
+
+                <div class="flex items-center space-x-3 mt-1">
+                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">-</button>
+                    <span class="text-gray-800">1</span>
+                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">+</button>
+                </div>
+            </div>
+
+            <p class="text-gray-900 font-semibold ml-3">$7.99</p>
+        </div>
+
+        <!-- Cart Item -->
+        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow">
+            <div class="w-20 h-20 bg-gray-400 rounded-md mr-4"></div>
+
+            <div class="flex-grow">
+                <p class="font-medium text-gray-800 text-sm">Crackers</p>
+                <p class="text-xs text-gray-500 mb-1">4 pack</p>
+
+                <div class="flex items-center space-x-3 mt-1">
+                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">-</button>
+                    <span class="text-gray-800">2
+
+                    </span>
+                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">+</button>
+                </div>
+            </div>
+
+            <p class="text-gray-900 font-semibold ml-3">$price</p>
+        </div>
+
+        <!-- Cart Item -->
+        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow">
+            <div class="w-20 h-20 bg-gray-500 rounded-md mr-4"></div>
+
+            <div class="flex-grow">
+                <p class="font-medium text-gray-800 text-sm">Tea</p>
+                <p class="text-xs text-gray-500 mb-1">description</p>
+
+                <div class="flex items-center space-x-3 mt-1">
+                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">-</button>
+                    <span class="text-gray-800">1</span>
+                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">+</button>
+                </div>
+            </div>
+
+            <p class="text-gray-900 font-semibold ml-3">$price</p>
+        </div>
+
+        <!-- Cart Item -->
+        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow">
+            <div class="w-20 h-20 bg-gray-500 rounded-md mr-4"></div>
+
+            <div class="flex-grow">
+                <p class="font-medium text-gray-800 text-sm">Sugar</p>
+                <p class="text-xs text-gray-500 mb-1">description</p>
+
+                <div class="flex items-center space-x-3 mt-1">
+                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">-</button>
+                    <span class="text-gray-800">1</span>
+                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">+</button>
+                </div>
+            </div>
+
+            <p class="text-gray-900 font-semibold ml-3">$price</p>
+        </div>
+    </div>
+
+    <div class="px-4">    
+        <!-- Price Summary Box -->
+        <div class="bg-green-800 text-white p-4 rounded-md mt-6 shadow-md">
+            <div class="flex justify-between mb-1">
+                <span class="text-sm">Subtotal</span>
+                <span class="font-medium">$27.95</span>
+            </div>
+            <div class="flex justify-between mb-1">
+                <span class="text-sm">Estimated Tax</span>
+                <span class="font-medium">$tax</span>
+            </div>
+            <div class="flex justify-between border-t border-green-600 mt-2 pt-2">
+                <span class="font-semibold">Total</span>
+                <span class="font-semibold">$total</span>
+            </div>
+        </div>
+
+        <!-- Delivery Button -->
+        <button class="w-full bg-green-700 text-white font-medium py-3 rounded-full mt-6 text-lg">
+            Delivery Checkout
+        </button>
+
+        <!-- Payment Button -->
+        <button class="w-full bg-green-700 text-white font-medium py-3 rounded-full mt-6 text-lg mb-6">
+            Continue to Payment
+        </button>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+        <a href="home.html" class="flex flex-col items-center text-xs text-white">
+            <span class="text-lg">🏠</span>
+            Home
+        </a>
+        <a href="shop.html" class="flex flex-col items-center text-xs text-green-300 font-bold">
+            <span class="text-lg">🛒</span>
+            Cart
+        </a>
+        <a href="#" class="flex flex-col items-center text-xs">
+            <span class="text-lg">🔎</span>
+            Search
+        </a>
+        <a href="profile.html" class="flex flex-col items-center text-xs">
+            <span class="text-lg">👤</span>
+            Profile
+        </a>
+    </nav>
+
+</div>
+
+</body>
+</html>

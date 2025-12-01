@@ -6,7 +6,7 @@
   <title>Search - Whole Foods Shop</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="app.css">
-  <script src="../data/data_api.js"></script>
+  <script src="/data/data_api.js"></script>
 </head>
 <body class="bg-black">
   <div class="mobile-container flex flex-col">
@@ -20,7 +20,7 @@
         <label for="search-input" class="sr-only">Search products</label>
         <div class="flex items-center bg-black border border-gray-700 rounded-full px-3 py-2">
           <span class="text-gray-400 mr-2">🔎</span>
-          <input id="search-input" type="text" placeholder="Search for products..." class="bg-transparent text-sm text-white placeholder:text-gray-500 flex-1 focus:outline-none" />
+          <input id="search-input" type="text" placeholder="Search for products..." class="bg-transparent text-sm text-white placeholder:text-gray-500 flex-1 focus:outline-none"/>
         </div>
       </div>
 
@@ -48,7 +48,10 @@
   </div>
 
   <script>
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/update
     const PRODUCT_IMAGE_MAP = {
       101: 'img/bananas.png',
       102: 'img/honeycrisp_apple.png',
@@ -61,11 +64,15 @@
       303: 'img/greek_yogurt.png',
       401: 'img/sourdough.png',
       801: 'img/rotisserie_chicken.png'
+<<<<<<< HEAD
       //add more mappings here as needed
+=======
+>>>>>>> origin/update
     };
 
     async function initSearch() {
       await DataAPI.loadEverything();
+
       const input = document.getElementById('search-input');
       const resultsEl = document.getElementById('results');
 
@@ -79,9 +86,13 @@
         }
 
         for (const p of list) {
+<<<<<<< HEAD
           const price =
             DataAPI.getEffectivePrice(p) ||
             { display: p.variants?.[0]?.price_display || '' };
+=======
+          const price = DataAPI.getEffectivePrice(p) || { display: p.variants?.[0]?.price_display || '' };
+>>>>>>> origin/update
 
           const imgSrc =
             PRODUCT_IMAGE_MAP[p.id] ||
