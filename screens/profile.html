@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whole Foods Account Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
-        <link rel="stylesheet" href="app.css">
-
-   
+    <link rel="stylesheet" href="app.css">
 </head>
 <body>
 
@@ -33,7 +31,6 @@
                     </div>
 
                     <div class="flex space-x-2 flex-grow overflow-x-hidden">
-                        
                         <div class="flex-shrink-0 w-32 h-32 bg-white rounded-md overflow-hidden relative shadow-lg">
                             <div class="grid grid-cols-2 grid-rows-2 h-full">
                                 <div class="bg-gray-300 border border-gray-400"></div>
@@ -52,7 +49,6 @@
                         <div class="flex-shrink-0 w-32 h-32 bg-white border border-gray-300 rounded-md flex items-center justify-center text-gray-500 text-center">
                             PLACE MORE ORDERS!
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -65,21 +61,21 @@
                 <div class="ml-4 space-y-4 text-white">
                     
                     <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
-                        <div>
+                        <div class="w-full pr-4">
                             <p class="text-sm text-gray-400">Name:</p>
-                            <p class="font-medium">John Doe</p>
+                            <p id="name-display" class="font-medium">John Doe</p>
                         </div>
-                        <button class="text-green-500 text-2xl pr-2">
+                        <button id="name-edit-btn" onclick="toggleEdit('name')" class="text-green-500 text-2xl pr-2">
                             &#x270E; 
                         </button>
                     </div>
 
                     <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
-                        <div>
+                        <div class="w-full pr-4">
                             <p class="text-sm text-gray-400">Address:</p>
-                            <p class="font-medium">1776 Imaginary Dr<br>Charlotte, NC 28262</p>
+                            <p id="addr-display" class="font-medium">1776 Imaginary Dr<br>Charlotte, NC 28262</p>
                         </div>
-                        <button class="text-green-500 text-2xl pr-2 self-start pt-1">
+                        <button id="addr-edit-btn" onclick="toggleEdit('addr')" class="text-green-500 text-2xl pr-2 self-start pt-1">
                             &#x270E;
                         </button>
                     </div>
@@ -96,8 +92,9 @@
                 </a>
             </div>
 
-
-        </div> <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+        </div> 
+        
+        <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
             <a href="home.html" class="flex flex-col items-center text-xs text-white font-bold">
                 <span class="text-lg">🏠</span>
                 Home
@@ -117,6 +114,43 @@
         </nav>
 
     </div>
+
+    <script>
+        function toggleEdit(field) {
+            const displayEl = document.getElementById(field + '-display');
+            const btnEl = document.getElementById(field + '-edit-btn');
+            const isEditing = btnEl.getAttribute('data-editing') === 'true';
+
+            if (!isEditing) {
+                const currentText = displayEl.innerText;
+                
+                let inputHtml;
+                if (field === 'addr') {
+                    inputHtml = `<textarea id="${field}-input" class="text-black p-1 rounded w-full text-sm" rows="3">${currentText}</textarea>`;
+                } else {
+                    inputHtml = `<input type="text" id="${field}-input" value="${currentText}" class="text-black p-1 rounded w-full">`;
+                }
+
+                displayEl.innerHTML = inputHtml;
+                
+                btnEl.innerHTML = '&#10004;'; 
+                btnEl.setAttribute('data-editing', 'true');
+
+            } else {
+                const inputEl = document.getElementById(field + '-input');
+                let newVal = inputEl.value;
+
+                if (field === 'addr') {
+                    newVal = newVal.replace(/\n/g, '<br>');
+                }
+
+                displayEl.innerHTML = newVal;
+
+                btnEl.innerHTML = '&#x270E;';
+                btnEl.setAttribute('data-editing', 'false');
+            }
+        }
+    </script>
 
 </body>
 </html>
