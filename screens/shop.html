@@ -12,12 +12,9 @@
 <body class="bg-black">
   <div class="mobile-container flex flex-col">
 
-    <!-- Top header -->
     <div class="px-6 pt-6 pb-4 flex items-center">
-      <div class="w-10 h-10 bg-green-700 rounded-full flex items-center justify-center">
-        <span class="text-white font-serif text-[10px] font-bold leading-tight text-center">
-          WHOLE<br>FOODS
-        </span>
+      <div class="h-12 w-12 rounded-full overflow-hidden">
+        <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
       </div>
 
       <div class="ml-3">
@@ -30,7 +27,6 @@
 
     <div class="content-area pt-0">
 
-      <!-- Search bar -->
       <div class="mb-6">
         <label for="search" class="sr-only">Search products</label>
         <div class="flex items-center bg-black border border-gray-700 rounded-full px-3 py-2">
@@ -68,7 +64,6 @@
         </div>
       </div>
 
-      <!-- Featured prodcuts row -->
       <div class="mb-8">
         <div class="flex items-center justify-between mb-2">
           <h2 class="text-white text-sm font-semibold">Featured</h2>
@@ -76,11 +71,9 @@
         </div>
 
         <div id="featured-products" class="flex space-x-3 overflow-x-auto pb-1 -mx-1 px-1">
-          <!-- Dynamic product cards injected here-->
         </div>
       </div>
 
-      <!-- 2x2 Category Grid -->
       <div class="mt-4 mb-16">
         <h2 class="text-white text-sm font-semibold mb-3">Browse by category</h2>
 
@@ -137,7 +130,6 @@
 
     </div>
 
-    <!-- Bottom nav -->
     <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
       <a href="home.html" class="flex flex-col items-center text-xs">
         <span class="text-lg">🏠</span>
@@ -164,7 +156,7 @@
   <script src="/data/data_api.js"></script>
 
   <script>
-    //Main product cards
+    // Main product cards
     function createProductCard(product) {
       const card = document.createElement('a');
       card.href = `product.html?id=${product.id}`;
@@ -183,8 +175,6 @@
       const variant = Array.isArray(product.variants) ? product.variants[0] : null;
       priceEl.textContent = variant?.price_display || "";
 
-
-      //Append card
       card.appendChild(img);
       card.appendChild(nameEl);
       card.appendChild(priceEl);
@@ -201,7 +191,7 @@
         // Load catalog
         await DataAPI.loadEverything();
 
-        //  personalization
+        // personalization
         const session = await SupabaseAuth.getCurrentUserWithProfile().catch(() => null);
 
         if (session && session.user) {
@@ -213,21 +203,18 @@
           subtitleEl.textContent = `For ${displayName} — jump back into your favorite aisles.`;
         }
 
-        // Build featured prodcts row
         featuredContainer.innerHTML = "";
 
         let featuredProducts = [];
 
-        // If user has recommended product ids in their profile,  first
         if (session && session.profile && Array.isArray(session.profile.recommended_product_ids) && session.profile.recommended_product_ids.length) {
           featuredProducts = session.profile.recommended_product_ids
             .map(id => DataAPI.getProduct(id))
             .filter(Boolean);
         }
 
-        // Fallback to a default set
         if (!featuredProducts.length) {
-          const fallbackIds = [101, 401, 202]; // keep your original picks
+          const fallbackIds = [101, 401, 202]; // original picks
           featuredProducts = fallbackIds
             .map(id => DataAPI.getProduct ? DataAPI.getProduct(id) : null)
             .filter(Boolean);
@@ -237,7 +224,6 @@
           featuredContainer.appendChild(createProductCard(p));
         });
 
-        // Search → send with query param
         searchInput.addEventListener('keydown', (e) => {
           if (e.key === 'Enter') {
             e.preventDefault();

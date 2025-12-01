@@ -1,243 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whole Foods Account Profile</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="app.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whole Foods Account Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="app.css">
 </head>
+
 <body class="bg-black">
+  <div class="mobile-container">
+    <div class="content-area">
 
-    <div class="mobile-container">
-        <div class="content-area">
-            
-            <!-- Header -->
-            <div class="flex items-center mb-2">
-                <div class="w-16 h-16 bg-green-700 rounded-full flex items-center justify-center mr-4">
-                    <span class="text-white font-serif text-sm font-bold leading-none">WHOLE<br>FOODS</span>
-                </div>
-                <div>
-                    <h1 class="text-white text-3xl font-light">Profile</h1>
-                    <p id="profile-greeting" class="text-gray-400 text-xs mt-1">
-                        Loading your account…
-                    </p>
-                </div>
-            </div>
-
-            <!-- Guest message (hidden on login) -->
-            <div id="guest-message" class="mb-4 hidden">
-                <div class="bg-yellow-900/40 border border-yellow-700 text-yellow-100 rounded-md px-3 py-2 text-xs">
-                    <p class="font-medium mb-1">You’re not signed in.</p>
-                    <p class="mb-2">Sign in to see your saved info, stores, and preferences.</p>
-                    <div class="flex space-x-2">
-                        <a href="login.html" class="px-3 py-1 rounded-md bg-yellow-500 text-black font-medium">
-                            Login
-                        </a>
-                        <a href="onboarding.html" class="px-3 py-1 rounded-md bg-gray-800 text-gray-100">
-                            Back to Start
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Order History (still mock) -->
-            <div class="mb-8">
-                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
-                    Order History
-                </div>
-        
-                <div class="flex items-center space-x-4">
-                    <div class="flex flex-col items-center text-white mr-4">
-                        <span class="text-3xl rotate-180 transform">&#x21B7;</span>
-                        <span class="text-sm">Reorder</span>
-                    </div>
-        
-                    <div class="flex space-x-2 flex-grow overflow-x-hidden">
-                        <div class="flex-shrink-0 w-32 h-32 bg-white rounded-md overflow-hidden relative shadow-lg">
-                            <div class="grid grid-cols-2 grid-rows-2 h-full">
-                                <div class="bg-gray-300 border border-gray-400"></div>
-                                <div class="bg-gray-400 border border-gray-500"></div>
-                                <div class="bg-gray-500 border border-gray-600"></div>
-                                <div class="bg-gray-600 border border-gray-700"></div>
-                            </div>
-                            <div class="absolute bottom-6 left-0 bg-purple-500 text-white text-xs px-2 py-0.5 rounded-r">
-                                $108.32
-                            </div>
-                            <div class="absolute bottom-0 right-0 bg-black text-white text-xs px-1 py-0.5 rounded-tl">
-                                10/18
-                            </div>
-                        </div>
-        
-                        <div class="flex-shrink-0 w-32 h-32 bg-white border border-gray-300 rounded-md flex items-center justify-center text-gray-500 text-center">
-                            PLACE MORE ORDERS!
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Personal Info -->
-            <div class="mb-8">
-                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-4">
-                    Personal Info
-                </div>
-
-                <div class="ml-4 space-y-4 text-white">
-                    <!-- Name -->
-                    <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
-                        <div>
-                            <p class="text-sm text-gray-400">Name:</p>
-                            <p id="profile-name" class="font-medium">Loading…</p>
-                        </div>
-                        <button class="text-green-500 text-2xl pr-2" type="button">
-                            &#x270E;
-                        </button>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
-                        <div>
-                            <p class="text-sm text-gray-400">Email:</p>
-                            <p id="profile-email" class="font-medium">Loading…</p>
-                        </div>
-                        <span class="text-xs text-gray-500 pr-3">Account</span>
-                    </div>
-
-                    <!-- Dietary -->
-                    <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
-                        <div>
-                            <p class="text-sm text-gray-400">Dietary Preferences:</p>
-                            <p id="profile-dietary" class="font-medium text-sm">
-                                Loading…
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Preferred store -->
-                    <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
-                        <div>
-                            <p class="text-sm text-gray-400">Preferred Store:</p>
-                            <p id="profile-store" class="font-medium text-sm">
-                                Loading…
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Account Actions -->
-            <div class="space-y-4 mb-20">
-                <a href="payment.html" class="block w-full header-bg text-white font-medium py-3 rounded-md text-center">
-                    Payment Info
-                </a>
-
-               <a 
-  href="settings.html" 
-  class="w-full header-bg text-white font-medium py-3 rounded-md block text-center"
->
-  Profile Settings
-</a>
-
-
-                <button
-                    id="logout-button"
-                    class="w-full bg-red-700/80 hover:bg-red-700 text-white font-medium py-3 rounded-md text-sm">
-                    Log Out
-                </button>
-            </div>
-
+      <div class="flex items-center mb-2">
+        <div class="w-16 h-16 bg-green-700 rounded-full flex items-center justify-center mr-4">
+          <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
         </div>
+        <div>
+          <h1 class="text-white text-3xl font-light">Profile</h1>
+          <p id="profile-greeting" class="text-gray-400 text-xs mt-1">Loading your account…</p>
+        </div>
+      </div>
 
-        <!-- Bottom Nav -->
-        <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
-            <a href="home.html" class="flex flex-col items-center text-xs">
-                <span class="text-lg">🏠</span>
-                Home
-            </a>
-            <a href="shop.html" class="flex flex-col items-center text-xs">
-                <span class="text-lg">🛒</span>
-                Shop
-            </a>
-            <a href="search.html" class="flex flex-col items-center text-xs">
-                <span class="text-lg">🔎</span>
-                Search
-            </a>
-            <a href="profile.html" class="flex flex-col items-center text-xs text-green-300">
-                <span class="text-lg">👤</span>
-                Profile
-            </a>
-        </nav>
+      <div id="guest-message" class="mb-4 hidden">
+        <div class="bg-yellow-900/40 border border-yellow-700 text-yellow-100 rounded-md px-3 py-2 text-xs">
+          <p class="font-medium mb-1">You’re not signed in.</p>
+          <p class="mb-2">Sign in to see your saved info, stores, and preferences.</p>
+          <div class="flex space-x-2">
+            <a href="login.html" class="px-3 py-1 rounded-md bg-yellow-500 text-black font-medium">Login</a>
+            <a href="onboarding.html" class="px-3 py-1 rounded-md bg-gray-800 text-gray-100">Back to Start</a>
+          </div>
+        </div>
+      </div>
 
+      <div class="mb-8">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">Order History</div>
+        <div class="flex items-center space-x-4">
+          <div class="flex flex-col items-center text-white mr-4">
+            <span class="text-3xl rotate-180">&#x21B7;</span>
+            <span class="text-sm">Reorder</span>
+          </div>
+
+          <div class="flex space-x-2 flex-grow overflow-x-hidden">
+            <div class="flex-shrink-0 w-32 h-32 bg-white rounded-md overflow-hidden relative shadow-lg">
+              <div class="grid grid-cols-2 grid-rows-2 h-full">
+                <div class="bg-gray-300 border border-gray-400"></div>
+                <div class="bg-gray-400 border border-gray-500"></div>
+                <div class="bg-gray-500 border border-gray-600"></div>
+                <div class="bg-gray-600 border border-gray-700"></div>
+              </div>
+              <div class="absolute bottom-6 left-0 bg-purple-500 text-white text-xs px-2 py-0.5 rounded-r">$108.32</div>
+              <div class="absolute bottom-0 right-0 bg-black text-white text-xs px-1 py-0.5 rounded-tl">10/18</div>
+            </div>
+
+            <div class="flex-shrink-0 w-32 h-32 bg-white border border-gray-300 rounded-md flex items-center justify-center text-gray-500 text-center">
+              PLACE MORE ORDERS!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-4">Personal Info</div>
+
+        <div class="ml-4 space-y-4 text-white">
+          <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
+            <div>
+              <p class="text-sm text-gray-400">Name:</p>
+              <p id="profile-name" class="font-medium">Loading…</p>
+            </div>
+            <button class="text-green-500 text-2xl pr-2">&#x270E;</button>
+          </div>
+
+          <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
+            <div>
+              <p class="text-sm text-gray-400">Email:</p>
+              <p id="profile-email" class="font-medium">Loading…</p>
+            </div>
+            <span class="text-xs text-gray-500 pr-3">Account</span>
+          </div>
+
+          <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
+            <div>
+              <p class="text-sm text-gray-400">Dietary Preferences:</p>
+              <p id="profile-dietary" class="font-medium text-sm">Loading…</p>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
+            <div>
+              <p class="text-sm text-gray-400">Preferred Store:</p>
+              <p id="profile-store" class="font-medium text-sm">Loading…</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-4 mb-20">
+        <a href="payment.html" class="block w-full header-bg text-white font-medium py-3 rounded-md text-center">Payment Info</a>
+        <a href="settings.html" class="w-full header-bg text-white font-medium py-3 rounded-md block text-center">Profile Settings</a>
+        <button id="logout-button" class="w-full bg-red-700/80 hover:bg-red-700 text-white font-medium py-3 rounded-md text-sm">Log Out</button>
+      </div>
     </div>
 
-    <!-- Supabase  -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="/data/supabaseAuth.js"></script>
+    <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+      <a href="home.html" class="flex flex-col items-center text-xs"><span class="text-lg">🏠</span>Home</a>
+      <a href="shop.html" class="flex flex-col items-center text-xs"><span class="text-lg">🛒</span>Shop</a>
+      <a href="search.html" class="flex flex-col items-center text-xs"><span class="text-lg">🔎</span>Search</a>
+      <a href="profile.html" class="flex flex-col items-center text-xs text-green-300"><span class="text-lg">👤</span>Profile</a>
+    </nav>
+  </div>
 
-    <script>
-        //Load content
-        document.addEventListener('DOMContentLoaded', async () => {
-            const greetingEl = document.getElementById('profile-greeting');
-            const nameEl = document.getElementById('profile-name');
-            const emailEl = document.getElementById('profile-email');
-            const dietaryEl = document.getElementById('profile-dietary');
-            const storeEl = document.getElementById('profile-store');
-            const guestMessage = document.getElementById('guest-message');
-            const logoutBtn = document.getElementById('logout-button');
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/data/supabaseAuth.js"></script>
 
-            try {
-                const session = await SupabaseAuth.getCurrentUserWithProfile();
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const greetingEl = document.getElementById('profile-greeting');
+      const nameEl = document.getElementById('profile-name');
+      const emailEl = document.getElementById('profile-email');
+      const dietaryEl = document.getElementById('profile-dietary');
+      const storeEl = document.getElementById('profile-store');
+      const guestMessage = document.getElementById('guest-message');
+      const logoutBtn = document.getElementById('logout-button');
 
-                if (!session || !session.user) {
-                    // Guest sesssion
-                    greetingEl.textContent = "You’re browsing as a guest.";
-                    nameEl.textContent = "Guest";
-                    emailEl.textContent = "Not signed in";
-                    dietaryEl.textContent = "—";
-                    storeEl.textContent = "—";
-                    guestMessage.classList.remove('hidden');
+      try {
+        const session = await SupabaseAuth.getCurrentUserWithProfile();
 
-                    logoutBtn.disabled = true;
-                    logoutBtn.classList.add('opacity-60', 'cursor-not-allowed');
-                    return;
-                }
+        if (!session || !session.user) {
+          greetingEl.textContent = "You’re browsing as a guest.";
+          nameEl.textContent = "Guest";
+          emailEl.textContent = "Not signed in";
+          dietaryEl.textContent = "—";
+          storeEl.textContent = "—";
+          guestMessage.classList.remove('hidden');
 
-                const { user, profile } = session;
-                
-                //Top display
-                const displayName =
-                    (profile && profile.name) ||
-                    (user.email ? user.email.split('@')[0] : 'Your Account');
+          logoutBtn.disabled = true;
+          logoutBtn.classList.add('opacity-60', 'cursor-not-allowed');
+          return;
+        }
 
-                    //Greeting text
-                greetingEl.textContent = `Hi, ${displayName}`;
-                nameEl.textContent = displayName;
-                emailEl.textContent = user.email || 'Not available';
+        const { user, profile } = session;
 
-                //Load user info
-                if (profile && Array.isArray(profile.dietary_preferences) && profile.dietary_preferences.length) {
-                    dietaryEl.textContent = profile.dietary_preferences.join(', ');
-                } else {
-                    dietaryEl.textContent = 'No saved preferences yet';
-                }
+        const displayName =
+          (profile && profile.name) ||
+          (user.email ? user.email.split('@')[0] : 'Your Account');
 
-                if (profile && profile.default_store_id) {
-                    storeEl.textContent = `Store #${profile.default_store_id}`;
-                } else {
-                    storeEl.textContent = 'No store selected';
-                }
-                //Logout
-                logoutBtn.addEventListener('click', async () => {
-                    await SupabaseAuth.logout();
-                    window.location.href = 'onboarding.html';
-                });
-                //Error handling
-            } catch (err) {
-                console.error('Error loading profile:', err);
-                greetingEl.textContent = 'Unable to load profile.';
-            }
+        greetingEl.textContent = `Hi, ${displayName}`;
+        nameEl.textContent = displayName;
+        emailEl.textContent = user.email || 'Not available';
+
+        if (profile && Array.isArray(profile.dietary_preferences) && profile.dietary_preferences.length) {
+          dietaryEl.textContent = profile.dietary_preferences.join(', ');
+        } else {
+          dietaryEl.textContent = 'No saved preferences yet';
+        }
+
+        if (profile && profile.default_store_id) {
+          storeEl.textContent = `Store #${profile.default_store_id}`;
+        } else {
+          storeEl.textContent = 'No store selected';
+        }
+
+        logoutBtn.addEventListener('click', async () => {
+          await SupabaseAuth.logout();
+          window.location.href = 'onboarding.html';
         });
-    </script>
 
+      } catch (err) {
+        greetingEl.textContent = 'Unable to load profile.';
+      }
+    });
+  </script>
 </body>
 </html>

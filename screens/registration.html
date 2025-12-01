@@ -1,126 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whole Foods Sign Up</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="app.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Whole Foods Sign Up</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="app.css">
 </head>
 
 <body>
-
-    <div class="mobile-container p-6 flex flex-col items-center">
-        
-        <div class="w-40 h-40 bg-green-700 rounded-full flex items-center justify-center mt-12 mb-10">
-            <span class="text-white font-serif text-xl font-bold">
-                WHOLE<br>FOODS
-            </span>
-        </div>
-
-        <form id="signup-form" class="w-full space-y-4">
-            
-            <div>
-                <label for="email" class="block text-sm text-gray-400 mb-1">Email</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    placeholder="demo@example.com"
-                    class="w-full px-3 py-2 bg-black border border-gray-700 rounded-md text-white focus:outline-none focus:ring-1 focus:ring-green-500" 
-                />
-            </div>
-
-            <div>
-                <label for="password" class="block text-sm text-gray-400 mb-1">Password</label>
-                <input 
-                    type="password" 
-                    id="password"
-                    placeholder="Create a password"
-                    class="w-full px-3 py-2 bg-black border border-gray-700 rounded-md text-white focus:outline-none focus:ring-1 focus:ring-green-500" 
-                />
-            </div>
-
-            <div>
-                <label for="confirm-password" class="block text-sm text-gray-400 mb-1">Confirm Password</label>
-                <input 
-                    type="password" 
-                    id="confirm-password"
-                    placeholder="Re-enter your password"
-                    class="w-full px-3 py-2 bg-black border border-gray-700 rounded-md text-white focus:outline-none focus:ring-1 focus:ring-green-500" 
-                />
-            </div>
-
-            <div>
-                <label for="dob" class="block text-sm text-gray-400 mb-1">Date of Birth</label>
-                <input 
-                    type="text" 
-                    id="dob"
-                    placeholder="MM/DD/YYYY"
-                    class="w-full px-3 py-2 bg-black border border-gray-700 rounded-md text-white focus:outline-none focus:ring-1 focus:ring-green-500" 
-                />
-            </div>
-
-            <div class="pt-4">
-                <button 
-                    type="submit" 
-                    class="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 rounded-md transition duration-150 ease-in-out">
-                    Create
-                </button>
-            </div>
-
-            <p id="signup-error" class="text-sm text-red-400 mt-1"></p>
-        </form>
-
+  <div class="mobile-container p-6 flex flex-col items-center">
+    <div class="w-40 h-40 bg-green-700 rounded-full flex items-center justify-center mt-12 mb-10">
+      <span class="text-white font-serif text-xl font-bold">WHOLE<br>FOODS</span>
     </div>
 
-    <!-- Data + Auth -->
-    <script src="/data/data_api.js"></script>
-    <script src="/data/auth.js"></script>
+    <form id="signup-form" class="w-full space-y-4">
+      <div>
+        <label for="email" class="block text-sm text-gray-400 mb-1">Email</label>
+        <input type="email" id="email" placeholder="demo@example.com" class="w-full px-3 py-2 bg-black border border-gray-700 rounded-md text-white focus:outline-none focus:ring-1 focus:ring-green-500"/>
+      </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const form = document.getElementById('signup-form');
-            const errorEl = document.getElementById('signup-error');
+      <div>
+        <label for="password" class="block text-sm text-gray-400 mb-1">Password</label>
+        <input type="password" id="password" placeholder="Create a password" class="w-full px-3 py-2 bg-black border border-gray-700 rounded-md text-white focus:outline-none focus:ring-1 focus:ring-green-500"/>
+      </div>
 
-            try {
-                // Load JSON users and seed  users if empty
-                await DataAPI.loadEverything();
-                if (Auth.seedFromDataAPIIfEmpty) {
-                    await Auth.seedFromDataAPIIfEmpty();
-                }
-            } catch (err) {
-                console.error('Error loading data for signup:', err);
-            }
+      <div>
+        <label for="confirm-password" class="block text-sm text-gray-400 mb-1">Confirm Password</label>
+        <input type="password" id="confirm-password" placeholder="Re-enter your password" class="w-full px-3 py-2 bg-black border border-gray-700 rounded-md text-white focus:outline-none focus:ring-1 focus:ring-green-500"/>
+      </div>
 
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                errorEl.textContent = '';
+      <div>
+        <label for="dob" class="block text-sm text-gray-400 mb-1">Date of Birth</label>
+        <input type="text" id="dob" placeholder="MM/DD/YYYY" class="w-full px-3 py-2 bg-black border border-gray-700 rounded-md text-white focus:outline-none focus:ring-1 focus:ring-green-500"/>
+      </div>
 
-                const email = document.getElementById('email').value.trim();
-                const password = document.getElementById('password').value;
-                const confirm = document.getElementById('confirm-password').value;
-                const dob = document.getElementById('dob').value.trim();
+      <div class="pt-4">
+        <button type="submit" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 rounded-md transition duration-150 ease-in-out">Create</button>
+      </div>
 
-                if (!email || !password) {
-                    errorEl.textContent = 'Please enter an email and password.';
-                    return;
-                }
+      <p id="signup-error" class="text-sm text-red-400 mt-1"></p>
+    </form>
+  </div>
 
-                if (password !== confirm) {
-                    errorEl.textContent = 'Passwords do not match.';
-                    return;
-                }
+  <script src="/data/data_api.js"></script>
+  <script src="/data/auth.js"></script>
 
-                try {
-                    Auth.createUser({ email, password, dob });
-                    //  send into the app
-                    window.location.href = 'home.html';
-                } catch (err) {
-                    errorEl.textContent = err.message || 'Could not create account.';
-                }
-            });
-        });
-    </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const form = document.getElementById('signup-form');
+      const errorEl = document.getElementById('signup-error');
 
+      try {
+        if (Auth.seedFromJSONIfEmpty) {
+          await Auth.seedFromJSONIfEmpty();
+        }
+      } catch (err) {}
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errorEl.textContent = '';
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const confirm = document.getElementById('confirm-password').value;
+        const dob = document.getElementById('dob').value.trim();
+
+        if (!email || !password) {
+          errorEl.textContent = 'Please enter an email and password.';
+          return;
+        }
+
+        if (password !== confirm) {
+          errorEl.textContent = 'Passwords do not match.';
+          return;
+        }
+
+        try {
+          Auth.createUser({ email, password, dob });
+          window.location.href = 'home.html';
+        } catch (err) {
+          errorEl.textContent = err.message || 'Could not create account.';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
