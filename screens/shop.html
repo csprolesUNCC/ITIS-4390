@@ -40,7 +40,6 @@
         </div>
       </div>
 
-      <!-- Top category chips -->
       <div class="mb-6">
         <div class="flex space-x-2 overflow-x-auto pb-2 -mx-1 px-1">
           <a href="category.html" class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-700 text-white flex-shrink-0">
@@ -70,9 +69,8 @@
           <span class="text-[11px] text-gray-400">Swipe to see more</span>
         </div>
 
-        <div id="featured-products" class="flex space-x-3 overflow-x-auto pb-1 -mx-1 px-1">
-        </div>
-
+        <div id="featured-products" class="flex space-x-3 overflow-x-auto pb-1 -mx-1 px-1"></div>
+      </div>
 
       <div class="mt-4 mb-16">
         <h2 class="text-white text-sm font-semibold mb-3">Browse by category</h2>
@@ -150,13 +148,11 @@
     </nav>
   </div>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/data/supabaseAuth.js"></script>
   <script src="/data/data_api.js"></script>
 
   <script>
-    // Main product cards
     function createProductCard(product) {
       const card = document.createElement('a');
       card.href = `product.html?id=${product.id}`;
@@ -188,14 +184,19 @@
       const featuredContainer = document.getElementById('featured-products');
 
       try {
-        // Load catalog
         await DataAPI.loadEverything();
 
-        // personalization
         const session = await SupabaseAuth.getCurrentUserWithProfile().catch(() => null);
+        let profile = null;
+        let user = null;
 
         if (session && session.user) {
-          const { user, profile } = session;
+          user = session.user;
+          profile = session.profile || session.profile === null ? session.profile : session.profile;
+          if (!profile && session.profile === undefined && session.hasOwnProperty('profile') === false) {
+            profile = session.profile;
+          }
+
           const displayName =
             (profile && profile.name) ||
             (user.email ? user.email.split('@')[0] : 'there');
@@ -207,14 +208,14 @@
 
         let featuredProducts = [];
 
-        if (session && session.profile && Array.isArray(session.profile.recommended_product_ids) && session.profile.recommended_product_ids.length) {
-          featuredProducts = session.profile.recommended_product_ids
+        if (profile && Array.isArray(profile.recommended_product_ids) && profile.recommended_product_ids.length) {
+          featuredProducts = profile.recommended_product_ids
             .map(id => DataAPI.getProduct(id))
             .filter(Boolean);
         }
 
         if (!featuredProducts.length) {
-          const fallbackIds = [101, 401, 202]; // original picks
+          const fallbackIds = [101, 401, 202];
           featuredProducts = fallbackIds
             .map(id => DataAPI.getProduct ? DataAPI.getProduct(id) : null)
             .filter(Boolean);

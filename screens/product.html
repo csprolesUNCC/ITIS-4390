@@ -28,7 +28,6 @@
   </div>
 
   <script>
-<<<<<<< HEAD
   async function renderProduct() {
     await DataAPI.loadEverything();
     const params = new URLSearchParams(window.location.search);
@@ -128,104 +127,5 @@
 
   renderProduct();
 </script>
-=======
-    async function renderProduct() {
-      await DataAPI.loadEverything();
-      const params = new URLSearchParams(window.location.search);
-      const productId = parseInt(params.get('id'));
-      const product = DataAPI.getProduct(productId);
-      const productTitle = document.getElementById('product-title');
-      const productDetail = document.getElementById('product-detail');
-
-      if (!product) {
-        productTitle.textContent = 'Product Not Found';
-        productDetail.innerHTML = '<p class="text-gray-400">No product found.</p>';
-        return;
-      }
-
-      productTitle.textContent = product.name;
-      const price = DataAPI.getEffectivePrice(product);
-
-      const PRODUCT_IMAGE_MAP = {
-        101: 'img/bananas.png',
-        102: 'img/honeycrisp_apple.png',
-        103: 'img/baby_spinach.png',
-        201: 'img/85lean_beef.png',
-        202: 'img/salmon.png',
-        203: 'img/free_range_chicken.png',
-        301: 'img/milk.png',
-        302: 'img/eggs.png',
-        303: 'img/greek_yogurt.png',
-        401: 'img/sourdough.png',
-        801: 'img/rotisserie_chicken.png'
-      };
-
-      const imageSrc =
-        PRODUCT_IMAGE_MAP[product.id] ||
-        product.image_url ||
-        'img/placeholder.png';
-
-      const nutritionText = product.nutrition
-        ? Object.entries(product.nutrition).map(([k, v]) => k + ': ' + v).join(', ')
-        : '';
-
-      productDetail.innerHTML = `
-        <div class="w-full flex flex-col items-center">
-          <div class="w-40 h-40 bg-gray-700 rounded-md flex items-center justify-center mb-4 overflow-hidden">
-            <img src="${imageSrc}" alt="${product.name || ''}" class="w-full h-full object-cover">
-          </div>
-          <h2 class="text-white text-lg font-semibold mb-1">${product.name}</h2>
-          <p class="text-gray-400 text-sm mb-2">${product.description || ''}</p>
-          <div class="mb-2">
-            <span class="text-emerald-300 text-lg font-bold mr-2">${price && price.display ? price.display : ''}</span>
-            ${price && price.original ? `<span class="text-gray-400 line-through text-sm">${price.original}</span>` : ''}
-          </div>
-          <p class="text-xs text-gray-400 mb-1">${product.variants?.[0]?.size || ''}</p>
-          <p class="text-xs text-gray-400 mb-1">Category: ${product.category_name || ''}</p>
-          <p class="text-xs text-gray-400 mb-1">Rating: ${product.rating || ''} (${product.rating_count || 0} reviews)</p>
-          <p class="text-xs text-gray-400 mb-1">Tags: ${(product.tags || []).join(', ')}</p>
-          <p class="text-xs text-gray-400 mb-1">Dietary: ${(product.dietary || []).join(', ')}</p>
-          <p class="text-xs text-gray-400 mb-1">Badges: ${(product.badges || []).join(', ')}</p>
-          <p class="text-xs text-gray-400">Nutrition: ${nutritionText}</p>
-          <button id="add-to-cart-btn" 
-            class="mt-4 w-full bg-green-700 text-white font-medium py-3 rounded-md">
-            Add to Cart
-          </button>
-        </div>
-      `;
-    }
-
-    document.addEventListener("click", (e) => {
-      if (e.target.id === "add-to-cart-btn") {
-        const params = new URLSearchParams(window.location.search);
-        const productId = parseInt(params.get("id"));
-        const product = DataAPI.getProduct(productId);
-
-        if (!product) return;
-
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const existing = cart.find(item => item.id === product.id);
-
-        if (existing) {
-          existing.quantity += 1;
-        } else {
-          cart.push({
-            id: product.id,
-            name: product.name,
-            price: product.variants?.[0]?.price_display || "",
-            rawPrice: product.variants?.[0]?.price_cents || 0,
-            image: product.image_url || "",
-            quantity: 1
-          });
-        }
-
-        localStorage.setItem("cart", JSON.stringify(cart));
-        window.location.href = "cart.html";
-      }
-    });
-
-    renderProduct();
-  </script>
->>>>>>> origin/update
 </body>
 </html>
