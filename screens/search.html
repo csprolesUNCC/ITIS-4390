@@ -48,10 +48,6 @@
   </div>
 
   <script>
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/update
     const PRODUCT_IMAGE_MAP = {
       101: 'img/bananas.png',
       102: 'img/honeycrisp_apple.png',
@@ -64,10 +60,7 @@
       303: 'img/greek_yogurt.png',
       401: 'img/sourdough.png',
       801: 'img/rotisserie_chicken.png'
-<<<<<<< HEAD
       //add more mappings here as needed
-=======
->>>>>>> origin/update
     };
 
     async function initSearch() {
@@ -86,13 +79,9 @@
         }
 
         for (const p of list) {
-<<<<<<< HEAD
           const price =
             DataAPI.getEffectivePrice(p) ||
             { display: p.variants?.[0]?.price_display || '' };
-=======
-          const price = DataAPI.getEffectivePrice(p) || { display: p.variants?.[0]?.price_display || '' };
->>>>>>> origin/update
 
           const imgSrc =
             PRODUCT_IMAGE_MAP[p.id] ||
