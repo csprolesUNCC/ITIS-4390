@@ -128,6 +128,7 @@
         const session = await SupabaseAuth.getCurrentUserWithProfile();
 
         if (!session || !session.user) {
+          // Guest / no active session
           greetingEl.textContent = "You’re browsing as a guest.";
           nameEl.textContent = "Guest";
           emailEl.textContent = "Not signed in";
@@ -168,6 +169,7 @@
         });
 
       } catch (err) {
+        console.error('Error loading profile:', err);
         greetingEl.textContent = 'Unable to load profile.';
       }
     });
