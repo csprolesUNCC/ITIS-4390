@@ -199,10 +199,11 @@ const DataAPI = (function () {
     ) || null;
  
 }
-
+//checks for sales
   function getEffectivePrice(product) {
     ensureLoaded();
     const variant = product.variants?.[0];
+    //If no sale?
     if (!variant) return null;
 
     const promo = getPromotion(product.id);

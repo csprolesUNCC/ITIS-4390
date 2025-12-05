@@ -74,8 +74,8 @@ class CartManager {
     // Try to get from DataAPI if available
     if (typeof DataAPI !== 'undefined') {
       const priceInfo = DataAPI.getEffectivePrice(product);
-      if (priceInfo && priceInfo.value) {
-        return priceInfo.value;
+      if (priceInfo && priceInfo.cents) {
+        return priceInfo.cents / 100; 
       }
     }
     
