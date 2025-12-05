@@ -12,21 +12,17 @@
 
 <div class="mobile-container">
 
-    <!-- Header: back button, title, logo -->
     <div class="px-4 relative mb-4 mt-4">
         <div class="flex items-center justify-between">
-            <!-- Back button -->
             <button onclick="history.back()" aria-label="Go back" class="px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded-full flex items-center space-x-2">
             <span class="text-sm font-medium">← Back</span>
             </button>
 
-            <!-- Logo -->
             <div class="h-12 w-12 rounded-full overflow-hidden">
                 <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
             </div>
         </div>
 
-            <!-- Title-->
             <h1 class="absolute inset-0 flex items-center justify-center text-white text-3xl font-light pointer-events-none">Cart</h1>
     </div>
     
@@ -34,77 +30,83 @@
     <div class="content-area">
 
         <!-- Cart Item -->
-        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow">
-            <div class="w-20 h-20 bg-gray-300 rounded-md mr-4"></div>
+        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow-sm border border-gray-100">
+            <div class="w-20 h-20 bg-gray-100 rounded-md mr-4 overflow-hidden flex-shrink-0">
+                <img src="img/rotisserie_chicken.png" alt="Rotisserie Chicken" class="w-full h-full object-cover">
+            </div>
 
             <div class="flex-grow">
-                <p class="font-medium text-gray-800 text-sm">Coffee</p>
-                <p class="text-xs text-gray-500 mb-1">description(info like weight, quantity, etc.)</p>
+                <p class="font-medium text-gray-800 text-sm">Rotisserie Chicken</p>
+                <p class="text-xs text-gray-500 mb-1">Classic, Hot</p>
 
                 <div class="flex items-center space-x-3 mt-1">
-                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">-</button>
-                    <span class="text-gray-800">1</span>
-                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">+</button>
+                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">-</button>
+                    <span class="text-gray-800 font-medium">1</span>
+                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">+</button>
                 </div>
             </div>
 
-            <p class="text-gray-900 font-semibold ml-3">$7.99</p>
+            <p class="text-gray-900 font-semibold ml-3">$12.99</p>
         </div>
 
         <!-- Cart Item -->
-        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow">
-            <div class="w-20 h-20 bg-gray-400 rounded-md mr-4"></div>
+        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow-sm border border-gray-100">
+            <div class="w-20 h-20 bg-gray-100 rounded-md mr-4 overflow-hidden flex-shrink-0">
+                <img src="img/milk.png" alt="Milk" class="w-full h-full object-cover">
+            </div>
 
             <div class="flex-grow">
-                <p class="font-medium text-gray-800 text-sm">Crackers</p>
-                <p class="text-xs text-gray-500 mb-1">4 pack</p>
+                <p class="font-medium text-gray-800 text-sm">Organic Whole Milk</p>
+                <p class="text-xs text-gray-500 mb-1">1 Gallon</p>
 
                 <div class="flex items-center space-x-3 mt-1">
-                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">-</button>
-                    <span class="text-gray-800">2
-
-                    </span>
-                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">+</button>
+                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">-</button>
+                    <span class="text-gray-800 font-medium">1</span>
+                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">+</button>
                 </div>
             </div>
 
-            <p class="text-gray-900 font-semibold ml-3">$price</p>
+            <p class="text-gray-900 font-semibold ml-3">$5.99</p>
         </div>
 
         <!-- Cart Item -->
-        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow">
-            <div class="w-20 h-20 bg-gray-500 rounded-md mr-4"></div>
+        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow-sm border border-gray-100">
+            <div class="w-20 h-20 bg-gray-100 rounded-md mr-4 overflow-hidden flex-shrink-0">
+                <img src="img/honeycrisp_apple.png" alt="Honeycrisp Apple" class="w-full h-full object-cover">
+            </div>
 
             <div class="flex-grow">
-                <p class="font-medium text-gray-800 text-sm">Tea</p>
-                <p class="text-xs text-gray-500 mb-1">description</p>
+                <p class="font-medium text-gray-800 text-sm">Honeycrisp Apple</p>
+                <p class="text-xs text-gray-500 mb-1">Large, approx 0.5lb</p>
 
                 <div class="flex items-center space-x-3 mt-1">
-                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">-</button>
-                    <span class="text-gray-800">1</span>
-                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">+</button>
+                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">-</button>
+                    <span class="text-gray-800 font-medium">3</span>
+                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">+</button>
                 </div>
             </div>
 
-            <p class="text-gray-900 font-semibold ml-3">$price</p>
+            <p class="text-gray-900 font-semibold ml-3">$4.50</p>
         </div>
 
         <!-- Cart Item -->
-        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow">
-            <div class="w-20 h-20 bg-gray-500 rounded-md mr-4"></div>
+        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow-sm border border-gray-100">
+            <div class="w-20 h-20 bg-gray-100 rounded-md mr-4 overflow-hidden flex-shrink-0">
+                <img src="img/baby_spinach.png" alt="Baby Spinach" class="w-full h-full object-cover">
+            </div>
 
             <div class="flex-grow">
-                <p class="font-medium text-gray-800 text-sm">Sugar</p>
-                <p class="text-xs text-gray-500 mb-1">description</p>
+                <p class="font-medium text-gray-800 text-sm">Organic Baby Spinach</p>
+                <p class="text-xs text-gray-500 mb-1">5oz Clamshell</p>
 
                 <div class="flex items-center space-x-3 mt-1">
-                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">-</button>
-                    <span class="text-gray-800">1</span>
-                    <button class="px-2 py-1 bg-gray-200 rounded-full text-gray-700">+</button>
+                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">-</button>
+                    <span class="text-gray-800 font-medium">1</span>
+                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">+</button>
                 </div>
             </div>
 
-            <p class="text-gray-900 font-semibold ml-3">$price</p>
+            <p class="text-gray-900 font-semibold ml-3">$3.49</p>
         </div>
     </div>
 
@@ -113,15 +115,15 @@
         <div class="bg-green-800 text-white p-4 rounded-md mt-6 shadow-md">
             <div class="flex justify-between mb-1">
                 <span class="text-sm">Subtotal</span>
-                <span class="font-medium">$27.95</span>
+                <span class="font-medium">$26.97</span>
             </div>
             <div class="flex justify-between mb-1">
                 <span class="text-sm">Estimated Tax</span>
-                <span class="font-medium">$tax</span>
+                <span class="font-medium">$1.89</span>
             </div>
             <div class="flex justify-between border-t border-green-600 mt-2 pt-2">
                 <span class="font-semibold">Total</span>
-                <span class="font-semibold">$total</span>
+                <span class="font-semibold">$28.86</span>
             </div>
         </div>
 
