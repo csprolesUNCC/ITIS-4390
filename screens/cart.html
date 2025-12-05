@@ -28,102 +28,34 @@
     
 
     <div class="content-area">
-
-        <!-- Cart Item -->
-        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow-sm border border-gray-100">
-            <div class="w-20 h-20 bg-gray-100 rounded-md mr-4 overflow-hidden flex-shrink-0">
-                <img src="img/rotisserie_chicken.png" alt="Rotisserie Chicken" class="w-full h-full object-cover">
-            </div>
-
-            <div class="flex-grow">
-                <p class="font-medium text-gray-800 text-sm">Rotisserie Chicken</p>
-                <p class="text-xs text-gray-500 mb-1">Classic, Hot</p>
-
-                <div class="flex items-center space-x-3 mt-1">
-                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">-</button>
-                    <span class="text-gray-800 font-medium">1</span>
-                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">+</button>
-                </div>
-            </div>
-
-            <p class="text-gray-900 font-semibold ml-3">$12.99</p>
+        <div id="cart-items-container">
+            <!-- Cart items will be dynamically inserted here -->
         </div>
 
-        <!-- Cart Item -->
-        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow-sm border border-gray-100">
-            <div class="w-20 h-20 bg-gray-100 rounded-md mr-4 overflow-hidden flex-shrink-0">
-                <img src="img/milk.png" alt="Milk" class="w-full h-full object-cover">
-            </div>
-
-            <div class="flex-grow">
-                <p class="font-medium text-gray-800 text-sm">Organic Whole Milk</p>
-                <p class="text-xs text-gray-500 mb-1">1 Gallon</p>
-
-                <div class="flex items-center space-x-3 mt-1">
-                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">-</button>
-                    <span class="text-gray-800 font-medium">1</span>
-                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">+</button>
-                </div>
-            </div>
-
-            <p class="text-gray-900 font-semibold ml-3">$5.99</p>
-        </div>
-
-        <!-- Cart Item -->
-        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow-sm border border-gray-100">
-            <div class="w-20 h-20 bg-gray-100 rounded-md mr-4 overflow-hidden flex-shrink-0">
-                <img src="img/honeycrisp_apple.png" alt="Honeycrisp Apple" class="w-full h-full object-cover">
-            </div>
-
-            <div class="flex-grow">
-                <p class="font-medium text-gray-800 text-sm">Honeycrisp Apple</p>
-                <p class="text-xs text-gray-500 mb-1">Large, approx 0.5lb</p>
-
-                <div class="flex items-center space-x-3 mt-1">
-                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">-</button>
-                    <span class="text-gray-800 font-medium">3</span>
-                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">+</button>
-                </div>
-            </div>
-
-            <p class="text-gray-900 font-semibold ml-3">$4.50</p>
-        </div>
-
-        <!-- Cart Item -->
-        <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow-sm border border-gray-100">
-            <div class="w-20 h-20 bg-gray-100 rounded-md mr-4 overflow-hidden flex-shrink-0">
-                <img src="img/baby_spinach.png" alt="Baby Spinach" class="w-full h-full object-cover">
-            </div>
-
-            <div class="flex-grow">
-                <p class="font-medium text-gray-800 text-sm">Organic Baby Spinach</p>
-                <p class="text-xs text-gray-500 mb-1">5oz Clamshell</p>
-
-                <div class="flex items-center space-x-3 mt-1">
-                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">-</button>
-                    <span class="text-gray-800 font-medium">1</span>
-                    <button class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">+</button>
-                </div>
-            </div>
-
-            <p class="text-gray-900 font-semibold ml-3">$3.49</p>
+        <div id="empty-cart-message" class="text-center py-12 hidden">
+            <div class="text-6xl mb-4">🛒</div>
+            <p class="text-white text-lg mb-2">Your cart is empty</p>
+            <p class="text-gray-400 text-sm mb-6">Add some delicious items to get started!</p>
+            <a href="shop.html" class="inline-block bg-green-700 text-white px-6 py-3 rounded-full hover:bg-green-600">
+                Start Shopping
+            </a>
         </div>
     </div>
 
-    <div class="px-4">    
+    <div class="px-4" id="cart-summary-section">    
         <!-- Price Summary Box -->
         <div class="bg-green-800 text-white p-4 rounded-md mt-6 shadow-md">
             <div class="flex justify-between mb-1">
                 <span class="text-sm">Subtotal</span>
-                <span class="font-medium">$26.97</span>
+                <span class="font-medium" id="subtotal">$0.00</span>
             </div>
             <div class="flex justify-between mb-1">
                 <span class="text-sm">Estimated Tax</span>
-                <span class="font-medium">$1.89</span>
+                <span class="font-medium" id="tax">$0.00</span>
             </div>
             <div class="flex justify-between border-t border-green-600 mt-2 pt-2">
                 <span class="font-semibold">Total</span>
-                <span class="font-semibold">$28.86</span>
+                <span class="font-semibold" id="total">$0.00</span>
             </div>
         </div>
 
@@ -160,19 +92,108 @@
 
 </div>
 
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whole Foods Cart</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="app.css">
-</head>
+<script src="cart-manager.js"></script>
+<script>
+    const PRODUCT_IMAGE_MAP = {
+      101: 'img/bananas.png',
+      102: 'img/honeycrisp_apple.png',
+      103: 'img/baby_spinach.png',
+      201: 'img/85lean_beef.png',
+      202: 'img/salmon.png',
+      203: 'img/free_range_chicken.png',
+      301: 'img/milk.png',
+      302: 'img/eggs.png',
+      303: 'img/greek_yogurt.png',
+      801: 'img/rotisserie_chicken.png',
+      401: 'img/sourdough.png'
+    };
 
-<body>
+    function renderCartItems() {
+        const container = document.getElementById('cart-items-container');
+        const emptyMessage = document.getElementById('empty-cart-message');
+        const summarySection = document.getElementById('cart-summary-section');
+        const items = window.cartManager.getItems();
+
+        if (items.length === 0) {
+            container.innerHTML = '';
+            emptyMessage.classList.remove('hidden');
+            summarySection.classList.add('hidden');
+            return;
+        }
+
+        emptyMessage.classList.add('hidden');
+        summarySection.classList.remove('hidden');
+
+        container.innerHTML = items.map(item => {
+            const imageSrc = PRODUCT_IMAGE_MAP[item.id] || item.image || 'img/placeholder.png';
+            const itemTotal = (item.price * item.quantity).toFixed(2);
+
+            return `
+                <div class="bg-white rounded-md p-3 mb-4 flex items-center shadow-sm border border-gray-100">
+                    <div class="w-20 h-20 bg-gray-100 rounded-md mr-4 overflow-hidden flex-shrink-0">
+                        <img src="${imageSrc}" alt="${item.name}" class="w-full h-full object-cover" onerror="this.src='img/placeholder.png'">
+                    </div>
+
+                    <div class="flex-grow">
+                        <p class="font-medium text-gray-800 text-sm">${item.name}</p>
+                        <p class="text-xs text-gray-500 mb-1">$${item.price.toFixed(2)} each</p>
+
+                        <div class="flex items-center space-x-3 mt-1">
+                            <button onclick="updateItemQuantity(${item.id}, -1)" class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">-</button>
+                            <span class="text-gray-800 font-medium">${item.quantity}</span>
+                            <button onclick="updateItemQuantity(${item.id}, 1)" class="w-6 h-6 flex items-center justify-center bg-gray-200 rounded-full text-gray-700 hover:bg-gray-300">+</button>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col items-end">
+                        <p class="text-gray-900 font-semibold mb-2">$${itemTotal}</p>
+                        <button onclick="removeItem(${item.id})" class="text-xs text-red-600 hover:text-red-800">Remove</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        updateSummary();
+    }
+
+    function updateSummary() {
+        const subtotal = window.cartManager.getTotal();
+        const tax = subtotal * 0.07; // 7% tax
+        const total = subtotal + tax;
+
+        document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+        document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+        document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+    }
+
+    function updateItemQuantity(productId, delta) {
+        const items = window.cartManager.getItems();
+        const item = items.find(i => i.id === productId);
+        
+        if (item) {
+            const newQuantity = item.quantity + delta;
+            window.cartManager.updateQuantity(productId, newQuantity);
+            renderCartItems();
+        }
+    }
+
+    function removeItem(productId) {
+        if (confirm('Remove this item from your cart?')) {
+            window.cartManager.removeItem(productId);
+            renderCartItems();
+        }
+    }
+
+    // Subscribe to cart changes
+    window.cartManager.subscribe(() => {
+        renderCartItems();
+    });
+
+    // Initial render
+    document.addEventListener('DOMContentLoaded', () => {
+        renderCartItems();
+    });
+</script>
 
 </body>
 </html>

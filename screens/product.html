@@ -10,16 +10,26 @@
 </head>
 <body class="bg-black">
   <div class="mobile-container flex flex-col">
+
+    <!-- Cart Icon -->
+    <div class="cart-icon-container">
+      <a href="cart.html" class="cart-icon-button">
+        <svg class="cart-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+        </svg>
+        <span id="cart-badge" class="cart-badge" style="display: none;">0</span>
+        <span id="cart-total" class="cart-total-display">$0.00</span>
+      </a>
+    </div>
+
     <div class="px-6 pt-6 pb-4 flex items-center">
       <a href="javascript:history.back()" class="text-white mr-3">←</a>
       <h1 id="product-title" class="text-white text-2xl font-light ml-3">Product</h1>
     </div>
 
     <div class="content-area px-6 pt-2 pb-20">
-      <div id="product-detail" class="bg-gray-900 border border-gray-800 rounded-lg p-4 flex flex-col items-center"></div>
+      <div id="product-detail" class="product-card"></div>
     </div>
-
-    <a href="cart.html" class="block mx-6 mb-20 header-bg text-white font-medium py-3 rounded-md text-center">Add to Cart</a>
 
     <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
       <a href="home.html" class="flex flex-col items-center text-xs"><span class="text-lg">🏠</span>Home</a>
@@ -59,75 +69,111 @@
       303: 'img/greek_yogurt.png',
       801: 'img/rotisserie_chicken.png',
       401: 'img/sourdough.png'
-      // add the rest of the immage links here
     };
 
     const imageSrc =
       PRODUCT_IMAGE_MAP[product.id] ||
-      product.image_url ||           // falls back to JSON path if you ever fix it
-      'img/placeholder.png';         // final fallback
+      product.image_url ||
+      'img/placeholder.png';
 
-    const nutritionText = product.nutrition
-      ? Object.entries(product.nutrition)
-          .map(([key, value]) => key + ': ' + value)
-          .join(', ')
+    // Build dietary/badge tags
+    const tags = [];
+    if (product.dietary && product.dietary.length > 0) {
+      tags.push(...product.dietary);
+    }
+    if (product.badges && product.badges.length > 0) {
+      tags.push(...product.badges);
+    }
+
+    const tagsHTML = tags.length > 0 
+      ? tags.map(tag => `<span class="product-meta-item">${tag}</span>`).join('')
       : '';
 
     productDetail.innerHTML = `
-      <div class="w-full flex flex-col items-center">
-        <div class="w-40 h-40 bg-gray-700 rounded-md flex items-center justify-center mb-4 overflow-hidden">
-          <img src="${imageSrc}" alt="${product.name || ''}" class="w-full h-full object-cover">
-        </div>
-        <h2 class="text-white text-lg font-semibold mb-1">${product.name}</h2>
-        <p class="text-gray-400 text-sm mb-2">${product.description || ''}</p>
-        <div class="mb-2">
-          <span class="text-emerald-300 text-lg font-bold mr-2">
+      <div class="product-image-container">
+        <img src="${imageSrc}" alt="${product.name || ''}" class="w-full h-full object-cover">
+      </div>
+      
+      <div class="product-info">
+        <h2 class="product-name">${product.name}</h2>
+        
+        <p class="product-description">${product.description || ''}</p>
+        
+        <div class="product-price-container">
+          <span class="product-price">
             ${price && price.display ? price.display : ''}
           </span>
-          ${
-            price && price.original
-              ? `<span class="text-gray-400 line-through text-sm">${price.original}</span>`
-              : ''
-          }
+          ${price && price.original ? `<span class="product-price-original">${price.original}</span>` : ''}
         </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">
-            ${product.variants && product.variants[0] && product.variants[0].size ? product.variants[0].size : ''}
-          </span>
+        
+        ${product.variants && product.variants[0] && product.variants[0].size 
+          ? `<div class="text-xs text-gray-400 mb-3">${product.variants[0].size}</div>` 
+          : ''}
+        
+        ${tagsHTML ? `<div class="product-meta mb-4">${tagsHTML}</div>` : ''}
+        
+        ${product.rating 
+          ? `<div class="flex items-center gap-2 mb-4">
+               <span class="text-yellow-400 text-sm">★ ${product.rating}</span>
+               <span class="text-xs text-gray-400">(${product.rating_count || 0} reviews)</span>
+             </div>`
+          : ''}
+        
+        <div class="quantity-controls">
+          <button class="quantity-button" onclick="changeQuantity(-1)">−</button>
+          <span class="quantity-display" id="quantity">1</span>
+          <button class="quantity-button" onclick="changeQuantity(1)">+</button>
         </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">Category: ${product.category_name || ''}</span>
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">
-            Rating: ${product.rating || ''} (${product.rating_count || 0} reviews)
-          </span>
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">
-            Tags: ${(product.tags || []).join(', ')}
-          </span>
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">
-            Dietary: ${(product.dietary || []).join(', ')}
-          </span>
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">
-            Badges: ${(product.badges || []).join(', ')}
-          </span>
-        </div>
-        <div class="mb-2">
-          <span class="text-xs text-gray-400">
-            Nutrition: ${nutritionText}
-          </span>
-        </div>
+        
+        <button class="add-to-cart-button" onclick="addToCart()">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+          </svg>
+          <span id="add-to-cart-text">Add to Cart</span>
+        </button>
       </div>
     `;
+
+    // Store product data for cart functionality
+    window.currentProduct = product;
+    window.currentQuantity = 1;
+  }
+
+  function changeQuantity(delta) {
+    const quantityEl = document.getElementById('quantity');
+    let newQuantity = window.currentQuantity + delta;
+    if (newQuantity < 1) newQuantity = 1;
+    if (newQuantity > 99) newQuantity = 99;
+    
+    window.currentQuantity = newQuantity;
+    quantityEl.textContent = newQuantity;
+  }
+
+  function addToCart() {
+    if (!window.currentProduct || !window.cartManager) return;
+    
+    const button = document.querySelector('.add-to-cart-button');
+    const buttonText = document.getElementById('add-to-cart-text');
+    
+    // Add to cart
+    window.cartManager.addItem(window.currentProduct, window.currentQuantity);
+    
+    // Visual feedback
+    button.classList.add('added');
+    buttonText.textContent = 'Added!';
+    
+    setTimeout(() => {
+      button.classList.remove('added');
+      buttonText.textContent = 'Add to Cart';
+    }, 1500);
+    
+    // Reset quantity
+    window.currentQuantity = 1;
+    document.getElementById('quantity').textContent = '1';
   }
 
   renderProduct();
 </script>
+  <script src="cart-manager.js"></script>
 </body>
 </html>
