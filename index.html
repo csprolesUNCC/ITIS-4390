@@ -4,142 +4,146 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Whole Foods Mobile Concept</title>
-
   
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="screens/app.css" />
+  <link rel="stylesheet" href="landing.css" />
 </head>
 
-<body class="bg-zinc-950 text-gray-100 overflow-x-hidden">
-  <!-- Parallax background shapes -->
-  <div class="pointer-events-none fixed inset-0 -z-10">
-    <div
-      class="absolute -top-24 -left-16 h-64 w-64 rounded-full bg-emerald-700/20 blur-3xl"
-      data-parallax
-      data-speed="-0.15"
-    ></div>
-    <div
-      class="absolute -bottom-32 right-[-3rem] h-72 w-72 rounded-full bg-emerald-500/15 blur-3xl"
-      data-parallax
-      data-speed="-0.25"
-    ></div>
+<body>
+  <!-- Background dots -->
+  <div class="background-elements">
+    <div class="bg-shape bg-shape-1" data-parallax data-speed="-0.15"></div>
+    <div class="bg-shape bg-shape-2" data-parallax data-speed="-0.25"></div>
   </div>
 
   <div class="min-h-screen flex items-center justify-center px-4 py-10">
-    <div class="w-full max-w-5xl mx-auto">
-      <!--  header -->
-      <header class="mb-8 flex items-center justify-between gap-4">
-        <div class="flex flex-col">
-          <span class="text-xs font-medium text-emerald-300 uppercase tracking-wide">
-            Whole Foods Mobile Prototype
-          </span>
-          <span class="text-[11px] text-gray-400">
-            HCI course project · mobile-first grocery flow
-          </span>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div>
+          <span class="header-title">Whole Foods Mobile Prototype</span>
+          <span class="header-subtitle block">HCI course project · mobile-first grocery flow</span>
         </div>
-        <span class="hidden md:inline text-[11px] text-gray-500">
-          Best viewed on a narrow / mobile-width screen
-        </span>
       </header>
 
-      <div class="grid gap-10 md:grid-cols-2 items-center rounded-3xl border border-zinc-800 bg-zinc-900/70 p-6 md:p-8 shadow-xl shadow-black/40">
-        <!-- Project Decription -->
+      
+      <div class="main-grid">
+        <!-- Project Description -->
         <section>
-          <h1 class="text-3xl md:text-4xl font-semibold text-white mb-4 leading-tight">
-            A simple mobile grocery demo
-          </h1>
+          <h1 class="project-title">A simple mobile grocery demo</h1>
 
-          <p class="text-sm md:text-base text-gray-200 mb-6 leading-relaxed">
+          <p class="project-description">
             This prototype explores what a cleaner, easier Whole Foods shopping flow
             could look like on a phone. You can walk through onboarding, browse categories,
             open product details, and step through a basic cart and checkout experience.
           </p>
 
-          <div class="space-y-2 text-sm text-gray-200 mb-7">
-            <div class="flex items-start gap-2">
-              <span class="mt-1 text-emerald-400 text-xs">•</span>
+          <div class="feature-list">
+            <div class="feature-item">
+              <span class="feature-bullet">•</span>
               <p><strong>Browse:</strong> category chips and a simple product grid.</p>
             </div>
-            <div class="flex items-start gap-2">
-              <span class="mt-1 text-emerald-400 text-xs">•</span>
+            <div class="feature-item">
+              <span class="feature-bullet">•</span>
               <p><strong>Details:</strong> pricing, tags, and basic product info pulled from a JSON dataset.</p>
             </div>
-            <div class="flex items-start gap-2">
-              <span class="mt-1 text-emerald-400 text-xs">•</span>
+            <div class="feature-item">
+              <span class="feature-bullet">•</span>
               <p><strong>Flow:</strong> onboarding → home → shop → cart / profile / payment screens.</p>
             </div>
           </div>
 
-          <!-- CTA buttons -->
-          <div class="flex flex-wrap gap-3">
-            <a
-              href="screens/onboarding.html"
-              class="inline-flex items-center justify-center rounded-full bg-emerald-500 hover:bg-emerald-400 px-5 py-2.5 text-sm font-semibold text-black transition"
-            >
+          <!-- Demo buttons -->
+          <div class="button-group">
+            <a href="screens/onboarding.html" class="primary-button">
               Open demo from start
-              <span class="ml-2 text-lg">→</span>
+              <span class="ml-2">→</span>
             </a>
 
-            <a
-              href="screens/shop.html"
-              class="inline-flex items-center justify-center rounded-full border border-gray-600 px-5 py-2.5 text-sm font-semibold text-gray-100 hover:border-emerald-400 hover:text-emerald-200 transition"
-            >
+            <a href="screens/shop.html" class="secondary-button">
               Jump into shop view
             </a>
           </div>
 
-          <p class="mt-6 text-[11px] text-gray-500">
+          <p class="tech-note">
             Built with HTML, Tailwind CSS, and a small JSON-backed DataAPI for course work and portfolio use.
           </p>
-        </section>
 
-        <!-- Phone mock -->
-        <section class="flex justify-center">
-          <div
-            class="scale-90 md:scale-100 origin-center transition-transform duration-300"
-            id="phone-parallax"
-          >
-            <div class="mobile-container flex flex-col">
-              <div class="p-6 flex flex-col items-center flex-grow">
-                <div class="w-28 h-28 bg-green-700 rounded-3xl flex items-center justify-center mb-6 shadow-lg shadow-green-800/50">
-                  <span class="text-white font-serif text-lg font-bold leading-tight text-center">
-                    WHOLE<br />FOODS
-                  </span>
-                </div>
-
-                <div class="space-y-3 w-full">
-                  <h2 class="text-center text-sm font-medium text-white">
-                    Demo screens
-                  </h2>
-                  <p class="text-center text-[11px] text-gray-300 mb-1">
-                    These links load the same prototype at different points in the flow.
-                  </p>
-
-                  <a
-                    href="screens/onboarding.html"
-                    class="btn-style bg-emerald-700 hover:bg-emerald-600 text-center"
-                  >
-                    Start at onboarding
-                  </a>
-
-                  <a
-                    href="screens/home.html"
-                    class="btn-style bg-zinc-800 hover:bg-zinc-700 text-center"
-                  >
-                    Go to home screen
-                  </a>
-
-                  <a
-                    href="screens/shop.html"
-                    class="btn-style bg-zinc-800 hover:bg-zinc-700 text-center"
-                  >
-                    Open shop view
-                  </a>
+          <!-- Team Section -->
+          <div class="team-section">
+            <h3 class="team-title">Project Team</h3>
+            <div class="team-grid">
+              <div class="team-member">
+                <div class="team-avatar">DW</div>
+                <div>
+                  <div class="team-name">Devin Washington</div>
+                  <div class="team-role">Full Stack Dev</div>
                 </div>
               </div>
+              <div class="team-member">
+                <div class="team-avatar">CS</div>
+                <div>
+                  <div class="team-name">Carson Sproles</div>
+                  <div class="team-role">[example]</div>
+                </div>
+              </div>
+              <div class="team-member">
+                <div class="team-avatar">CH</div>
+                <div>
+                  <div class="team-name">Carson Hill</div>
+                  <div class="team-role">[example]</div>
+                </div>
+              </div>
+              <div class="team-member">
+                <div class="team-avatar">BB</div>
+                <div>
+                  <div class="team-name">Brady Bittner</div>
+                  <div class="team-role">[example]]</div>
+                </div>
+              </div>
+              <div class="team-member">
+                <div class="team-avatar">JV</div>
+                <div>
+                  <div class="team-name">Jhania Vitalis</div>
+                  <div class="team-role">[example]]</div>
+                </div>
+              </div>
+              <div class="team-member">
+                <div class="team-avatar">MH</div>
+                <div>
+                  <div class="team-name">Micai Harrison</div>
+                  <div class="team-role">[example]</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
-              <div class="px-6 pb-4 text-[11px] text-gray-500 text-center">
-                Mobile width preview · try resizing your browser to ~375&nbsp;px.
+        <!-- Phone Mockup -->
+        <section class="phone-container">
+          <div class="phone-frame" id="phone-parallax">
+            <div class="phone-content">
+              <div class="logo-container">
+                <span class="logo-text">WHOLE<br />FOODS</span>
+              </div>
+
+              <div class="demo-screens">
+                <h2 class="demo-title">Demo screens</h2>
+                <p class="demo-description">
+                  These links load the same prototype at different points in the flow.
+                </p>
+
+                <a href="screens/onboarding.html" class="phone-button phone-button-primary">
+                  Start at onboarding
+                </a>
+
+                <a href="screens/home.html" class="phone-button phone-button-secondary">
+                  Go to home screen
+                </a>
+
+                <a href="screens/shop.html" class="phone-button phone-button-secondary">
+                  Open shop view
+                </a>
               </div>
             </div>
           </div>
@@ -149,7 +153,7 @@
   </div>
 
   <script>
-    // Background parallax
+    //  parallax
     const layers = document.querySelectorAll('[data-parallax]');
     window.addEventListener('scroll', () => {
       const y = window.pageYOffset || document.documentElement.scrollTop;
