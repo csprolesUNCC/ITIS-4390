@@ -2,92 +2,43 @@
   box-sizing: border-box;
 }
 
-/* --- background (No Scrolling) --- */
-html {
-  overflow: hidden;
-}
-
 body {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-  
-  /* Center the phone */
+  background-color: #1a1a1a;
   display: flex;
   justify-content: center;
   align-items: center;
-  
   min-height: 100vh;
-  
-  margin: 2vh;
-  
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* ---  phone frame --- */
+
+
 .mobile-container {
   position: relative;
-  
-  width: 390px; 
-  height: 844px; 
-  max-height: 98vh; 
-  
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-
-  /* bezel */
-  background-color: #000;
-  border-radius: 40px;
-  border: 10px solid #222;
-
+  width: 100%;
+  max-width: 375px;
+  height: 812px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  background-color: #212121;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* notch */
-.mobile-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 150px;
-  height: 28px;
-  background-color: #000;
-  border-radius: 0 0 20px 20px;
-  z-index: 10;
-}
-
-.mobile-container::after {
-  content: '';
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 134px;
-  height: 5px;
-  background-color: #333;
-  border-radius: 100px;
-  z-index: 10;
-}
 
 .content-area {
   flex-grow: 1;
-  overflow-y: auto; /* Scrolling*/
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-
-  /* Make it look like the phone's screen */
-  background-color: #212121;
-  border-radius: 32px; 
-  margin: 8px; 
-
-  padding-top: 2.5rem; /* Space for the notch */
-  padding-bottom: 1.5rem; /* Space for the home indicator */
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding: 1.5rem;
+  padding-bottom: 5rem;
 }
 
 .header-bg {
   background-color: #047857;
+
 }
 
 .btn-style {
@@ -107,7 +58,6 @@ body {
 .btn-style:hover {
   background-color: #374151;
 }
-
 /* Cart Icon Styles */
 .cart-icon-container {
   position: absolute;

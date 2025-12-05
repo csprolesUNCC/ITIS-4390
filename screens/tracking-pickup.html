@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pickup Tracking · Whole Foods</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body class="bg-black">
+  <div class="mobile-container">
+    <div class="content-area pb-20">
+      <!-- Header -->
+      <div class="flex items-center mb-4">
+        <button
+          type="button"
+          onclick="window.location.href='home.html'"
+          class="text-gray-300 text-xl mr-3"
+          aria-label="Back to home"
+        >
+          ←
+        </button>
+        <div class="w-12 h-12 bg-green-700 rounded-full flex items-center justify-center mr-3">
+          <span class="text-white font-serif text-xs font-bold leading-none">
+            WHOLE<br />FOODS
+          </span>
+        </div>
+        <div>
+          <h1 class="text-white text-2xl font-light">Pickup Status</h1>
+          <p id="tracker-subtitle" class="text-gray-400 text-xs mt-1">
+            Tracking your pickup order…
+          </p>
+        </div>
+      </div>
+
+      <!-- Order summary -->
+      <section class="mb-6">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          Pickup Order
+        </div>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-lg px-3 py-3 text-sm text-gray-100">
+          <p class="text-emerald-300 text-xs font-semibold uppercase tracking-wide mb-1">
+            Curbside Pickup
+          </p>
+          <p id="summary-window" class="text-sm font-medium">
+            Window: Loading…
+          </p>
+          <p id="summary-date" class="text-[11px] text-gray-400 mt-1">
+            Date: Loading…
+          </p>
+          <p id="summary-store" class="text-[11px] text-gray-400 mt-1">
+            Store: Loading…
+          </p>
+        </div>
+      </section>
+
+      <!-- Status steps -->
+      <section class="mb-6">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          Order Progress
+        </div>
+
+        <p id="status-label" class="text-sm text-white mb-2">
+          Currently: We're shopping your order
+        </p>
+        <p class="text-[11px] text-gray-400 mb-3">
+          You'll receive a notification when your order is ready for pickup.
+        </p>
+
+        <div id="status-steps" class="space-y-2">
+          <!-- Steps will be rendered here -->
+        </div>
+      </section>
+
+      <!-- Pickup Code (Shows when ready) -->
+      <section class="mb-6" id="pickup-code-section" style="display: none;">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          Your Pickup Code
+        </div>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-lg px-4 py-6 text-center">
+          <p class="text-gray-300 text-sm mb-3">Show this code to the associate:</p>
+          <div class="bg-green-700 text-white text-4xl font-bold py-4 rounded-lg mb-2">
+            #8472
+          </div>
+          <p class="text-xs text-gray-400">Order confirmation code</p>
+        </div>
+      </section>
+
+      <!-- Pickup Instructions -->
+      <section class="mb-6">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          Pickup Instructions
+        </div>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-lg px-3 py-3 text-xs text-gray-100">
+          <p class="mb-2">
+            <strong>Store Location:</strong> <span id="store-address">1234 Smiling Friends Lane, Charlotte, NC 22222</span>
+          </p>
+          <div class="space-y-2 text-gray-300 mb-3">
+            <p>🚗 <strong>Step 1:</strong> Park in designated curbside pickup spots</p>
+            <p>📱 <strong>Step 2:</strong> Call the store or use the app to notify arrival</p>
+            <p>🛍️ <strong>Step 3:</strong> Show your pickup code to the associate</p>
+          </div>
+          <p class="text-gray-400 text-[11px] mb-3">
+            <strong>Special Instructions:</strong> Call when you arrive
+          </p>
+          <div class="mt-3 h-24 bg-gray-800 rounded-md flex items-center justify-center text-[11px] text-gray-400">
+            📍 Store location map
+          </div>
+        </div>
+      </section>
+
+      <!-- Store Contact -->
+      <section class="mb-10">
+        <div class="bg-gray-900 border border-gray-800 rounded-lg px-3 py-3">
+          <p class="text-white text-sm font-medium mb-2">Need to contact the store?</p>
+          <button class="w-full bg-green-700 hover:bg-green-600 text-white py-2 rounded-full text-sm font-medium">
+            📞 Call Store: (704) 555-0123
+          </button>
+        </div>
+      </section>
+
+      <!-- Contact Support -->
+      <div class="text-center mb-6">
+        <button class="text-green-500 text-sm hover:text-green-400">
+          Need help? Contact Support
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+      <a href="home.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🏠</span>
+        Home
+      </a>
+      <a href="shop.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🛒</span>
+        Shop
+      </a>
+      <a href="search.html" class="flex flex-col items-center text-xs">
+        <span class="text-lg">🔎</span>
+        Search
+      </a>
+      <a href="profile.html" class="flex flex-col items-center text-xs text-green-300">
+        <span class="text-lg">👤</span>
+        Profile
+      </a>
+    </nav>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/data/supabaseAuth.js"></script>
+  <script src="/data/data_api.js"></script>
+
+  <script>
+    const PICKUP_PHASES = [
+      "Order placed",
+      "We're shopping your order",
+      "Ready for pickup",
+      "Picked up"
+    ];
+
+    let currentPhaseIndex = 1;
+
+    function renderSteps(container, phases, currentIndex) {
+      container.innerHTML = "";
+
+      phases.forEach((label, index) => {
+        const isCompleted = index < currentIndex;
+        const isCurrent = index === currentIndex;
+
+        const row = document.createElement("div");
+        row.className = "flex items-center";
+
+        const circle = document.createElement("div");
+        circle.className =
+          "w-6 h-6 flex items-center justify-center rounded-full text-[11px] mr-2 " +
+          (isCompleted || isCurrent
+            ? "bg-emerald-500 text-black"
+            : "bg-gray-800 text-gray-400 border border-gray-600");
+
+        circle.textContent = index + 1;
+
+        const text = document.createElement("p");
+        text.className =
+          "text-xs " +
+          (isCurrent
+            ? "text-white font-semibold"
+            : isCompleted
+            ? "text-emerald-300"
+            : "text-gray-400");
+        text.textContent = label;
+
+        row.appendChild(circle);
+        row.appendChild(text);
+
+        container.appendChild(row);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      const statusLabelEl = document.getElementById("status-label");
+      const statusStepsEl = document.getElementById("status-steps");
+      const pickupCodeSection = document.getElementById("pickup-code-section");
+      const summaryWindowEl = document.getElementById("summary-window");
+      const summaryDateEl = document.getElementById("summary-date");
+      const summaryStoreEl = document.getElementById("summary-store");
+      const storeAddressEl = document.getElementById("store-address");
+
+      try {
+        await DataAPI.loadEverything();
+
+        const session = await SupabaseAuth.getCurrentUserWithProfile().catch(() => null);
+        let profile = session?.profile || {};
+        
+        // Get store and slot info
+        let storeId = profile?.default_store_id || DataAPI.getStoreLocations()[0]?.id;
+        let store = storeId ? DataAPI.getStoreLocation(storeId) : null;
+        let slots = storeId ? DataAPI.getDeliverySlots(storeId) : [];
+        let activeSlot = slots.length ? slots[0] : null;
+
+        if (activeSlot) {
+          summaryWindowEl.textContent = `Window: ${activeSlot.window}`;
+          summaryDateEl.textContent = `Date: ${activeSlot.date}`;
+        } else {
+          summaryWindowEl.textContent = "Window: Today, 2-4 PM";
+          summaryDateEl.textContent = "Date: December 5, 2025";
+        }
+
+        if (store) {
+          summaryStoreEl.textContent = `Store: ${store.name} — ${store.city}, ${store.state}`;
+          storeAddressEl.textContent = `${store.address}, ${store.city}, ${store.state} ${store.zip}`;
+        } else {
+          summaryStoreEl.textContent = "Store: Whole Foods Market";
+          storeAddressEl.textContent = "1234 Smiling Friends Lane, Charlotte, NC 22222";
+        }
+
+        // Initial render
+        statusLabelEl.textContent = `Currently: ${PICKUP_PHASES[currentPhaseIndex]}`;
+        renderSteps(statusStepsEl, PICKUP_PHASES, currentPhaseIndex);
+
+        // Progress simulation
+        setInterval(() => {
+          if (currentPhaseIndex < PICKUP_PHASES.length - 1) {
+            currentPhaseIndex += 1;
+            statusLabelEl.textContent = `Currently: ${PICKUP_PHASES[currentPhaseIndex]}`;
+            renderSteps(statusStepsEl, PICKUP_PHASES, currentPhaseIndex);
+
+            // Show pickup code when ready
+            if (currentPhaseIndex === 2) {
+              pickupCodeSection.style.display = 'block';
+            }
+          }
+        }, 10000);
+
+      } catch (err) {
+        console.error("Error loading pickup tracker:", err);
+      }
+    });
+  </script>
+</body>
+</html>

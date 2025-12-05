@@ -3,61 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment Information</title>
+    <title>Checkout - Whole Foods</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="app.css">
 </head>
-<body>
+<body class="bg-black">
 
     <div class="mobile-container">
-        <div class="content-area">
-
-            <!-- BACK BUTTON ADDED HERE -->
-            <div class="flex items-center mb-6">
-                <a href="profile.html" class="text-white text-xl mr-3">←</a>
-            </div>
-            <!-- END BACK BUTTON -->
-
-            <div class="flex items-center mb-8">
+        <!-- Header -->
+        <div class="px-4 pt-6 pb-4">
+            <div class="flex items-center justify-between mb-4">
+                <button onclick="window.location.href='cart.html'" class="px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded-full">
+                    <span class="text-sm font-medium">← Back</span>
+                </button>
                 <div class="h-12 w-12 rounded-full overflow-hidden">
                     <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
                 </div>
-
-                <h1 class="text-white text-3xl font-light ml-4">Payment Info</h1>
             </div>
+            <h1 class="text-white text-2xl font-light text-center mb-4">Delivery Checkout</h1>
 
-            <div class="mb-8">
-                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-4">
-                    Saved Payment Methods
+            <!-- Delivery/Pickup Toggle -->
+            <div class="flex bg-gray-900 border border-gray-700 rounded-full p-1 text-sm text-gray-200 w-full max-w-xs mx-auto">
+                <button
+                    id="mode-pickup"
+                    type="button"
+                    onclick="toggleMode('pickup')"
+                    class="flex-1 py-2 rounded-full text-center transition-colors"
+                >
+                    Pickup
+                </button>
+                <button
+                    id="mode-delivery"
+                    type="button"
+                    onclick="toggleMode('delivery')"
+                    class="flex-1 py-2 rounded-full text-center bg-green-700 transition-colors"
+                >
+                    Delivery
+                </button>
+            </div>
+        </div>
+
+        <div class="content-area px-4 pb-24">
+            
+            <!-- Order Summary Card -->
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-4 mb-4">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        <p class="text-gray-400 text-xs mb-1">Subtotal:</p>
+                        <p class="text-white font-semibold text-lg" id="payment-subtotal">$23.99</p>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-gray-400 text-xs mb-1" id="fee-label">Delivery Fee:</p>
+                        <p class="text-white font-semibold text-lg" id="payment-fee">$4.99</p>
+                    </div>
+                </div>
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex-1">
+                        <p class="text-gray-400 text-xs mb-1">Service Fee:</p>
+                        <p class="text-white font-semibold text-lg">$1.99</p>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-gray-400 text-xs mb-1">Estimated Tax:</p>
+                        <p class="text-white font-semibold text-lg" id="payment-tax">$1.34</p>
+                    </div>
                 </div>
 
-                <div class="space-y-4 text-white">
-
-                    <div class="border-l-4 border-green-700 pl-3 py-2 flex justify-between items-center">
-                        <div>
-                            <p class="text-sm text-gray-400">Visa Ending in:</p>
-                            <p class="font-medium">**** 2391</p>
-                        </div>
-                        <button class="text-green-500 text-xl pr-2">&#x270E;</button>
+                <div class="border-t border-gray-700 pt-3 mb-4">
+                    <div class="flex justify-between items-center">
+                        <p class="text-white font-bold text-xl">Total Cost:</p>
+                        <p class="text-green-400 font-bold text-xl" id="payment-total">$32.31</p>
                     </div>
+                </div>
 
-                    <div class="border-l-4 border-green-700 pl-3 py-2 flex justify-between items-center">
-                        <div>
-                            <p class="text-sm text-gray-400">Mastercard Ending in:</p>
-                            <p class="font-medium">**** 8840</p>
-                        </div>
-                        <button class="text-green-500 text-xl pr-2">&#x270E;</button>
+                <!-- Tip Options (Delivery Only) -->
+                <div class="mb-4" id="tip-section">
+                    <p class="text-gray-300 text-sm mb-2">Add a tip:</p>
+                    <div class="flex gap-2">
+                        <button onclick="setTip(1)" id="tip-1" class="flex-1 bg-green-700 hover:bg-green-600 text-white py-2 rounded-full text-sm font-medium">$1</button>
+                        <button onclick="setTip(2)" id="tip-2" class="flex-1 bg-green-700 hover:bg-green-600 text-white py-2 rounded-full text-sm font-medium">$2</button>
+                        <button onclick="setTip(3)" id="tip-3" class="flex-1 bg-green-700 hover:bg-green-600 text-white py-2 rounded-full text-sm font-medium">$3</button>
+                        <button onclick="showCustomTipPrompt()" id="tip-other" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-full text-sm font-medium">Other</button>
                     </div>
-
+                    <p class="text-xs text-gray-400 mt-2 text-center" id="tip-display">No tip selected</p>
                 </div>
             </div>
 
-            <button class="w-full header-bg text-white font-medium py-3 rounded-md">
-                Add New Card
+            <!-- Delivery Address / Store Address -->
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-4 mb-4" id="address-section">
+                <div class="flex items-start">
+                    <div class="mr-3">
+                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-gray-400 text-xs mb-1" id="address-label">Your Address:</p>
+                        <p class="text-white font-medium" id="address-line1">1234 Smiling Friends Lane</p>
+                        <p class="text-white" id="address-line2">Charlotte, NC 22222</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Method -->
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-4 mb-4">
+                <div class="flex items-start">
+                    <div class="mr-3">
+                        <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-gray-400 text-xs mb-1">Payment Info:</p>
+                        <p class="text-white font-medium">Credit Card here</p>
+                        <p class="text-white">Expiration | 883 | Zip</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delivery/Pickup Instructions -->
+            <div class="bg-gray-900 border border-gray-700 rounded-lg p-4 mb-4">
+                <label class="text-gray-300 text-sm mb-2 block" id="instructions-label">Delivery instructions...</label>
+                <textarea 
+                    id="instructions-input"
+                    class="w-full bg-gray-800 border border-gray-600 text-white rounded-md p-3 text-sm focus:outline-none focus:border-green-500 resize-none" 
+                    rows="3" 
+                    placeholder="Leave at door, ring bell, etc.">
+                </textarea>
+            </div>
+
+            <!-- Confirm Order Button -->
+            <button onclick="showConfirmModal()" class="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-4 rounded-full text-lg" id="confirm-button">
+                Confirm Delivery
             </button>
 
         </div>
 
+        <!-- Confirmation Modal -->
+        <div id="confirm-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 px-4">
+            <div class="bg-gray-800 rounded-lg p-6 max-w-sm w-full">
+                <h2 class="text-white text-xl font-semibold mb-3">Confirm order?</h2>
+                <p class="text-gray-300 text-sm mb-6">Make sure you have everything you need before placing your order.</p>
+                <div class="flex gap-3">
+                    <button onclick="hideConfirmModal()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-lg font-medium">
+                        Cancel
+                    </button>
+                    <button onclick="confirmOrder()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg font-medium">
+                        Confirm
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
         <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
             <a href="home.html" class="flex flex-col items-center text-xs">
                 <span class="text-lg">🏠</span>
@@ -71,12 +169,162 @@
                 <span class="text-lg">🔎</span>
                 Search
             </a>
-            <a href="profile.html" class="flex flex-col items-center text-xs text-green-300">
+            <a href="profile.html" class="flex flex-col items-center text-xs">
                 <span class="text-lg">👤</span>
                 Profile
             </a>
         </nav>
     </div>
+
+    <script src="cart-manager.js"></script>
+    <script>
+        let currentMode = 'delivery';
+        let currentTip = 0;
+        let selectedTipButton = null;
+
+        // Load cart totals
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.cartManager) {
+                updateTotals();
+            }
+        });
+
+        function updateTotals() {
+            const subtotal = window.cartManager.getTotal();
+            const tax = subtotal * 0.07;
+            const fee = currentMode === 'delivery' ? 4.99 : 0;
+            const serviceFee = 1.99;
+            const total = subtotal + tax + fee + serviceFee + currentTip;
+
+            document.getElementById('payment-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('payment-fee').textContent = `$${fee.toFixed(2)}`;
+            document.getElementById('payment-tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('payment-total').textContent = `$${total.toFixed(2)}`;
+        }
+
+        function setTip(amount) {
+            currentTip = amount;
+            
+            // Reset all tip button styles
+            ['tip-1', 'tip-2', 'tip-3', 'tip-other'].forEach(id => {
+                const btn = document.getElementById(id);
+                btn.classList.remove('bg-emerald-600');
+                if (id === 'tip-other') {
+                    btn.classList.add('bg-gray-700');
+                } else {
+                    btn.classList.add('bg-green-700');
+                }
+            });
+
+            // Highlight selected button
+            const btnId = `tip-${amount}`;
+            selectedTipButton = document.getElementById(btnId);
+            if (selectedTipButton) {
+                selectedTipButton.classList.remove('bg-green-700');
+                selectedTipButton.classList.add('bg-emerald-600');
+            }
+
+            document.getElementById('tip-display').textContent = `Tip: $${amount.toFixed(2)}`;
+            updateTotals();
+        }
+
+        function showCustomTipPrompt() {
+            const customAmount = prompt('Enter custom tip amount:', '');
+            if (customAmount !== null && customAmount !== '') {
+                const amount = parseFloat(customAmount);
+                if (!isNaN(amount) && amount >= 0) {
+                    currentTip = amount;
+                    
+                    // Reset preset buttons
+                    ['tip-1', 'tip-2', 'tip-3'].forEach(id => {
+                        const btn = document.getElementById(id);
+                        btn.classList.remove('bg-emerald-600');
+                        btn.classList.add('bg-green-700');
+                    });
+
+                    // Highlight "Other" button
+                    const otherBtn = document.getElementById('tip-other');
+                    otherBtn.classList.remove('bg-gray-700');
+                    otherBtn.classList.add('bg-emerald-600');
+                    selectedTipButton = otherBtn;
+
+                    document.getElementById('tip-display').textContent = `Tip: $${amount.toFixed(2)}`;
+                    updateTotals();
+                } else {
+                    alert('Please enter a valid tip amount.');
+                }
+            }
+        }
+
+        function toggleMode(mode) {
+            currentMode = mode;
+            const pickupBtn = document.getElementById('mode-pickup');
+            const deliveryBtn = document.getElementById('mode-delivery');
+            const feeLabel = document.getElementById('fee-label');
+            const addressLabel = document.getElementById('address-label');
+            const addressLine1 = document.getElementById('address-line1');
+            const addressLine2 = document.getElementById('address-line2');
+            const instructionsLabel = document.getElementById('instructions-label');
+            const instructionsInput = document.getElementById('instructions-input');
+            const confirmButton = document.getElementById('confirm-button');
+            const tipSection = document.getElementById('tip-section');
+
+            if (mode === 'pickup') {
+                pickupBtn.classList.add('bg-green-700');
+                deliveryBtn.classList.remove('bg-green-700');
+                feeLabel.textContent = 'Pickup Fee:';
+                addressLabel.textContent = 'Store Address:';
+                addressLine1.textContent = '1234 Smiling Friends Lane';
+                addressLine2.textContent = 'Charlotte, NC 22222';
+                instructionsLabel.textContent = 'Pickup instructions...';
+                instructionsInput.placeholder = 'Special instructions for pickup';
+                confirmButton.textContent = 'Confirm Pickup';
+                tipSection.style.display = 'none';
+                currentTip = 0;
+                document.getElementById('tip-display').textContent = 'No tip selected';
+                
+                // Reset tip button styles
+                ['tip-1', 'tip-2', 'tip-3', 'tip-other'].forEach(id => {
+                    const btn = document.getElementById(id);
+                    btn.classList.remove('bg-emerald-600');
+                    if (id === 'tip-other') {
+                        btn.classList.add('bg-gray-700');
+                    } else {
+                        btn.classList.add('bg-green-700');
+                    }
+                });
+            } else {
+                deliveryBtn.classList.add('bg-green-700');
+                pickupBtn.classList.remove('bg-green-700');
+                feeLabel.textContent = 'Delivery Fee:';
+                addressLabel.textContent = 'Your Address:';
+                addressLine1.textContent = '1234 Smiling Friends Lane';
+                addressLine2.textContent = 'Charlotte, NC 22222';
+                instructionsLabel.textContent = 'Delivery instructions...';
+                instructionsInput.placeholder = 'Leave at door, ring bell, etc.';
+                confirmButton.textContent = 'Confirm Delivery';
+                tipSection.style.display = 'block';
+            }
+
+            updateTotals();
+        }
+
+        function showConfirmModal() {
+            document.getElementById('confirm-modal').classList.remove('hidden');
+        }
+
+        function hideConfirmModal() {
+            document.getElementById('confirm-modal').classList.add('hidden');
+        }
+
+        function confirmOrder() {
+            if (currentMode === 'pickup') {
+                window.location.href = 'tracking-pickup.html';
+            } else {
+                window.location.href = 'tracking-delivery.html';
+            }
+        }
+    </script>
 
 </body>
 </html>

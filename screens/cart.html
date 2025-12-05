@@ -42,7 +42,7 @@
         </div>
     </div>
 
-    <div class="px-4" id="cart-summary-section">    
+    <div class="px-4 pb-24" id="cart-summary-section">    
         <!-- Price Summary Box -->
         <div class="bg-green-800 text-white p-4 rounded-md mt-6 shadow-md">
             <div class="flex justify-between mb-1">
@@ -59,15 +59,10 @@
             </div>
         </div>
 
-        <!-- Delivery Button -->
-        <button class="w-full bg-green-700 text-white font-medium py-3 rounded-full mt-6 text-lg">
-            Delivery Checkout
-        </button>
-
-        <!-- Payment Button -->
-        <button class="w-full bg-green-700 text-white font-medium py-3 rounded-full mt-6 text-lg mb-6">
-            Continue to Payment
-        </button>
+        <!-- Checkout Button -->
+        <a href="payment.html" class="block w-full bg-green-700 text-white font-medium py-3 rounded-full mt-4 text-lg text-center hover:bg-green-600">
+            Checkout
+        </a>
     </div>
 
     <!-- Bottom Navigation -->
@@ -92,9 +87,6 @@
 
 </div>
 
-<!-- SCRIPTS -->
-<!-- This line was added to give the cart access to sale prices -->
-<script src="/data/data_api.js"></script>
 <script src="cart-manager.js"></script>
 <script>
     const PRODUCT_IMAGE_MAP = {

@@ -56,9 +56,7 @@
 
     productTitle.textContent = product.name;
     const price = DataAPI.getEffectivePrice(product);
-    //DO NOT CHANGE THIS LINE
-product.price = price ? price.cents / 100 : 0;
-//
+
     const PRODUCT_IMAGE_MAP = {
       101: 'img/bananas.png',
       102: 'img/honeycrisp_apple.png',
@@ -78,7 +76,7 @@ product.price = price ? price.cents / 100 : 0;
       product.image_url ||
       'img/placeholder.png';
 
-    // build tags
+    // Build dietary/badge tags
     const tags = [];
     if (product.dietary && product.dietary.length > 0) {
       tags.push(...product.dietary);
