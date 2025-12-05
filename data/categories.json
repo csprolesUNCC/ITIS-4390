@@ -7,6 +7,7 @@
     { "id": 5, "name": "Pantry", "slug": "pantry" },
     { "id": 6, "name": "Frozen", "slug": "frozen" },
     { "id": 7, "name": "Beverages", "slug": "beverages" },
-    { "id": 8, "name": "Prepared Foods", "slug": "prepared-foods" }
+    { "id": 8, "name": "Prepared Foods", "slug": "prepared-foods" },
+    { "id": 9, "name": "Snacks", "slug": "snacks" }
   ]
 }

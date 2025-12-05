@@ -153,30 +153,50 @@
   <script src="/data/data_api.js"></script>
 
   <script>
-    function createProductCard(product) {
-      const card = document.createElement('a');
-      card.href = `product.html?id=${product.id}`;
-      card.className = "flex-shrink-0 w-36 bg-gray-900 rounded-xl border border-gray-800 p-3";
+   function createProductCard(product) {
+    const card = document.createElement('div');
+    card.className = "flex-shrink-0 w-36 bg-gray-900 rounded-lg overflow-hidden shadow border border-gray-700";
 
-      const img = document.createElement('div');
-      img.className = "h-20 bg-gray-700 rounded-md mb-3 flex items-center justify-center text-[10px] text-gray-300 text-center px-1";
-      img.textContent = product.name;
+    const img = document.createElement('img');
+    img.className = "w-full h-20 object-cover"; 
+    img.src = product.image_url; // This is the key change!
+    img.alt = product.name; // Good for accessibility
 
-      const nameEl = document.createElement('p');
-      nameEl.className = "text-xs text-gray-300 line-clamp-2";
-      nameEl.textContent = product.name;
+    // Add a fallback in case the image doesn't load
+    img.onerror = function() {
+        // If the image fails to load, hide it 
+        this.style.display = 'none';
+    };
 
-      const priceEl = document.createElement('p');
-      priceEl.className = "text-xs text-emerald-300 font-semibold mt-1";
-      const variant = Array.isArray(product.variants) ? product.variants[0] : null;
-      priceEl.textContent = variant?.price_display || "";
+    const body = document.createElement('div');
+    body.className = "p-2";
 
-      card.appendChild(img);
-      card.appendChild(nameEl);
-      card.appendChild(priceEl);
+    const nameEl = document.createElement('p');
+    nameEl.className = "text-xs text-white font-medium truncate";
+    nameEl.textContent = product.name;
 
-      return card;
-    }
+    const categoryEl = document.createElement('p');
+    categoryEl.className = "text-[10px] text-gray-400 mt-1";
+    categoryEl.textContent = product.category_name || "";
+
+    const priceEl = document.createElement('p');
+    priceEl.className = "text-xs text-green-400 mt-1 font-semibold";
+    const firstVariant = Array.isArray(product.variants) ? product.variants[0] : null;
+    priceEl.textContent = firstVariant?.price_display || "";
+
+    body.appendChild(nameEl);
+    body.appendChild(categoryEl);
+    body.appendChild(priceEl);
+
+    card.appendChild(img); // The image is appended to the card
+    card.appendChild(body);
+
+    card.addEventListener('click', () => {
+        window.location.href = `product.html?id=${product.id}`;
+    });
+
+    return card;
+}
 
     document.addEventListener('DOMContentLoaded', async () => {
       const subtitleEl = document.getElementById('shop-subtitle');

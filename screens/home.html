@@ -88,43 +88,50 @@
     <script src="/data/data_api.js"></script>
 
     <script>
-        function createProductCard(product) {
-            const card = document.createElement('div');
-            card.className = "flex-shrink-0 w-36 bg-gray-900 rounded-lg overflow-hidden shadow border border-gray-700";
+      function createProductCard(product) {
+    const card = document.createElement('div');
+    card.className = "flex-shrink-0 w-36 bg-gray-900 rounded-lg overflow-hidden shadow border border-gray-700";
 
-            const img = document.createElement('div');
-            img.className = "w-full h-20 bg-gray-700 flex items-center justify-center text-xs text-gray-300 px-2 text-center";
-            img.textContent = product.name;
+    const img = document.createElement('img');
+    img.className = "w-full h-20 object-cover"; 
+    img.src = product.image_url; // This is the key change!
+    img.alt = product.name; // Good for accessibility
 
-            const body = document.createElement('div');
-            body.className = "p-2";
+    // Add a fallback in case the image doesn't load
+    img.onerror = function() {
+        // If the image fails to load, hide it 
+        this.style.display = 'none';
+    };
 
-            const nameEl = document.createElement('p');
-            nameEl.className = "text-xs text-white font-medium truncate";
-            nameEl.textContent = product.name;
+    const body = document.createElement('div');
+    body.className = "p-2";
 
-            const categoryEl = document.createElement('p');
-            categoryEl.className = "text-[10px] text-gray-400 mt-1";
-            categoryEl.textContent = product.category_name || "";
+    const nameEl = document.createElement('p');
+    nameEl.className = "text-xs text-white font-medium truncate";
+    nameEl.textContent = product.name;
 
-            const priceEl = document.createElement('p');
-            priceEl.className = "text-xs text-green-400 mt-1 font-semibold";
-            const firstVariant = Array.isArray(product.variants) ? product.variants[0] : null;
-            priceEl.textContent = firstVariant?.price_display || "";
+    const categoryEl = document.createElement('p');
+    categoryEl.className = "text-[10px] text-gray-400 mt-1";
+    categoryEl.textContent = product.category_name || "";
 
-            body.appendChild(nameEl);
-            body.appendChild(categoryEl);
-            body.appendChild(priceEl);
+    const priceEl = document.createElement('p');
+    priceEl.className = "text-xs text-green-400 mt-1 font-semibold";
+    const firstVariant = Array.isArray(product.variants) ? product.variants[0] : null;
+    priceEl.textContent = firstVariant?.price_display || "";
 
-            card.appendChild(img);
-            card.appendChild(body);
+    body.appendChild(nameEl);
+    body.appendChild(categoryEl);
+    body.appendChild(priceEl);
 
-            card.addEventListener('click', () => {
-                window.location.href = `product.html?id=${product.id}`;
-            });
+    card.appendChild(img); // The image is appended to the card
+    card.appendChild(body);
 
-            return card;
-        }
+    card.addEventListener('click', () => {
+        window.location.href = `product.html?id=${product.id}`;
+    });
+
+    return card;
+}
 
         function createCategoryChip(category) {
             const chip = document.createElement('button');
