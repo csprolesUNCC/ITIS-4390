@@ -12,22 +12,20 @@
 
 <div class="mobile-container">
 
-    <div class="px-4 relative mb-4 mt-4">
-        <div class="flex items-center justify-between">
-            <button onclick="history.back()" aria-label="Go back" class="px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded-full flex items-center space-x-2">
-            <span class="text-sm font-medium">← Back</span>
-            </button>
+    <div class="content-area">
+        <div class="relative mb-6">
+            <div class="flex items-center justify-between">
+                <button onclick="history.back()" aria-label="Go back" class="px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded-full flex items-center space-x-2">
+                <span class="text-sm font-medium">← Back</span>
+                </button>
 
-            <div class="h-12 w-12 rounded-full overflow-hidden">
-                <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
+                <div class="h-12 w-12 rounded-full overflow-hidden">
+                    <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
+                </div>
             </div>
-        </div>
 
             <h1 class="absolute inset-0 flex items-center justify-center text-white text-3xl font-light pointer-events-none">Cart</h1>
-    </div>
-    
-
-    <div class="content-area">
+        </div>
         <div id="cart-items-container">
             <!-- Cart items will be dynamically inserted here -->
         </div>
@@ -40,29 +38,29 @@
                 Start Shopping
             </a>
         </div>
-    </div>
 
-    <div class="px-4 pb-24" id="cart-summary-section">    
-        <!-- Price Summary Box -->
-        <div class="bg-green-800 text-white p-4 rounded-md mt-6 shadow-md">
-            <div class="flex justify-between mb-1">
-                <span class="text-sm">Subtotal</span>
-                <span class="font-medium" id="subtotal">$0.00</span>
+        <div id="cart-summary-section">    
+            <!-- Price Summary Box -->
+            <div class="bg-green-800 text-white p-4 rounded-md mt-6 shadow-md">
+                <div class="flex justify-between mb-1">
+                    <span class="text-sm">Subtotal</span>
+                    <span class="font-medium" id="subtotal">$0.00</span>
+                </div>
+                <div class="flex justify-between mb-1">
+                    <span class="text-sm">Estimated Tax</span>
+                    <span class="font-medium" id="tax">$0.00</span>
+                </div>
+                <div class="flex justify-between border-t border-green-600 mt-2 pt-2">
+                    <span class="font-semibold">Total</span>
+                    <span class="font-semibold" id="total">$0.00</span>
+                </div>
             </div>
-            <div class="flex justify-between mb-1">
-                <span class="text-sm">Estimated Tax</span>
-                <span class="font-medium" id="tax">$0.00</span>
-            </div>
-            <div class="flex justify-between border-t border-green-600 mt-2 pt-2">
-                <span class="font-semibold">Total</span>
-                <span class="font-semibold" id="total">$0.00</span>
-            </div>
+
+            <!-- Checkout Button -->
+            <a href="payment.html" class="block w-full bg-green-700 text-white font-medium py-3 rounded-full mt-4 text-lg text-center hover:bg-green-600">
+                Checkout
+            </a>
         </div>
-
-        <!-- Checkout Button -->
-        <a href="payment.html" class="block w-full bg-green-700 text-white font-medium py-3 rounded-full mt-4 text-lg text-center hover:bg-green-600">
-            Checkout
-        </a>
     </div>
 
     <!-- Bottom Navigation -->

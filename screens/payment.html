@@ -10,40 +10,39 @@
 <body class="bg-black">
 
     <div class="mobile-container">
-        <!-- Header -->
-        <div class="px-4 pt-6 pb-4">
-            <div class="flex items-center justify-between mb-4">
-                <button onclick="window.location.href='cart.html'" class="px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded-full">
-                    <span class="text-sm font-medium">← Back</span>
-                </button>
-                <div class="h-12 w-12 rounded-full overflow-hidden">
-                    <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
+        <div class="content-area">
+            <!-- Header -->
+            <div class="mb-4">
+                <div class="flex items-center justify-between mb-4">
+                    <button onclick="window.location.href='cart.html'" class="px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded-full">
+                        <span class="text-sm font-medium">← Back</span>
+                    </button>
+                    <div class="h-12 w-12 rounded-full overflow-hidden">
+                        <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
+                    </div>
+                </div>
+                <h1 class="text-white text-2xl font-light text-center mb-4">Delivery Checkout</h1>
+
+                <!-- Delivery/Pickup Toggle -->
+                <div class="flex bg-gray-900 border border-gray-700 rounded-full p-1 text-sm text-gray-200 w-full max-w-xs mx-auto">
+                    <button
+                        id="mode-pickup"
+                        type="button"
+                        onclick="toggleMode('pickup')"
+                        class="flex-1 py-2 rounded-full text-center transition-colors"
+                    >
+                        Pickup
+                    </button>
+                    <button
+                        id="mode-delivery"
+                        type="button"
+                        onclick="toggleMode('delivery')"
+                        class="flex-1 py-2 rounded-full text-center bg-green-700 transition-colors"
+                    >
+                        Delivery
+                    </button>
                 </div>
             </div>
-            <h1 class="text-white text-2xl font-light text-center mb-4">Delivery Checkout</h1>
-
-            <!-- Delivery/Pickup Toggle -->
-            <div class="flex bg-gray-900 border border-gray-700 rounded-full p-1 text-sm text-gray-200 w-full max-w-xs mx-auto">
-                <button
-                    id="mode-pickup"
-                    type="button"
-                    onclick="toggleMode('pickup')"
-                    class="flex-1 py-2 rounded-full text-center transition-colors"
-                >
-                    Pickup
-                </button>
-                <button
-                    id="mode-delivery"
-                    type="button"
-                    onclick="toggleMode('delivery')"
-                    class="flex-1 py-2 rounded-full text-center bg-green-700 transition-colors"
-                >
-                    Delivery
-                </button>
-            </div>
-        </div>
-
-        <div class="content-area px-4 pb-24">
             
             <!-- Order Summary Card -->
             <div class="bg-gray-900 border border-gray-700 rounded-lg p-4 mb-4">
@@ -133,7 +132,7 @@
             </div>
 
             <!-- Confirm Order Button -->
-            <button onclick="showConfirmModal()" class="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-4 rounded-full text-lg" id="confirm-button">
+            <button onclick="showConfirmModal()" class="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-4 rounded-full text-lg mb-20" id="confirm-button">
                 Confirm Delivery
             </button>
 
