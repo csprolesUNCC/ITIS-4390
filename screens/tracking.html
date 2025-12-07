@@ -32,14 +32,14 @@
         </div>
       </div>
 
-      <!-- Orders list -->
+      <!-- orders list -->
       <section class="mb-8">
         <div id="orders-list" class="space-y-3">
-          <!-- Orders rendering -->
+          <!-- order rendering -->
         </div>
       </section>
 
-      <!-- Empty state -->
+      <!-- empty state -->
       <div id="orders-empty" class="hidden text-center text-xs text-gray-400 mt-10">
         <p class="mb-2">No orders yet.</p>
         <button
@@ -72,12 +72,46 @@
     </nav>
   </div>
 
+  <!--  confirmation modal -->
+  <div
+    id="delete-modal"
+    class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 px-4"
+  >
+    <div class="bg-gray-800 rounded-lg p-6 max-w-sm w-full">
+      <h2 class="text-white text-xl font-semibold mb-3">Remove this order?</h2>
+      <p class="text-gray-300 text-sm mb-6">
+        This will remove the order from your history in this app. It won’t affect any real
+        charges or payments.
+      </p>
+      <div class="flex gap-3">
+        <button
+          type="button"
+          onclick="hideDeleteModal()"
+          class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-lg font-medium"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          onclick="confirmDeleteOrder()"
+          class="flex-1 bg-red-600 hover:bg-red-500 text-white py-3 rounded-lg font-medium"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/data/supabaseAuth.js"></script>
   <script src="/data/orders_api.js"></script>
   <script src="cart-manager.js"></script>
 
   <script>
+    let orders = [];
+    let deleteOrderId = null;
+    let renderOrders; 
+
     async function handleReorder(orderId) {
       try {
         if (!orderId) return;
@@ -106,13 +140,48 @@
       }
     }
 
+    function showDeleteModal(orderId) {
+      deleteOrderId = orderId;
+      const modal = document.getElementById('delete-modal');
+      modal.classList.remove('hidden');
+    }
+
+    function hideDeleteModal() {
+      deleteOrderId = null;
+      const modal = document.getElementById('delete-modal');
+      modal.classList.add('hidden');
+    }
+
+    async function confirmDeleteOrder() {
+      if (!deleteOrderId) return;
+
+      try {
+        await OrdersAPI.deleteOrder(deleteOrderId);
+
+        // Remove from local array
+        orders = orders.filter((o) => o.id !== deleteOrderId);
+
+        // eerender list
+        if (typeof renderOrders === 'function') {
+          renderOrders();
+        }
+
+      } catch (err) {
+        console.error('[History] delete error:', err);
+        alert(err.message || 'Unable to remove order.');
+      } finally {
+        hideDeleteModal();
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       const subtitleEl = document.getElementById('history-subtitle');
       const listEl = document.getElementById('orders-list');
       const emptyEl = document.getElementById('orders-empty');
 
-      try {
-        const orders = await OrdersAPI.getOrdersForCurrentUser();
+      // renderer
+      renderOrders = function () {
+        listEl.innerHTML = '';
 
         if (!orders || !orders.length) {
           subtitleEl.textContent = 'No orders yet.';
@@ -120,6 +189,7 @@
           return;
         }
 
+        emptyEl.classList.add('hidden');
         subtitleEl.textContent = `${orders.length} order${orders.length === 1 ? '' : 's'} found`;
 
         orders.forEach((order) => {
@@ -145,7 +215,9 @@
               </div>
               <div class="text-right text-[10px] text-gray-400">
                 <p>${dateLabel}</p>
-                <p class="mt-0.5 text-emerald-200">Status: ${status.charAt(0).toUpperCase() + status.slice(1)}</p>
+                <p class="mt-0.5 text-emerald-200">
+                  Status: ${status.charAt(0).toUpperCase() + status.slice(1)}
+                </p>
               </div>
             </div>
             <div class="flex items-center justify-end gap-2 mt-2">
@@ -161,19 +233,33 @@
               >
                 Reorder
               </button>
+              <button
+                data-order-id="${order.id}"
+                class="delete-order-btn px-3 py-1 rounded-full bg-red-600 hover:bg-red-500 text-[10px] font-medium"
+              >
+                Remove
+              </button>
             </div>
           `;
 
           listEl.appendChild(card);
         });
+      };
 
+      try {
+        const data = await OrdersAPI.getOrdersForCurrentUser();
+        orders = data || [];
+        renderOrders();
+
+        // delegation for buttons
         listEl.addEventListener('click', (e) => {
           const viewBtn = e.target.closest('.view-order-btn');
           const reorderBtn = e.target.closest('.reorder-btn');
+          const deleteBtn = e.target.closest('.delete-order-btn');
 
           if (viewBtn) {
             const id = viewBtn.getAttribute('data-order-id');
-            const order = orders.find(o => o.id === id);
+            const order = orders.find((o) => o.id === id);
             if (!order) return;
             const targetUrl =
               order.mode === 'pickup'
@@ -186,8 +272,12 @@
             const id = reorderBtn.getAttribute('data-order-id');
             handleReorder(id);
           }
-        });
 
+          if (deleteBtn) {
+            const id = deleteBtn.getAttribute('data-order-id');
+            showDeleteModal(id);
+          }
+        });
       } catch (err) {
         console.error('[History] load error:', err);
         subtitleEl.textContent = 'Unable to load orders.';

@@ -86,6 +86,21 @@ const OrdersAPI = (function () {
     };
   }
 
+  async function deleteOrder(orderId) {
+    const user = await getCurrentUser();
+
+    const { error } = await supabase
+      .from("orders")
+      .delete()
+      .eq("id", orderId)
+      .eq("user_id", user.id);
+
+    if (error) {
+      console.error("[OrdersAPI] deleteOrder error:", error);
+      throw new Error(error.message || "Failed to delete order.");
+    }
+  }
+
   // Fetch all orders for current user
   async function getOrdersForCurrentUser() {
     const user = await getCurrentUser();
@@ -104,7 +119,7 @@ const OrdersAPI = (function () {
     return data || [];
   }
 
-  // Get most recent "in progress" order (anything not completed/cancelled)
+  // get most recent in progress order 
   async function getActiveOrderForCurrentUser() {
     const user = await getCurrentUser();
 
@@ -158,6 +173,7 @@ const OrdersAPI = (function () {
 
   return {
     createOrder,
+    deleteOrder,             
     getOrdersForCurrentUser,
     getActiveOrderForCurrentUser,
     getOrderWithItems

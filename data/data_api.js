@@ -248,6 +248,7 @@ const DataAPI = (function () {
     return dataStore.deliverySlots.filter(slot => slot.store_id === storeId);
 
   }
+  
 
 
   function getDeliverySlotsByDate(storeId, dateString) {
