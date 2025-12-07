@@ -1,4 +1,3 @@
-
 // [
 //   { product_id: 101, name: "Organic Bananas", unit_price: 2.99, quantity: 2 },
 // ]
@@ -13,12 +12,12 @@ const OrdersAPI = (function () {
   }
 
   // mode: 'pickup' | 'delivery'
-  // windowLabel:"Today, 4–6 PM"
+  // windowLabel: "Today, 4–6 PM"
   async function createOrder({ mode, storeId, windowLabel, items }) {
     const user = await getCurrentUser();
 
     if (!Array.isArray(items) || items.length === 0) {
-        //Error for empty cart
+      // Error for empty cart
       throw new Error("Cannot place an order with no items.");
     }
 
@@ -53,11 +52,12 @@ const OrdersAPI = (function () {
       .single();
 
     if (orderError) {
-        //Supabase error handling
+      // Supabase error handling
       console.error("[OrdersAPI] createOrder error:", orderError);
       throw new Error(orderError.message || "Failed to create order.");
     }
-    //Grab uuid to link items
+
+    // Grab uuid to link items
     const orderId = orderData.id;
 
     // Insert order items
@@ -75,7 +75,7 @@ const OrdersAPI = (function () {
       .insert(itemsToInsert);
 
     if (itemsError) {
-        //Supabse error
+      // Supabase error
       console.error("[OrdersAPI] order_items insert error:", itemsError);
       throw new Error(itemsError.message || "Failed to save order items.");
     }
@@ -86,7 +86,7 @@ const OrdersAPI = (function () {
     };
   }
 
-  //Fetch orders
+  // Fetch all orders for current user
   async function getOrdersForCurrentUser() {
     const user = await getCurrentUser();
 
@@ -104,8 +104,33 @@ const OrdersAPI = (function () {
     return data || [];
   }
 
+  // Get most recent "in progress" order (anything not completed/cancelled)
+  async function getActiveOrderForCurrentUser() {
+    const user = await getCurrentUser();
+
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*")
+      .eq("user_id", user.id)
+      .neq("status", "completed")
+      .neq("status", "cancelled")
+      .order("placed_at", { ascending: false })
+      .limit(1);
+
+    if (error) {
+      console.error("[OrdersAPI] getActiveOrderForCurrentUser error:", error);
+      throw new Error(error.message || "Failed to check active order.");
+    }
+
+    if (!data || !data.length) {
+      return null;
+    }
+
+    return data[0];
+  }
+
   async function getOrderWithItems(orderId) {
-    const user = await getCurrentUser(); 
+    await getCurrentUser(); // ensures user is logged in
 
     const { data: order, error: orderError } = await supabase
       .from("orders")
@@ -134,6 +159,7 @@ const OrdersAPI = (function () {
   return {
     createOrder,
     getOrdersForCurrentUser,
+    getActiveOrderForCurrentUser,
     getOrderWithItems
   };
 })();
