@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Information</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body class="bg-black">
+    <div class="mobile-container">
+        <div class="content-area">
+
+            <!-- Back Button -->
+            <div class="flex items-center mb-6">
+                <a href="profile.html" class="text-white text-xl mr-3">←</a>
+            </div>
+
+            <!-- Header with Logo + Title -->
+            <div class="flex items-center mb-8">
+                <div class="h-12 w-12 rounded-full overflow-hidden">
+                    <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
+                </div>
+                <h1 class="text-white text-3xl font-light ml-4">Payment Info</h1>
+            </div>
+
+            <!-- Saved Payment Methods Section -->
+            <div class="mb-8">
+                <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-4">
+                    Saved Payment Methods
+                </div>
+
+                <div class="space-y-4 text-white">
+
+                    <!-- Example Saved Card 1 -->
+                    <div class="border-l-4 border-green-700 pl-3 py-2 flex justify-between items-center bg-gray-900/60 rounded-md">
+                        <div>
+                            <p class="text-sm text-gray-400">Visa Ending in:</p>
+                            <p class="font-medium">**** 2391</p>
+                        </div>
+                        <button class="text-green-500 text-xl pr-2" aria-label="Edit Visa card">
+                            &#x270E;
+                        </button>
+                    </div>
+
+                    <!-- Example Saved Card 2 -->
+                    <div class="border-l-4 border-green-700 pl-3 py-2 flex justify-between items-center bg-gray-900/60 rounded-md">
+                        <div>
+                            <p class="text-sm text-gray-400">Mastercard Ending in:</p>
+                            <p class="font-medium">**** 8840</p>
+                        </div>
+                        <button class="text-green-500 text-xl pr-2" aria-label="Edit Mastercard">
+                            &#x270E;
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Add New Card Button -->
+            <button class="w-full header-bg text-white font-medium py-3 rounded-md">
+                Add New Card
+            </button>
+
+        </div>
+
+        <!-- Bottom Nav (matches other screens) -->
+        <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+            <a href="home.html" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🏠</span>
+                Home
+            </a>
+            <a href="shop.html" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🛒</span>
+                Shop
+            </a>
+            <a href="search.html" class="flex flex-col items-center text-xs">
+                <span class="text-lg">🔎</span>
+                Search
+            </a>
+            <a href="profile.html" class="flex flex-col items-center text-xs text-green-300">
+                <span class="text-lg">👤</span>
+                Profile
+            </a>
+        </nav>
+    </div>
+</body>
+</html>
