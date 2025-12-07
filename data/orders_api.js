@@ -1,6 +1,3 @@
-// [
-//   { product_id: 101, name: "Organic Bananas", unit_price: 2.99, quantity: 2 },
-// ]
 
 const OrdersAPI = (function () {
   async function getCurrentUser() {
@@ -11,13 +8,12 @@ const OrdersAPI = (function () {
     return user;
   }
 
-  // mode: 'pickup' | 'delivery'
-  // windowLabel: "Today, 4–6 PM"
+  // mode: 'pickup''delivery'
   async function createOrder({ mode, storeId, windowLabel, items }) {
     const user = await getCurrentUser();
 
     if (!Array.isArray(items) || items.length === 0) {
-      // Error for empty cart
+      // error for empty cart
       throw new Error("Cannot place an order with no items.");
     }
 
@@ -37,7 +33,7 @@ const OrdersAPI = (function () {
 
     const total = normalizedItems.reduce((sum, i) => sum + i.subtotal, 0);
 
-    // Insert order
+    // insert order
     const { data: orderData, error: orderError } = await supabase
       .from("orders")
       .insert({
@@ -52,12 +48,12 @@ const OrdersAPI = (function () {
       .single();
 
     if (orderError) {
-      // Supabase error handling
+      // supabase error handling
       console.error("[OrdersAPI] createOrder error:", orderError);
       throw new Error(orderError.message || "Failed to create order.");
     }
 
-    // Grab uuid to link items
+    //  uuid to link items
     const orderId = orderData.id;
 
     // Insert order items
@@ -101,7 +97,7 @@ const OrdersAPI = (function () {
     }
   }
 
-  // Fetch all orders for current user
+  // Fetch  orders for current user
   async function getOrdersForCurrentUser() {
     const user = await getCurrentUser();
 
