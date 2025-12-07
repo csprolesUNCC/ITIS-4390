@@ -66,7 +66,10 @@
 
             <!-- Active order banner (hidden if no active order) -->
             <div id="active-order-banner" class="hidden mb-4 px-1">
-                <div class="bg-green-900/80 border border-green-600 rounded-xl p-3 flex items-start justify-between gap-3 text-xs text-white shadow-lg">
+                <div
+                    id="active-order-card"
+                    class="bg-green-900/80 border border-green-600 rounded-xl p-3 flex items-start justify-between gap-3 text-xs text-white shadow-lg"
+                >
                     <div>
                         <p class="font-semibold text-sm">Order in progress</p>
                         <p id="active-order-text" class="text-[11px] text-green-100 mt-1">
@@ -132,44 +135,18 @@
                     <a href="tracking.html" class="text-green-400 text-xs font-medium">View All →</a>
                 </div>
 
-                <div class="flex space-x-3 overflow-x-auto px-1 pb-2 custom-scrollbar">
-                    <a href="tracking.html" class="flex-shrink-0 w-28 h-28 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden relative shadow-lg border border-gray-700 hover:border-green-600 transition-colors">
-                        <div class="grid grid-cols-2 grid-rows-2 h-full">
-                            <img src="img/rotisserie_chicken.png" alt="Rotisserie Chicken" class="w-full h-full object-cover">
-                            <img src="img/milk.png" alt="Milk" class="w-full h-full object-cover">
-                            <img src="img/honeycrisp_apple.png" alt="Honeycrisp Apple" class="w-full h-full object-cover">
-                            <img src="img/baby_spinach.png" alt="Baby Spinach" class="w-full h-full object-cover">
-                        </div>
-                        <div class="absolute bottom-5 left-0 bg-purple-600 text-white text-[10px] px-2 py-0.5 rounded-r font-semibold">$108.32</div>
-                        <div class="absolute bottom-0 right-0 bg-black/80 text-white text-[10px] px-1.5 py-0.5 rounded-tl font-medium">10/18</div>
-                    </a>
-
-                    <div class="flex-shrink-0 w-28 h-28 bg-gradient-to-br from-green-900/40 to-green-800/20 border-2 border-dashed border-green-700/60 rounded-lg flex flex-col items-center justify-center text-center p-2">
-                        <span class="text-2xl mb-1">🛒</span>
-                        <p class="text-green-400 text-[10px] font-medium leading-tight">Start a new order</p>
-                    </div>
+                <div id="order-history-list" class="flex space-x-3 overflow-x-auto px-1 pb-2 custom-scrollbar">
+                    <!-- Recent order tiles + "start new order" card will be injected here -->
                 </div>
             </section>
 
         </div>
 
         <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
-            <a href="home.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/home-2.png" alt="Home" class="w-6 h-6 mb-1">
-                Home
-            </a>
-            <a href="shop.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/shop.png" alt="Shop" class="w-6 h-6 mb-1">
-                Shop
-            </a>
-            <a href="search.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/Edit Square.png" alt="Search" class="w-6 h-6 mb-1">
-                Search
-            </a>
-            <a href="profile.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/profile.png" alt="Profile" class="w-6 h-6 mb-1">
-                Profile
-            </a>
+            <a href="home.html" class="flex flex-col items-center text-xs text-green-300"><span class="text-lg">🏠</span>Home</a>
+            <a href="shop.html" class="flex flex-col items-center text-xs"><span class="text-lg">🛒</span>Shop</a>
+            <a href="search.html" class="flex flex-col items-center text-xs"><span class="text-lg">🔎</span>Search</a>
+            <a href="profile.html" class="flex flex-col items-center text-xs"><span class="text-lg">👤</span>Profile</a>
         </nav>
     </div>
 
@@ -231,6 +208,68 @@
             return chip;
         }
 
+        function formatOrderDate(dateStr) {
+            if (!dateStr) return '';
+            const d = new Date(dateStr);
+            if (Number.isNaN(d.getTime())) return '';
+            return d.toLocaleDateString(undefined, { month: 'numeric', day: 'numeric' });
+        }
+
+        function getItemImageUrl(item) {
+            // Try to use DataAPI to map product_id → product.image_url
+            if (typeof DataAPI !== 'undefined' && DataAPI.getProduct) {
+                const product = DataAPI.getProduct(item.product_id);
+                if (product && product.image_url) {
+                    return product.image_url;
+                }
+            }
+            // Fallback placeholder
+            return 'img/placeholder.png';
+        }
+
+        function buildOrderGridImages(items) {
+            const uniqueByProduct = [];
+            const seen = new Set();
+
+            // Deduplicate by product_id and take first 4
+            for (const it of items) {
+                if (!seen.has(it.product_id)) {
+                    seen.add(it.product_id);
+                    uniqueByProduct.push(it);
+                }
+                if (uniqueByProduct.length >= 4) break;
+            }
+
+            // If somehow no items, return 4 blank cells
+            if (!uniqueByProduct.length) {
+                return `
+                    <div class="bg-gray-700 border border-gray-800"></div>
+                    <div class="bg-gray-800 border border-gray-900"></div>
+                    <div class="bg-gray-800 border border-gray-900"></div>
+                    <div class="bg-gray-700 border border-gray-800"></div>
+                `;
+            }
+
+            // Build up to 4 cells
+            const cells = [];
+            for (let i = 0; i < 4; i++) {
+                const item = uniqueByProduct[i];
+                if (!item) {
+                    cells.push(`<div class="bg-gray-800 border border-gray-900"></div>`);
+                    continue;
+                }
+                const imgUrl = getItemImageUrl(item);
+                const safeName = (item.product_name || 'Item');
+                cells.push(`
+                    <div class="bg-gray-900 border border-gray-800 overflow-hidden">
+                        <img src="${imgUrl}" alt="${safeName}" class="w-full h-full object-cover">
+                    </div>
+                `);
+            }
+
+            return cells.join('');
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
             const greetingEl = document.getElementById('home-greeting');
             const headlineEl = document.getElementById('home-headline');
@@ -248,9 +287,12 @@
             const favoriteCategoriesEl = document.getElementById('favorite-categories');
 
             const activeBanner = document.getElementById('active-order-banner');
+            const activeCard = document.getElementById('active-order-card');
             const activeText = document.getElementById('active-order-text');
             const activeViewBtn = document.getElementById('active-order-view');
             const activeCloseBtn = document.getElementById('active-order-close');
+
+            const orderHistoryList = document.getElementById('order-history-list');
 
             // Load data and auth in parallel for faster loading
             const [_, session] = await Promise.all([
@@ -265,6 +307,18 @@
                 guestBanner.classList.remove('hidden');
                 // guests don't see the active order banner
                 activeBanner.classList.add('hidden');
+
+                // For guests, just show the "Start a new order" tile
+                const newOrderCard = document.createElement('div');
+                newOrderCard.className = "flex-shrink-0 w-28 h-28 bg-gradient-to-br from-green-900/40 to-green-800/20 border-2 border-dashed border-green-700/60 rounded-lg flex flex-col items-center justify-center text-center p-2";
+                newOrderCard.innerHTML = `
+                    <span class="text-2xl mb-1">🛒</span>
+                    <p class="text-green-400 text-[10px] font-medium leading-tight">Start a new order</p>
+                `;
+                newOrderCard.addEventListener('click', () => {
+                    window.location.href = 'shop.html';
+                });
+                orderHistoryList.appendChild(newOrderCard);
                 return;
             }
 
@@ -288,18 +342,36 @@
                     activeText.textContent = `${modeLabel} • ${windowLabel} • Status: ${statusLabel}`;
                     activeBanner.classList.remove('hidden');
 
+                    // Build the tracking URL for this specific order
+                    const targetUrl =
+                        activeOrder.mode === 'pickup'
+                            ? `tracking-pickup.html?orderId=${encodeURIComponent(activeOrder.id)}`
+                            : `tracking-delivery.html?orderId=${encodeURIComponent(activeOrder.id)}`;
+
+                    // Close just hides the banner
                     if (activeCloseBtn) {
-                        activeCloseBtn.addEventListener('click', () => {
+                        activeCloseBtn.addEventListener('click', (event) => {
+                            event.stopPropagation();
                             activeBanner.classList.add('hidden');
                         });
                     }
 
+                    // "View details" button → tracking page
                     if (activeViewBtn) {
-                        activeViewBtn.addEventListener('click', () => {
-                            // For now, jump to profile/order history
-                            window.location.href = 'profile.html';
+                        activeViewBtn.addEventListener('click', (event) => {
+                            event.stopPropagation();
+                            window.location.href = targetUrl;
                         });
                     }
+
+                    // Make the whole card clickable too
+                    if (activeCard) {
+                        activeCard.style.cursor = 'pointer';
+                        activeCard.addEventListener('click', () => {
+                            window.location.href = targetUrl;
+                        });
+                    }
+
                 } else {
                     activeBanner.classList.add('hidden');
                 }
@@ -308,7 +380,7 @@
                 activeBanner.classList.add('hidden');
             }
 
-            // ---- Dietary preferences ----
+            //  dietary preferences 
             const prefs = Array.isArray(profile?.dietary_preferences) ? profile.dietary_preferences : [];
 
             if (prefs.length > 0) {
@@ -335,7 +407,7 @@
                 if (picks.length === 0) dietarySummary.textContent = "No matching items found yet";
             }
 
-            // ---- Recommended products ----
+            //  recommended products 
             const recIds = Array.isArray(profile?.recommended_product_ids) ? profile.recommended_product_ids : [];
             if (recIds.length > 0) {
                 recommendedSection.classList.remove('hidden');
@@ -346,7 +418,7 @@
                 recommendedProductsEl.appendChild(fragment);
             }
 
-            // ---- Favorite categories ----
+            //  fav categories 
             const favCatIds = Array.isArray(profile?.favorite_categories) ? profile.favorite_categories : [];
             if (favCatIds.length > 0) {
                 favoriteCategoriesSection.classList.remove('hidden');
@@ -356,6 +428,98 @@
                     if (cat) fragment.appendChild(createCategoryChip(cat));
                 });
                 favoriteCategoriesEl.appendChild(fragment);
+            }
+
+            //  Recent orders
+            try {
+                const orders = await OrdersAPI.getOrdersForCurrentUser();
+                orderHistoryList.innerHTML = '';
+
+                const maxToShow = 5;
+                const toShow = orders.slice(0, maxToShow);
+
+                // fetch items for each order 
+                const orderDetails = [];
+                for (const o of toShow) {
+                    try {
+                        const { order: fullOrder, items } = await OrdersAPI.getOrderWithItems(o.id);
+                        orderDetails.push({ fullOrder, items });
+                    } catch (err) {
+                        console.warn('Failed to load order items for order', o.id, err);
+                    }
+                }
+
+                orderDetails.forEach(({ fullOrder, items }) => {
+                    const total = Number(fullOrder.total_amount || 0).toFixed(2);
+                    const dateLabel = formatOrderDate(fullOrder.placed_at) || '';
+                    const windowLabel = fullOrder.window_label || 'Recent order';
+
+                    const tile = document.createElement('button');
+                    tile.type = 'button';
+                    tile.className = "relative flex-shrink-0 w-28 h-28 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden shadow-lg border border-gray-700 hover:border-green-600 transition-colors text-left";
+
+                    const gridHtml = buildOrderGridImages(items);
+
+                    tile.innerHTML = `
+                        <div class="grid grid-cols-2 grid-rows-2 h-full">
+                            ${gridHtml}
+                        </div>
+                        <div class="absolute bottom-5 left-0 bg-purple-600 text-white text-[10px] px-2 py-0.5 rounded-r font-semibold">
+                            $${total}
+                        </div>
+                        <div class="absolute bottom-0 right-0 bg-black/80 text-white text-[10px] px-1.5 py-0.5 rounded-tl font-medium">
+                            ${dateLabel}
+                        </div>
+                        <div class="absolute top-1 left-1 right-1 text-[9px] text-white/90 font-medium truncate px-1 drop-shadow-sm">
+                            ${windowLabel}
+                        </div>`;
+
+                    // reorder= load those items into cart
+                    tile.addEventListener('click', () => {
+                        try {
+                            window.cartManager.loadFromOrder(fullOrder, items);
+                            window.location.href = 'cart.html';
+                        } catch (err) {
+                            console.error('Reorder error:', err);
+                            alert('Sorry, we could not load that order into your cart.');
+                        }
+                    });
+
+                    orderHistoryList.appendChild(tile);
+                });
+
+                // "Start new order" tile 
+                const newOrderCard = document.createElement('div');
+                newOrderCard.className = "flex-shrink-0 w-28 h-28 bg-gradient-to-br from-green-900/40 to-green-800/20 border-2 border-dashed border-green-700/60 rounded-lg flex flex-col items-center justify-center text-center p-2 cursor-pointer";
+                newOrderCard.innerHTML = `
+                    <span class="text-2xl mb-1">🛒</span>
+                    <p class="text-green-400 text-[10px] font-medium leading-tight">Start a new order</p>
+                `;
+                newOrderCard.addEventListener('click', () => {
+                    window.location.href = 'shop.html';
+                });
+
+                //  no previous orders,  show "start order"
+                if (!orderDetails.length) {
+                    orderHistoryList.innerHTML = '';
+                    orderHistoryList.appendChild(newOrderCard);
+                } else {
+                    orderHistoryList.appendChild(newOrderCard);
+                }
+            } catch (err) {
+                console.error('[Home] recent orders error:', err);
+                // error: show just "Start new order"
+                orderHistoryList.innerHTML = '';
+                const newOrderCard = document.createElement('div');
+                newOrderCard.className = "flex-shrink-0 w-28 h-28 bg-gradient-to-br from-green-900/40 to-green-800/20 border-2 border-dashed border-green-700/60 rounded-lg flex flex-col items-center justify-center text-center p-2 cursor-pointer";
+                newOrderCard.innerHTML = `
+                    <span class="text-2xl mb-1">🛒</span>
+                    <p class="text-green-400 text-[10px] font-medium leading-tight">Start a new order</p>
+                `;
+                newOrderCard.addEventListener('click', () => {
+                    window.location.href = 'shop.html';
+                });
+                orderHistoryList.appendChild(newOrderCard);
             }
         });
     </script>

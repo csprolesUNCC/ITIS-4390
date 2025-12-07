@@ -117,13 +117,25 @@
       </section>
 
       <!-- Store Contact -->
-      <section class="mb-10">
+      <section class="mb-4">
         <div class="bg-gray-900 border border-gray-800 rounded-lg px-3 py-3">
           <p class="text-white text-sm font-medium mb-2">Need to contact the store?</p>
           <button class="w-full bg-green-700 hover:bg-green-600 text-white py-2 rounded-full text-sm font-medium">
             📞 Call Store: (704) 555-0123
           </button>
         </div>
+      </section>
+
+      <!-- Complete / Resolve Order -->
+      <section class="mb-6">
+        <button
+          id="complete-order-btn"
+          class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-3 rounded-full text-sm disabled:opacity-60 disabled:cursor-not-allowed">
+          ✅ Mark as Picked Up & Complete Order
+        </button>
+        <p id="complete-order-message" class="text-[11px] text-gray-300 mt-2 text-center hidden">
+          Order marked as completed. Returning to home…
+        </p>
       </section>
 
       <!-- Contact Support -->
@@ -136,28 +148,29 @@
 
     <!-- Bottom Nav -->
     <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
-            <a href="home.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/home-2.png" alt="Home" class="w-6 h-6 mb-1">
-                Home
-            </a>
-            <a href="shop.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/shop.png" alt="Shop" class="w-6 h-6 mb-1">
-                Shop
-            </a>
-            <a href="search.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/Edit Square.png" alt="Search" class="w-6 h-6 mb-1">
-                Search
-            </a>
-            <a href="profile.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/profile.png" alt="Profile" class="w-6 h-6 mb-1">
-                Profile
-            </a>
-        </nav>
+      <a href="home.html" class="flex flex-col items-center text-xs text-gray-500">
+          <img src="img/home-2.png" alt="Home" class="w-6 h-6 mb-1">
+          Home
+      </a>
+      <a href="shop.html" class="flex flex-col items-center text-xs text-gray-500">
+          <img src="img/shop.png" alt="Shop" class="w-6 h-6 mb-1">
+          Shop
+      </a>
+      <a href="search.html" class="flex flex-col items-center text-xs text-gray-500">
+          <img src="img/Edit Square.png" alt="Search" class="w-6 h-6 mb-1">
+          Search
+      </a>
+      <a href="profile.html" class="flex flex-col items-center text-xs text-gray-500">
+          <img src="img/profile.png" alt="Profile" class="w-6 h-6 mb-1">
+          Profile
+      </a>
+    </nav>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/data/supabaseAuth.js"></script>
   <script src="/data/data_api.js"></script>
+  <script src="/data/orders_api.js"></script>
 
   <script>
     const PICKUP_PHASES = [
@@ -168,6 +181,7 @@
     ];
 
     let currentPhaseIndex = 1;
+    let currentOrderId = null;
 
     function renderSteps(container, phases, currentIndex) {
       container.innerHTML = "";
@@ -213,25 +227,32 @@
       const summaryDateEl = document.getElementById("summary-date");
       const summaryStoreEl = document.getElementById("summary-store");
       const storeAddressEl = document.getElementById("store-address");
+      const trackerSubtitle = document.getElementById("tracker-subtitle");
+      const completeBtn = document.getElementById("complete-order-btn");
+      const completeMsg = document.getElementById("complete-order-message");
 
       try {
         await DataAPI.loadEverything();
 
+        const params = new URLSearchParams(window.location.search);
+        const orderId = params.get('orderId');
+        currentOrderId = orderId;
+
         const session = await SupabaseAuth.getCurrentUserWithProfile().catch(() => null);
-        let profile = session?.profile || {};
+        const profile = session?.profile || {};
         
-        // Get store and slot info
-        let storeId = profile?.default_store_id || DataAPI.getStoreLocations()[0]?.id;
-        let store = storeId ? DataAPI.getStoreLocation(storeId) : null;
-        let slots = storeId ? DataAPI.getDeliverySlots(storeId) : [];
-        let activeSlot = slots.length ? slots[0] : null;
+        // Get store + slot info from mock data
+        const storeId = profile?.default_store_id || (DataAPI.getStoreLocations ? DataAPI.getStoreLocations()[0]?.id : null);
+        const store = storeId && DataAPI.getStoreLocation ? DataAPI.getStoreLocation(storeId) : null;
+        const slots = storeId && DataAPI.getDeliverySlots ? DataAPI.getDeliverySlots(storeId) : [];
+        const activeSlot = slots.length ? slots[0] : null;
 
         if (activeSlot) {
           summaryWindowEl.textContent = `Window: ${activeSlot.window}`;
           summaryDateEl.textContent = `Date: ${activeSlot.date}`;
         } else {
-          summaryWindowEl.textContent = "Window: Today, 2-4 PM";
-          summaryDateEl.textContent = "Date: December 5, 2025";
+          summaryWindowEl.textContent = "Window: Today, 2–4 PM";
+          summaryDateEl.textContent = "Date: Today";
         }
 
         if (store) {
@@ -242,11 +263,35 @@
           storeAddressEl.textContent = "1234 Smiling Friends Lane, Charlotte, NC 22222";
         }
 
+        // If we have an orderId, hydrate from Supabase
+        if (orderId && window.OrdersAPI) {
+          try {
+            const { order } = await OrdersAPI.getOrderWithItems(orderId);
+            trackerSubtitle.textContent = `Order #${order.id.slice(0, 8)} · Pickup`;
+
+            if (order.window_label) {
+              summaryWindowEl.textContent = `Window: ${order.window_label}`;
+            }
+            if (order.placed_at) {
+              const d = new Date(order.placed_at);
+              summaryDateEl.textContent = `Date: ${d.toLocaleDateString()}`;
+            }
+
+            // Map status → phase index
+            if (order.status === 'placed') currentPhaseIndex = 1;
+            else if (order.status === 'preparing') currentPhaseIndex = 1;
+            else if (order.status === 'ready') currentPhaseIndex = 2;
+            else if (order.status === 'completed') currentPhaseIndex = 3;
+          } catch (orderErr) {
+            console.warn("Could not load order from Supabase:", orderErr);
+          }
+        }
+
         // Initial render
         statusLabelEl.textContent = `Currently: ${PICKUP_PHASES[currentPhaseIndex]}`;
         renderSteps(statusStepsEl, PICKUP_PHASES, currentPhaseIndex);
 
-        // Progress simulation
+        // Progress simulation (just for demo)
         setInterval(() => {
           if (currentPhaseIndex < PICKUP_PHASES.length - 1) {
             currentPhaseIndex += 1;
@@ -259,6 +304,56 @@
             }
           }
         }, 10000);
+
+        // Complete order button handler
+        completeBtn.addEventListener('click', async () => {
+          if (!currentOrderId) {
+            alert('No order ID found for this session.');
+            return;
+          }
+
+          completeBtn.disabled = true;
+          completeBtn.textContent = 'Completing order…';
+
+          try {
+            const { data: userData, error: userError } = await supabase.auth.getUser();
+            if (userError || !userData.user) {
+              throw new Error('You must be logged in to complete this order.');
+            }
+
+            // Update order status in Supabase
+            const { error: updateError } = await supabase
+              .from('orders')
+              .update({
+                status: 'completed',
+                updated_at: new Date().toISOString()
+              })
+              .eq('id', currentOrderId)
+              .eq('user_id', userData.user.id);
+
+            if (updateError) {
+              throw new Error(updateError.message || 'Failed to complete order.');
+            }
+
+            // Update UI to final phase
+            currentPhaseIndex = PICKUP_PHASES.length - 1; // "Picked up"
+            statusLabelEl.textContent = `Currently: ${PICKUP_PHASES[currentPhaseIndex]}`;
+            renderSteps(statusStepsEl, PICKUP_PHASES, currentPhaseIndex);
+
+            completeMsg.classList.remove('hidden');
+
+            // After a short pause, return home
+            setTimeout(() => {
+              window.location.href = 'home.html';
+            }, 1800);
+
+          } catch (err) {
+            console.error('[Pickup] complete order error:', err);
+            alert(err.message || 'Could not complete order.');
+            completeBtn.disabled = false;
+            completeBtn.textContent = '✅ Mark as Picked Up & Complete Order';
+          }
+        });
 
       } catch (err) {
         console.error("Error loading pickup tracker:", err);

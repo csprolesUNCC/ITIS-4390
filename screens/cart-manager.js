@@ -72,10 +72,14 @@ class CartManager {
     if (product.price) return parseFloat(product.price);
     
     // Try to get from DataAPI if available
-    if (typeof DataAPI !== 'undefined') {
-      const priceInfo = DataAPI.getEffectivePrice(product);
-      if (priceInfo && priceInfo.cents) {
-        return priceInfo.cents / 100; 
+    if (typeof DataAPI !== 'undefined' && DataAPI.getEffectivePrice) {
+      try {
+        const priceInfo = DataAPI.getEffectivePrice(product);
+        if (priceInfo && priceInfo.cents) {
+          return priceInfo.cents / 100; 
+        }
+      } catch (e) {
+        console.warn('Failed to get effective price from DataAPI:', e);
       }
     }
     
@@ -89,14 +93,12 @@ class CartManager {
     return 0;
   }
 
-  // Update total price
   updateTotal() {
     this.cart.total = this.cart.items.reduce((sum, item) => {
       return sum + (item.price * item.quantity);
     }, 0);
   }
 
-  // Get cart item count
   getItemCount() {
     return this.cart.items.reduce((sum, item) => sum + item.quantity, 0);
   }
@@ -111,25 +113,56 @@ class CartManager {
     return this.cart.items;
   }
 
-  // Clear cart
+  // Clear 
   clearCart() {
     this.cart = { items: [], total: 0 };
+    this.saveCart();
+  }
+
+  // order: row from public.orders
+  // items: rows from public.order_items
+  loadFromOrder(order, items) {
+    const lineItems = Array.isArray(items) ? items : [];
+
+    this.cart.items = lineItems.map((row) => {
+      let product = null;
+
+      if (typeof DataAPI !== 'undefined' && DataAPI.getProduct) {
+        try {
+          product = DataAPI.getProduct(row.product_id);
+        } catch (e) {
+          console.warn('DataAPI.getProduct failed for product_id', row.product_id, e);
+        }
+      }
+
+      const price = Number(row.unit_price) || 0;
+      const qty = Number(row.quantity) || 1;
+
+      return {
+        id: row.product_id,
+        name: (product && product.name) || row.product_name || 'Item',
+        price,
+        image: (product && product.image_url) || '',
+        quantity: qty
+      };
+    });
+
+    this.updateTotal();
     this.saveCart();
   }
 
   // Subscribe to cart changes
   subscribe(callback) {
     this.listeners.push(callback);
-    // Call immediately with current state
+
     callback(this.cart);
   }
 
-  // Notify all listeners
   notifyListeners() {
     this.listeners.forEach(callback => callback(this.cart));
   }
 
-  // Update cart icon in header
+  // Update cart icon 
   updateCartIcon() {
     const cartBadge = document.getElementById('cart-badge');
     const cartTotal = document.getElementById('cart-total');

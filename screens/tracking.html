@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Order Tracking · Whole Foods</title>
+  <title>Order History · Whole Foods</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="app.css" />
@@ -21,368 +21,176 @@
         >
           ←
         </button>
-         <div class="w-14 h-14 bg-green-700 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
-                    <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover rounded-full">
-                </div>
-          </span>
+        <div class="w-10 h-10 rounded-full overflow-hidden mr-2">
+          <img src="img/logo.png" alt="Whole Foods Logo" class="w-full h-full object-cover" />
         </div>
         <div>
-          <h1 class="text-white text-2xl font-light">Order Status</h1>
-          <p id="tracker-subtitle" class="text-gray-400 text-xs mt-1">
-            Loading your order…
+          <h1 class="text-white text-xl font-light">Order History</h1>
+          <p id="history-subtitle" class="text-gray-400 text-xs mt-1">
+            Loading your orders…
           </p>
         </div>
       </div>
 
-      <!-- Guest session message -->
-      <div id="guest-message" class="mb-4 hidden">
-        <div class="bg-yellow-900/40 border border-yellow-700 text-yellow-100 rounded-md px-3 py-2 text-xs">
-          <p class="font-medium mb-1">You’re not signed in.</p>
-          <p class="mb-2">
-            This is a mock tracker. Sign in to see your default store and delivery window.
-          </p>
-          <div class="flex space-x-2">
-            <a
-              href="login.html"
-              class="px-3 py-1 rounded-md bg-yellow-500 text-black font-medium"
-            >
-              Login
-            </a>
-            <a
-              href="onboarding.html"
-              class="px-3 py-1 rounded-md bg-gray-800 text-gray-100"
-            >
-              Back to Start
-            </a>
-          </div>
+      <!-- Orders list -->
+      <section class="mb-8">
+        <div id="orders-list" class="space-y-3">
+          <!-- Orders rendering -->
         </div>
+      </section>
+
+      <!-- Empty state -->
+      <div id="orders-empty" class="hidden text-center text-xs text-gray-400 mt-10">
+        <p class="mb-2">No orders yet.</p>
+        <button
+          onclick="window.location.href='shop.html'"
+          class="inline-flex items-center justify-center px-4 py-2 rounded-full bg-green-700 hover:bg-green-600 text-white text-xs font-medium"
+        >
+          Start your first order
+        </button>
       </div>
-
-      <!-- deliver/pickuip toggle -->
-      <section class="mb-4">
-        <div class="flex bg-gray-900 border border-gray-700 rounded-full p-1 text-xs text-gray-200 w-full max-w-xs mx-auto">
-          <button
-            id="mode-pickup"
-            type="button"
-            class="flex-1 py-1 rounded-full text-center"
-          >
-            Pickup
-          </button>
-          <button
-            id="mode-delivery"
-            type="button"
-            class="flex-1 py-1 rounded-full text-center"
-          >Delivery
-          </button>
-        </div>
-      </section>
-
-      <!-- Order summary -->
-      <section class="mb-6">
-        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
-          Current order
-        </div>
-
-        <div class="bg-gray-900 border border-gray-800 rounded-lg px-3 py-3 text-sm text-gray-100">
-          <p id="summary-type" class="text-emerald-300 text-xs font-semibold uppercase tracking-wide mb-1">
-            —
-          </p>
-          <p id="summary-window" class="text-sm font-medium">
-            Window: —
-          </p>
-          <p id="summary-date" class="text-[11px] text-gray-400 mt-1">
-            Date: —
-          </p>
-          <p id="summary-store" class="text-[11px] text-gray-400 mt-1">
-            Store: —
-          </p>
-        </div>
-      </section>
-
-      <!-- Status steps -->
-      <section class="mb-6">
-        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
-          Status
-        </div>
-
-        <p id="status-label" class="text-sm text-white mb-2">
-          Determining status…
-        </p>
-        <p id="status-helper" class="text-[11px] text-gray-400 mb-3">
-          This is a mock tracker — status will advance automatically for demo purposes.
-        </p>
-
-        <div id="status-steps" class="space-y-2">
-          <!-- Steps loaded -->
-        </div>
-      </section>
-
-      <!-- Location + instructions -->
-      <section class="mb-10">
-        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
-          Pickup / Delivery details
-        </div>
-
-        <div id="detail-card" class="bg-gray-900 border border-gray-800 rounded-lg px-3 py-3 text-xs text-gray-100">
-          <p id="detail-line-1" class="mb-1">
-            Loading details…
-          </p>
-          <p id="detail-line-2" class="mb-1 text-gray-300">
-          </p>
-          <div class="mt-3 h-24 bg-gray-800 rounded-md flex items-center justify-center text-[11px] text-gray-400">
-            Map / lane illustration placeholder
-          </div>
-        </div>
-      </section>
     </div>
 
-    <!-- Bottom Nav -->
+    <!-- Bottom nav -->
     <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
-            <a href="home.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/home-2.png" alt="Home" class="w-6 h-6 mb-1">
-                Home
-            </a>
-            <a href="shop.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/shop.png" alt="Shop" class="w-6 h-6 mb-1">
-                Shop
-            </a>
-            <a href="search.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/Edit Square.png" alt="Search" class="w-6 h-6 mb-1">
-                Search
-            </a>
-            <a href="profile.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/profile.png" alt="Profile" class="w-6 h-6 mb-1">
-                Profile
-            </a>
-        </nav>
+      <a href="home.html" class="flex flex-col items-center text-xs text-gray-500">
+        <span class="text-lg">🏠</span>
+        Home
+      </a>
+      <a href="shop.html" class="flex flex-col items-center text-xs text-gray-500">
+        <span class="text-lg">🛒</span>
+        Shop
+      </a>
+      <a href="search.html" class="flex flex-col items-center text-xs text-gray-500">
+        <span class="text-lg">🔎</span>
+        Search
+      </a>
+      <a href="profile.html" class="flex flex-col items-center text-xs text-gray-500">
+        <span class="text-lg">👤</span>
+        Profile
+      </a>
+    </nav>
   </div>
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/data/supabaseAuth.js"></script>
-  <script src="/data/data_api.js"></script>
+  <script src="/data/orders_api.js"></script>
+  <script src="cart-manager.js"></script>
 
   <script>
-    
-    const PHASES_PICKUP = [
-      "Order placed",
-      "We’re shopping your order",
-      "Ready for pickup",
-      "Picked up"
-    ];
+    async function handleReorder(orderId) {
+      try {
+        if (!orderId) return;
 
-    const PHASES_DELIVERY = [
-      "Order placed",
-      "We’re shopping your order",
-      "Out for delivery",
-      "Delivered"
-    ];
+        const { order, items } = await OrdersAPI.getOrderWithItems(orderId);
+        if (!items || !items.length) {
+          alert('This order has no items to reorder.');
+          return;
+        }
 
-    function renderSteps(container, phases, currentIndex) {
-      container.innerHTML = "";
+        const simpleItems = items.map((item) => ({
+          product_id: item.product_id,
+          name: item.product_name,
+          unit_price: Number(item.unit_price) || 0,
+          quantity: Number(item.quantity) || 1
+        }));
 
-      phases.forEach((label, index) => {
-        //Past the previous step-- current index greater than index
-        const isCompleted = index < currentIndex;
-        const isCurrent = index === currentIndex;
+        if (window.cartManager && typeof cartManager.loadFromOrderItems === 'function') {
+          cartManager.loadFromOrderItems(simpleItems);
+        }
 
-        const row = document.createElement("div");
-        row.className = "flex items-center";
-
-        const circle = document.createElement("div");
-        circle.className =
-          "w-6 h-6 flex items-center justify-center rounded-full text-[11px] mr-2 " +
-          (isCompleted || isCurrent
-            ? "bg-emerald-500 text-black"
-            : "bg-gray-800 text-gray-400 border border-gray-600");
-
-            //+1 so no step 0
-        circle.textContent = index + 1;
-
-        const text = document.createElement("p");
-        text.className =
-          "text-xs " +
-          (isCurrent
-            ? "text-white font-semibold"
-            : isCompleted
-            ? "text-emerald-300"
-            : "text-gray-400");
-        text.textContent = label;
-
-        row.appendChild(circle);
-        row.appendChild(text);
-
-        container.appendChild(row);
-      });
+        window.location.href = 'cart.html';
+      } catch (err) {
+        console.error('[History] handleReorder error:', err);
+        alert('Could not load order into cart.');
+      }
     }
 
-    function getQueryMode() {
-      const params = new URLSearchParams(window.location.search);
-      const modeParam = params.get("mode");
-      //Checks delivery or pickup
-      if (modeParam === "delivery") return "delivery";
-      return "pickup";
-    }
-
-    function highlightModeButtons(mode) {
-      const pickupBtn = document.getElementById("mode-pickup");
-      const deliveryBtn = document.getElementById("mode-delivery");
-
-      const base =
-        "flex-1 py-1 rounded-full text-center transition-colors duration-150";
-      const active = "bg-emerald-700 text-white";
-      const inactive = "bg-transparent text-gray-300";
-
-      pickupBtn.className = base + " " + (mode === "pickup" ? active : inactive);
-      deliveryBtn.className =
-        base + " " + (mode === "delivery" ? active : inactive);
-    }
-
-    document.addEventListener("DOMContentLoaded", async () => {
-      const subtitleEl = document.getElementById("tracker-subtitle");
-      const guestMessage = document.getElementById("guest-message");
-
-      const summaryTypeEl = document.getElementById("summary-type");
-      const summaryWindowEl = document.getElementById("summary-window");
-      const summaryDateEl = document.getElementById("summary-date");
-      const summaryStoreEl = document.getElementById("summary-store");
-
-      const statusLabelEl = document.getElementById("status-label");
-      const statusStepsEl = document.getElementById("status-steps");
-
-      const detailLine1 = document.getElementById("detail-line-1");
-      const detailLine2 = document.getElementById("detail-line-2");
-
-      const pickupBtn = document.getElementById("mode-pickup");
-      const deliveryBtn = document.getElementById("mode-delivery");
-
-      let mode = getQueryMode();
-      let currentPhaseIndex = 1; // Start at “We’re shopping your order”
-
-      highlightModeButtons(mode);
+    document.addEventListener('DOMContentLoaded', async () => {
+      const subtitleEl = document.getElementById('history-subtitle');
+      const listEl = document.getElementById('orders-list');
+      const emptyEl = document.getElementById('orders-empty');
 
       try {
-        await DataAPI.loadEverything();
+        const orders = await OrdersAPI.getOrdersForCurrentUser();
 
-        const session = await SupabaseAuth.getCurrentUserWithProfile().catch(
-          () => null
-        );
-
-        let profile = null;
-        //guest session
-        if (!session || !session.user) {
-          subtitleEl.textContent =
-            "Mock tracker — sign in to see your default store.";
-          guestMessage.classList.remove("hidden");
-        } else {
-          profile = session.profile || {};
-          const displayName =
-            profile.name ||
-            (session.user.email
-              ? session.user.email.split("@")[0]
-              : "your order");
-
-          subtitleEl.textContent = `Tracking ${mode} for ${displayName}`;
+        if (!orders || !orders.length) {
+          subtitleEl.textContent = 'No orders yet.';
+          emptyEl.classList.remove('hidden');
+          return;
         }
 
-        // find  store
-        let storeId = profile?.default_store_id || DataAPI.getStoreLocations()[0]?.id;
-        let store =
-          storeId != null ? DataAPI.getStoreLocation(storeId) : null;
+        subtitleEl.textContent = `${orders.length} order${orders.length === 1 ? '' : 's'} found`;
 
-        // next available slot for that store
-        let slots = storeId ? DataAPI.getDeliverySlots(storeId) : [];
-        let activeSlot = slots.length ? slots[0] : null;
+        orders.forEach((order) => {
+          const modeLabel = order.mode === 'pickup' ? 'Pickup' : 'Delivery';
+          const status = order.status || 'placed';
+          const date = order.placed_at ? new Date(order.placed_at) : null;
+          const dateLabel = date ? date.toLocaleString() : '';
+          const total = Number(order.total_amount || 0).toFixed(2);
 
-        //Sets green label to pickup/delivery
-        const typeLabel = mode === "pickup" ? "Pickup order" : "Delivery order";
-        summaryTypeEl.textContent = typeLabel;
+          const card = document.createElement('div');
+          card.className =
+            'bg-gray-900 border border-gray-800 rounded-lg px-3 py-3 text-xs text-gray-100';
 
-        if (activeSlot) {
-          summaryWindowEl.textContent = `Window: ${activeSlot.window}`;
-          summaryDateEl.textContent = `Date: ${activeSlot.date}`;
-          
-        } else {
-            //no slot available
-          summaryWindowEl.textContent = "Window: No slots available, try another time!";
-          summaryDateEl.textContent = "Date: —";
-        }
+          card.innerHTML = `
+            <div class="flex items-start justify-between mb-1">
+              <div>
+                <p class="text-emerald-300 text-[11px] font-semibold uppercase tracking-wide">
+                  ${modeLabel}
+                </p>
+                <p class="text-white text-sm font-medium mt-0.5">
+                  $${total}
+                </p>
+              </div>
+              <div class="text-right text-[10px] text-gray-400">
+                <p>${dateLabel}</p>
+                <p class="mt-0.5 text-emerald-200">Status: ${status.charAt(0).toUpperCase() + status.slice(1)}</p>
+              </div>
+            </div>
+            <div class="flex items-center justify-end gap-2 mt-2">
+              <button
+                data-order-id="${order.id}"
+                class="view-order-btn px-3 py-1 rounded-full bg-gray-800 hover:bg-gray-700 text-[10px] font-medium"
+              >
+                View status
+              </button>
+              <button
+                data-order-id="${order.id}"
+                class="reorder-btn px-3 py-1 rounded-full bg-emerald-600 hover:bg-emerald-500 text-[10px] font-medium"
+              >
+                Reorder
+              </button>
+            </div>
+          `;
 
-        if (store) {
-          summaryStoreEl.textContent = `Store: ${store.name} — ${store.city}, ${store.state}`;
-        } else {
-          summaryStoreEl.textContent = "Store: Not available";
-        }
+          listEl.appendChild(card);
+        });
 
-        // Details/instructions text
-        if (mode === "pickup") {
-          detailLine1.textContent =
-            "Head to the curbside pickup area when your order is ready.";
-          detailLine2.textContent =
-            "Have your order code ready and follow the signs for Online Order Pickup.";
-        } else {
-          detailLine1.textContent =
-            "Your driver will deliver within the selected time window.";
-          detailLine2.textContent =
-            "You’ll receive a notification when the driver is nearby (mock behavior here).";
-        }
+        listEl.addEventListener('click', (e) => {
+          const viewBtn = e.target.closest('.view-order-btn');
+          const reorderBtn = e.target.closest('.reorder-btn');
 
-        // Initial status 
-        const phases = mode === "pickup" ? PHASES_PICKUP : PHASES_DELIVERY;
-        statusLabelEl.textContent = `Currently: ${phases[currentPhaseIndex]}`;
-        renderSteps(statusStepsEl, phases, currentPhaseIndex);
-
-        // Mock phase progress
-        setInterval(() => {
-          const phasesNow = mode === "pickup" ? PHASES_PICKUP : PHASES_DELIVERY;
-          if (currentPhaseIndex < phasesNow.length - 1) {
-            currentPhaseIndex += 1;
-            statusLabelEl.textContent = `Currently: ${
-              phasesNow[currentPhaseIndex]
-            }`;
-            renderSteps(statusStepsEl, phasesNow, currentPhaseIndex);
+          if (viewBtn) {
+            const id = viewBtn.getAttribute('data-order-id');
+            const order = orders.find(o => o.id === id);
+            if (!order) return;
+            const targetUrl =
+              order.mode === 'pickup'
+                ? `tracking-pickup.html?orderId=${encodeURIComponent(order.id)}`
+                : `tracking-delivery.html?orderId=${encodeURIComponent(order.id)}`;
+            window.location.href = targetUrl;
           }
-          //every 10 seconds
-        }, 10000);
 
-        // Mode toggle 
-        pickupBtn.addEventListener("click", () => {
-          mode = "pickup";
-          highlightModeButtons(mode);
-          currentPhaseIndex = 1;
-          const phasesNow = PHASES_PICKUP;
-          statusLabelEl.textContent = `Currently: ${phasesNow[currentPhaseIndex]}`;
-          renderSteps(statusStepsEl, phasesNow, currentPhaseIndex);
-
-            //Pickup messages
-          detailLine1.textContent =
-            "Head to the curbside pickup area when your order is ready.";
-          detailLine2.textContent =
-            "Have your order code ready and follow the signs for Online Order Pickup.";
-          summaryTypeEl.textContent = "Pickup order";
+          if (reorderBtn) {
+            const id = reorderBtn.getAttribute('data-order-id');
+            handleReorder(id);
+          }
         });
 
-        
-        deliveryBtn.addEventListener("click", () => {
-          mode = "delivery";
-          highlightModeButtons(mode);
-          currentPhaseIndex = 1;
-          const phasesNow = PHASES_DELIVERY;
-          statusLabelEl.textContent = `Currently: ${phasesNow[currentPhaseIndex]}`;
-          renderSteps(statusStepsEl, phasesNow, currentPhaseIndex);
-
-            //delivery messages
-          detailLine1.textContent =
-            "Your driver will deliver within the selected time window.";
-          detailLine2.textContent =
-            "You’ll receive a notification when the driver is nearby (mock behavior here).";
-          summaryTypeEl.textContent = "Delivery order";
-        });
-        //error handling
       } catch (err) {
-        console.error("Error loading tracker:", err);
-        subtitleEl.textContent =
-          "We couldn’t load mock tracking data. Try refreshing.";
+        console.error('[History] load error:', err);
+        subtitleEl.textContent = 'Unable to load orders.';
       }
     });
   </script>

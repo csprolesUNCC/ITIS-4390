@@ -11,7 +11,7 @@
 
     <div class="mobile-container">
         <div class="content-area">
-            <!-- Header -->
+            <!-- header -->
             <div class="mb-4">
                 <div class="flex items-center justify-between mb-4">
                     <button onclick="window.location.href='cart.html'" class="px-3 py-2 bg-green-700 hover:bg-green-600 text-white rounded-full">
@@ -23,7 +23,7 @@
                 </div>
                 <h1 class="text-white text-2xl font-light text-center mb-4">Delivery Checkout</h1>
 
-                <!-- Delivery/Pickup Toggle -->
+                <!-- Delivery/pickup toggle -->
                 <div class="flex bg-gray-900 border border-gray-700 rounded-full p-1 text-sm text-gray-200 w-full max-w-xs mx-auto">
                     <button
                         id="mode-pickup"
@@ -74,7 +74,7 @@
                     </div>
                 </div>
 
-                <!-- Tip Options (Delivery Only) -->
+                <!-- Tip Options -->
                 <div class="mb-4" id="tip-section">
                     <p class="text-gray-300 text-sm mb-2">Add a tip:</p>
                     <div class="flex gap-2">
@@ -87,7 +87,7 @@
                 </div>
             </div>
 
-            <!-- Delivery Address / Store Address -->
+            <!-- Delivery/store address -->
             <div class="bg-gray-900 border border-gray-700 rounded-lg p-4 mb-4" id="address-section">
                 <div class="flex items-start">
                     <div class="mr-3">
@@ -147,7 +147,7 @@
                     <button onclick="hideConfirmModal()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-3 rounded-lg font-medium">
                         Cancel
                     </button>
-                    <button onclick="confirmOrder()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg font-medium">
+                    <button onclick="confirmOrder()" class="flex-1 bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-lg font-medium" id="confirm-place-btn">
                         Confirm
                     </button>
                 </div>
@@ -175,13 +175,19 @@
         </nav>
     </div>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="/data/supabaseAuth.js"></script>
+    <script src="/data/data_api.js"></script>
+    <script src="/data/orders_api.js"></script>
     <script src="cart-manager.js"></script>
+
     <script>
         let currentMode = 'delivery';
         let currentTip = 0;
-        let selectedTipButton = null;
+        let isPlacingOrder = false;
 
-        // Load cart totals
+        // Load cart totals 
         document.addEventListener('DOMContentLoaded', () => {
             if (window.cartManager) {
                 updateTotals();
@@ -217,7 +223,7 @@
 
             // Highlight selected button
             const btnId = `tip-${amount}`;
-            selectedTipButton = document.getElementById(btnId);
+            const selectedTipButton = document.getElementById(btnId);
             if (selectedTipButton) {
                 selectedTipButton.classList.remove('bg-green-700');
                 selectedTipButton.classList.add('bg-emerald-600');
@@ -241,11 +247,9 @@
                         btn.classList.add('bg-green-700');
                     });
 
-                    // Highlight "Other" button
                     const otherBtn = document.getElementById('tip-other');
                     otherBtn.classList.remove('bg-gray-700');
                     otherBtn.classList.add('bg-emerald-600');
-                    selectedTipButton = otherBtn;
 
                     document.getElementById('tip-display').textContent = `Tip: $${amount.toFixed(2)}`;
                     updateTotals();
@@ -316,11 +320,59 @@
             document.getElementById('confirm-modal').classList.add('hidden');
         }
 
-        function confirmOrder() {
-            if (currentMode === 'pickup') {
-                window.location.href = 'tracking-pickup.html';
-            } else {
-                window.location.href = 'tracking-delivery.html';
+        async function confirmOrder() {
+            hideConfirmModal();
+            await placeOrder();
+        }
+
+        
+        async function placeOrder() {
+            if (isPlacingOrder) return;
+            isPlacingOrder = true;
+
+            try {
+                const cartItems = window.cartManager.getItems();
+                if (!Array.isArray(cartItems) || cartItems.length === 0) {
+                    alert('Your cart is empty.');
+                    isPlacingOrder = false;
+                    return;
+                }
+
+                //  per-product items for Supabase
+                const itemsForOrder = cartItems.map(item => ({
+                    product_id: item.id,
+                    name: item.name,
+                    unit_price: item.price,
+                    quantity: item.quantity
+                }));
+
+                const windowLabel = currentMode === 'pickup'
+                    ? 'Today, 2–4 PM'
+                    : 'Today, 4–6 PM';
+
+                const storeId = 1; // or get from profile.default_store_id
+
+                const { order } = await OrdersAPI.createOrder({
+                    mode: currentMode,
+                    storeId,
+                    windowLabel,
+                    items: itemsForOrder
+                });
+
+                // clear cart after order
+                window.cartManager.clearCart();
+
+                // Redirect 
+                const trackingUrl = currentMode === 'pickup'
+                    ? `tracking-pickup.html?orderId=${encodeURIComponent(order.id)}`
+                    : `tracking-delivery.html?orderId=${encodeURIComponent(order.id)}`;
+
+                window.location.href = trackingUrl;
+            } catch (err) {
+                console.error('placeOrder error:', err);
+                alert(err.message || 'Sorry, we could not place your order.');
+            } finally {
+                isPlacingOrder = false;
             }
         }
     </script>
