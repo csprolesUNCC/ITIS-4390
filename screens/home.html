@@ -64,6 +64,32 @@
                 </div>
             </div>
 
+            <!-- Active order banner (hidden if no active order) -->
+            <div id="active-order-banner" class="hidden mb-4 px-1">
+                <div class="bg-green-900/80 border border-green-600 rounded-xl p-3 flex items-start justify-between gap-3 text-xs text-white shadow-lg">
+                    <div>
+                        <p class="font-semibold text-sm">Order in progress</p>
+                        <p id="active-order-text" class="text-[11px] text-green-100 mt-1">
+                            Loading your latest order…
+                        </p>
+                    </div>
+                    <div class="flex flex-col items-end gap-1">
+                        <button
+                            id="active-order-view"
+                            class="px-3 py-1 rounded-md bg-white text-green-900 font-semibold text-[11px]"
+                        >
+                            View details
+                        </button>
+                        <button
+                            id="active-order-close"
+                            class="text-[10px] text-green-200 underline"
+                        >
+                            Dismiss
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Guest banner -->
             <div id="guest-banner" class="mb-5 hidden">
                 <div class="bg-gradient-to-r from-yellow-900/50 to-yellow-800/30 border border-yellow-700/60 text-yellow-100 rounded-lg px-4 py-3 text-xs">
@@ -138,6 +164,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="/data/supabaseAuth.js"></script>
     <script src="/data/data_api.js"></script>
+    <script src="/data/orders_api.js"></script>
     <script src="cart-manager.js"></script>
 
     <script>
@@ -208,6 +235,11 @@
             const favoriteCategoriesSection = document.getElementById('favorite-categories-section');
             const favoriteCategoriesEl = document.getElementById('favorite-categories');
 
+            const activeBanner = document.getElementById('active-order-banner');
+            const activeText = document.getElementById('active-order-text');
+            const activeViewBtn = document.getElementById('active-order-view');
+            const activeCloseBtn = document.getElementById('active-order-close');
+
             // Load data and auth in parallel for faster loading
             const [_, session] = await Promise.all([
                 DataAPI.loadEverything(),
@@ -219,15 +251,52 @@
                 headlineEl.textContent = "Let's get shopping";
                 subtitleEl.textContent = "Sign in to unlock personalized picks";
                 guestBanner.classList.remove('hidden');
+                // guests don't see the active order banner
+                activeBanner.classList.add('hidden');
                 return;
             }
 
             const { user, profile } = session;
-            const displayName = profile?.name || user.email.split('@')[0];
+            const displayName = profile?.name || (user.email ? user.email.split('@')[0] : "Guest");
             greetingEl.textContent = `Hey, ${displayName}! 👋`;
             headlineEl.textContent = "Your Personal Store";
-            subtitleEl.textContent = user.email;
+            subtitleEl.textContent = user.email || "";
 
+            // ---- Active order banner ----
+            try {
+                const activeOrder = await OrdersAPI.getActiveOrderForCurrentUser();
+
+                if (activeOrder) {
+                    const modeLabel = activeOrder.mode === 'pickup' ? 'Pickup' : 'Delivery';
+                    const statusLabel = activeOrder.status
+                        ? activeOrder.status.charAt(0).toUpperCase() + activeOrder.status.slice(1)
+                        : 'In progress';
+                    const windowLabel = activeOrder.window_label || 'Scheduled window not set';
+
+                    activeText.textContent = `${modeLabel} • ${windowLabel} • Status: ${statusLabel}`;
+                    activeBanner.classList.remove('hidden');
+
+                    if (activeCloseBtn) {
+                        activeCloseBtn.addEventListener('click', () => {
+                            activeBanner.classList.add('hidden');
+                        });
+                    }
+
+                    if (activeViewBtn) {
+                        activeViewBtn.addEventListener('click', () => {
+                            // For now, jump to profile/order history
+                            window.location.href = 'profile.html';
+                        });
+                    }
+                } else {
+                    activeBanner.classList.add('hidden');
+                }
+            } catch (err) {
+                console.error('[Home] active order banner error:', err);
+                activeBanner.classList.add('hidden');
+            }
+
+            // ---- Dietary preferences ----
             const prefs = Array.isArray(profile?.dietary_preferences) ? profile.dietary_preferences : [];
 
             if (prefs.length > 0) {
@@ -254,6 +323,7 @@
                 if (picks.length === 0) dietarySummary.textContent = "No matching items found yet";
             }
 
+            // ---- Recommended products ----
             const recIds = Array.isArray(profile?.recommended_product_ids) ? profile.recommended_product_ids : [];
             if (recIds.length > 0) {
                 recommendedSection.classList.remove('hidden');
@@ -264,6 +334,7 @@
                 recommendedProductsEl.appendChild(fragment);
             }
 
+            // ---- Favorite categories ----
             const favCatIds = Array.isArray(profile?.favorite_categories) ? profile.favorite_categories : [];
             if (favCatIds.length > 0) {
                 favoriteCategoriesSection.classList.remove('hidden');
