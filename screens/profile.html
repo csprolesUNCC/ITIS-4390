@@ -6,6 +6,27 @@
   <title>Whole Foods Account Profile</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="app.css">
+  <style>
+    /* Optional: Match home page horizontal scrollbar styling */
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(31, 41, 55, 0.5);
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(34, 197, 94, 0.5);
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(34, 197, 94, 0.7);
+    }
+    .custom-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(34, 197, 94, 0.5) rgba(31, 41, 55, 0.5);
+    }
+  </style>
 </head>
 
 <body class="bg-black">
@@ -33,30 +54,14 @@
         </div>
       </div>
 
+      <!-- Order History (reuses Supabase carousel logic from Home) -->
       <div class="mb-8">
-        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">Order History</div>
-        <div class="flex items-center space-x-4">
-          <div class="flex flex-col items-center text-white mr-4">
-            <span class="text-3xl rotate-180">&#x21B7;</span>
-            <span class="text-sm">Reorder</span>
-          </div>
-
-          <div class="flex space-x-2 flex-grow overflow-x-hidden">
-            <a href="cart.html" class="flex-shrink-0 w-32 h-32 bg-white rounded-md overflow-hidden relative shadow-lg">
-              <div class="grid grid-cols-2 grid-rows-2 h-full">
-                <img src="img/rotisserie_chicken.png" alt="Rotisserie Chicken" class="w-full h-full object-cover border border-white">
-                <img src="img/milk.png" alt="Milk" class="w-full h-full object-cover border border-white">
-                <img src="img/honeycrisp_apple.png" alt="Honeycrisp Apple" class="w-full h-full object-cover border border-white">
-                <img src="img/baby_spinach.png" alt="Baby Spinach" class="w-full h-full object-cover border border-white">
-              </div>
-              <div class="absolute bottom-6 left-0 bg-purple-500 text-white text-xs px-2 py-0.5 rounded-r">$108.32</div>
-              <div class="absolute bottom-0 right-0 bg-black text-white text-xs px-1 py-0.5 rounded-tl">10/18</div>
-            </a>
-
-            <div class="flex-shrink-0 w-32 h-32 bg-white border border-gray-300 rounded-md flex items-center justify-center text-gray-500 text-center">
-              PLACE MORE ORDERS!
-            </div>
-          </div>
+        <div class="flex items-center justify-between header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          <span>Order History</span>
+          <a href="tracking.html" class="text-green-300 text-xs font-medium">View All →</a>
+        </div>
+        <div id="order-history-list" class="flex space-x-3 overflow-x-auto px-1 pb-2 custom-scrollbar">
+          <!-- recent order tiles + "start new order" card injected via JS -->
         </div>
       </div>
 
@@ -104,29 +109,83 @@
     </div>
 
     <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
-            <a href="home.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/home-2.png" alt="Home" class="w-6 h-6 mb-1">
-                Home
-            </a>
-            <a href="shop.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/shop.png" alt="Shop" class="w-6 h-6 mb-1">
-                Shop
-            </a>
-            <a href="search.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/Edit Square.png" alt="Search" class="w-6 h-6 mb-1">
-                Search
-            </a>
-            <a href="profile.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/profile.png" alt="Profile" class="w-6 h-6 mb-1">
-                Profile
-            </a>
-        </nav>
+      <a href="home.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/home-2.png" alt="Home" class="w-6 h-6 mb-1">
+        Home
+      </a>
+      <a href="shop.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/shop.png" alt="Shop" class="w-6 h-6 mb-1">
+        Shop
+      </a>
+      <a href="search.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/Edit Square.png" alt="Search" class="w-6 h-6 mb-1">
+        Search
+      </a>
+      <a href="profile.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/profile.png" alt="Profile" class="w-6 h-6 mb-1">
+        Profile
+      </a>
+    </nav>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/data/supabaseAuth.js"></script>
+  <script src="/data/data_api.js"></script>
+  <script src="/data/orders_api.js"></script>
+  <script src="cart-manager.js"></script>
 
   <script>
+    function formatOrderDate(dateStr) {
+      if (!dateStr) return '';
+      const d = new Date(dateStr);
+      if (Number.isNaN(d.getTime())) return '';
+      return d.toLocaleDateString(undefined, { month: 'numeric', day: 'numeric' });
+    }
+
+    function createStartNewOrderTile() {
+      const newOrderCard = document.createElement('div');
+      newOrderCard.className =
+        "flex-shrink-0 w-28 h-28 bg-gradient-to-br from-green-900/40 to-green-800/20 " +
+        "border-2 border-dashed border-green-700/60 rounded-lg flex flex-col items-center " +
+        "justify-center text-center p-2 cursor-pointer";
+      newOrderCard.innerHTML = `
+        <span class="text-2xl mb-1">🛒</span>
+        <p class="text-green-400 text-[10px] font-medium leading-tight">Start a new order</p>
+      `;
+      newOrderCard.addEventListener('click', () => {
+        window.location.href = 'shop.html';
+      });
+      return newOrderCard;
+    }
+
+    async function handleReorder(orderId) {
+      try {
+        if (!orderId) return;
+
+        const { order, items } = await OrdersAPI.getOrderWithItems(orderId);
+        if (!items || !items.length) {
+          alert('This order has no items to reorder.');
+          return;
+        }
+
+        const simpleItems = items.map((item) => ({
+          product_id: item.product_id,
+          name: item.product_name,
+          unit_price: Number(item.unit_price) || 0,
+          quantity: Number(item.quantity) || 1
+        }));
+
+        if (window.cartManager && typeof cartManager.loadFromOrderItems === 'function') {
+          cartManager.loadFromOrderItems(simpleItems);
+        }
+
+        window.location.href = 'cart.html';
+      } catch (err) {
+        console.error('[Profile] handleReorder error:', err);
+        alert('Could not load order into cart.');
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       const greetingEl = document.getElementById('profile-greeting');
       const nameEl = document.getElementById('profile-name');
@@ -135,9 +194,14 @@
       const storeEl = document.getElementById('profile-store');
       const guestMessage = document.getElementById('guest-message');
       const logoutBtn = document.getElementById('logout-button');
+      const orderHistoryList = document.getElementById('order-history-list');
 
       try {
-        const session = await SupabaseAuth.getCurrentUserWithProfile();
+        // Load JSON data + auth in parallel
+        const [_, session] = await Promise.all([
+          DataAPI.loadEverything(),
+          SupabaseAuth.getCurrentUserWithProfile()
+        ]);
 
         if (!session || !session.user) {
           // Guest / no active session
@@ -150,6 +214,10 @@
 
           logoutBtn.disabled = true;
           logoutBtn.classList.add('opacity-60', 'cursor-not-allowed');
+
+          // For guests, show only "Start a new order" tile
+          orderHistoryList.innerHTML = '';
+          orderHistoryList.appendChild(createStartNewOrderTile());
           return;
         }
 
@@ -179,6 +247,96 @@
           await SupabaseAuth.logout();
           window.location.href = 'onboarding.html';
         });
+
+        // ----- Recent Orders Carousel (Supabase + 4-image grid) -----
+        try {
+          const orders = await OrdersAPI.getOrdersForCurrentUser();
+          orderHistoryList.innerHTML = '';
+
+          if (!orders || !orders.length) {
+            // No orders yet → just show "Start new order"
+            orderHistoryList.appendChild(createStartNewOrderTile());
+          } else {
+            const maxToShow = 5;
+            const toShow = orders.slice(0, maxToShow);
+
+            for (const order of toShow) {
+              let items = [];
+              try {
+                const result = await OrdersAPI.getOrderWithItems(order.id);
+                items = result.items || [];
+              } catch (err) {
+                console.warn('[Profile] could not load items for order', order.id, err);
+              }
+
+              // Build up to 4 unique product thumbnails
+              const thumbs = [];
+              const seenIds = new Set();
+
+              for (const item of items) {
+                if (thumbs.length >= 4) break;
+                const prod = DataAPI.getProduct ? DataAPI.getProduct(item.product_id) : null;
+                if (prod && !seenIds.has(prod.id)) {
+                  thumbs.push(prod);
+                  seenIds.add(prod.id);
+                }
+              }
+
+              // Fallback if no products resolved
+              while (thumbs.length < 4) {
+                thumbs.push(null);
+              }
+
+              const total = Number(order.total_amount || 0).toFixed(2);
+              const dateLabel = formatOrderDate(order.placed_at) || '';
+              
+              const tile = document.createElement('button');
+              tile.type = 'button';
+              tile.className =
+                "flex-shrink-0 w-28 h-28 bg-gradient-to-br from-gray-800 to-gray-900 " +
+                "rounded-lg overflow-hidden relative shadow-lg border border-gray-700 " +
+                "hover:border-green-600 transition-colors";
+
+              const gridCells = thumbs.map((prod, idx) => {
+                const src = prod && prod.image_url ? prod.image_url : 'img/placeholder.png';
+                const alt = prod && prod.name ? prod.name : 'Grocery item';
+                return `
+                  <img
+                    src="${src}"
+                    alt="${alt}"
+                    class="w-full h-full object-cover border border-black/10"
+                    onerror="this.src='img/placeholder.png'"
+                  >
+                `;
+              }).join('');
+
+              tile.innerHTML = `
+                <div class="grid grid-cols-2 grid-rows-2 h-full">
+                  ${gridCells}
+                </div>
+                <div class="absolute bottom-5 left-0 bg-purple-600 text-white text-[10px] px-2 py-0.5 rounded-r font-semibold">
+                  $${total}
+                </div>
+                <div class="absolute bottom-0 right-0 bg-black/80 text-white text-[10px] px-1.5 py-0.5 rounded-tl font-medium">
+                  ${dateLabel}
+                </div>
+              `;
+
+              tile.addEventListener('click', () => {
+                handleReorder(order.id);
+              });
+
+              orderHistoryList.appendChild(tile);
+            }
+
+            // Add "Start new order" tile at end
+            orderHistoryList.appendChild(createStartNewOrderTile());
+          }
+        } catch (err) {
+          console.error('[Profile] recent orders error:', err);
+          orderHistoryList.innerHTML = '';
+          orderHistoryList.appendChild(createStartNewOrderTile());
+        }
 
       } catch (err) {
         console.error('Error loading profile:', err);
