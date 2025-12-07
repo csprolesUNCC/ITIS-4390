@@ -11,7 +11,7 @@
 <body class="bg-black">
   <div class="mobile-container">
 
-    <!-- Cart Icon -->
+    <!-- cart Icon -->
     <div class="cart-icon-container">
       <a href="cart.html" class="cart-icon-button">
         <svg class="cart-icon-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -22,7 +22,7 @@
       </a>
     </div>
 
-    <!-- Added pb-24 so page can scroll above nav -->
+    <!-- scroll padding -->
     <div class="content-area pb-24">
       <div class="flex items-center mb-4">
         <a href="javascript:history.back()" class="text-white mr-3">←</a>
@@ -89,7 +89,7 @@
         product.image_url ||
         'img/placeholder.png';
 
-      // Build dietary/badge tags
+      // build badge tags
       const tags = [];
       if (product.dietary && product.dietary.length > 0) {
         tags.push(...product.dietary);
@@ -102,14 +102,13 @@
         ? tags.map(tag => `<span class="product-meta-item">${tag}</span>`).join('')
         : '';
 
-      // --- Nutrition facts section (use ALL keys present) ---
+      //nutrition facts
       const nutrition = product.nutrition || null;
       let nutritionHTML = '';
 
       if (nutrition && typeof nutrition === 'object') {
         const rows = [];
 
-        // Helper labels for common fields, but we’ll still show *any* key.
         const labelMap = {
           fat: 'Total Fat',
           saturated_fat: 'Saturated Fat',
