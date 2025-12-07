@@ -31,11 +31,32 @@
       </a>
 
       <button 
+        id="continue-guest"
         class="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-3 rounded-md transition duration-150 ease-in-out">
         Continue as Guest
       </button>
     </div>
 
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/data/supabaseAuth.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const guestBtn = document.getElementById('continue-guest');
+      if (!guestBtn) return;
+
+      guestBtn.addEventListener('click', async () => {
+        try {
+          await SupabaseAuth.logout();
+        } catch (err) {
+          console.warn("User not logged in, continuing as guest.", err);
+        }
+
+        window.location.href = "home.html";
+      });
+    });
+  </script>
 </body>
 </html>
