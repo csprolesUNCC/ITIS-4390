@@ -22,7 +22,8 @@
       </a>
     </div>
 
-    <div class="content-area">
+    <!-- Added pb-24 so page can scroll above nav -->
+    <div class="content-area pb-24">
       <div class="flex items-center mb-4">
         <a href="javascript:history.back()" class="text-white mr-3">←</a>
         <h1 id="product-title" class="text-white text-2xl font-light ml-3">Product</h1>
@@ -32,160 +33,218 @@
     </div>
 
     <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
-            <a href="home.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/home-2.png" alt="Home" class="w-6 h-6 mb-1">
-                Home
-            </a>
-            <a href="shop.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/shop.png" alt="Shop" class="w-6 h-6 mb-1">
-                Shop
-            </a>
-            <a href="search.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/Edit Square.png" alt="Search" class="w-6 h-6 mb-1">
-                Search
-            </a>
-            <a href="profile.html" class="flex flex-col items-center text-xs text-gray-500">
-                <img src="img/profile.png" alt="Profile" class="w-6 h-6 mb-1">
-            Profile
-        </a>
+      <a href="home.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/home-2.png" alt="Home" class="w-6 h-6 mb-1">
+        Home
+      </a>
+      <a href="shop.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/shop.png" alt="Shop" class="w-6 h-6 mb-1">
+        Shop
+      </a>
+      <a href="search.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/Edit Square.png" alt="Search" class="w-6 h-6 mb-1">
+        Search
+      </a>
+      <a href="profile.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/profile.png" alt="Profile" class="w-6 h-6 mb-1">
+        Profile
+      </a>
     </nav>
   </div>
 
   <script>
-  async function renderProduct() {
-    await DataAPI.loadEverything();
-    const params = new URLSearchParams(window.location.search);
-    const productId = parseInt(params.get('id'));
-    const product = DataAPI.getProduct(productId);
-    const productTitle = document.getElementById('product-title');
-    const productDetail = document.getElementById('product-detail');
+    async function renderProduct() {
+      await DataAPI.loadEverything();
+      const params = new URLSearchParams(window.location.search);
+      const productId = parseInt(params.get('id'));
+      const product = DataAPI.getProduct(productId);
+      const productTitle = document.getElementById('product-title');
+      const productDetail = document.getElementById('product-detail');
 
-    if (!product) {
-      productTitle.textContent = 'Product Not Found';
-      productDetail.innerHTML = '<p class="text-gray-400">No product found.</p>';
-      return;
+      if (!product) {
+        productTitle.textContent = 'Product Not Found';
+        productDetail.innerHTML = '<p class="text-gray-400">No product found.</p>';
+        return;
+      }
+
+      productTitle.textContent = product.name;
+      const price = DataAPI.getEffectivePrice(product);
+
+      const PRODUCT_IMAGE_MAP = {
+        101: 'img/bananas.png',
+        102: 'img/honeycrisp_apple.png',
+        103: 'img/baby_spinach.png',
+        201: 'img/85lean_beef.png',
+        202: 'img/salmon.png',
+        203: 'img/free_range_chicken.png',
+        301: 'img/milk.png',
+        302: 'img/eggs.png',
+        303: 'img/greek_yogurt.png',
+        801: 'img/rotisserie_chicken.png',
+        401: 'img/sourdough.png'
+      };
+
+      const imageSrc =
+        PRODUCT_IMAGE_MAP[product.id] ||
+        product.image_url ||
+        'img/placeholder.png';
+
+      // Build dietary/badge tags
+      const tags = [];
+      if (product.dietary && product.dietary.length > 0) {
+        tags.push(...product.dietary);
+      }
+      if (product.badges && product.badges.length > 0) {
+        tags.push(...product.badges);
+      }
+
+      const tagsHTML = tags.length > 0 
+        ? tags.map(tag => `<span class="product-meta-item">${tag}</span>`).join('')
+        : '';
+
+      // --- Nutrition facts section (use ALL keys present) ---
+      const nutrition = product.nutrition || null;
+      let nutritionHTML = '';
+
+      if (nutrition && typeof nutrition === 'object') {
+        const rows = [];
+
+        // Helper labels for common fields, but we’ll still show *any* key.
+        const labelMap = {
+          fat: 'Total Fat',
+          saturated_fat: 'Saturated Fat',
+          trans_fat: 'Trans Fat',
+          cholesterol: 'Cholesterol',
+          sodium: 'Sodium',
+          carbohydrates: 'Total Carbohydrate',
+          fiber: 'Dietary Fiber',
+          sugar: 'Total Sugars',
+          added_sugar: 'Includes Added Sugars',
+          protein: 'Protein'
+        };
+
+        Object.entries(nutrition).forEach(([key, value]) => {
+          if (key === 'serving_size' || key === 'calories') return;
+          if (value === undefined || value === null || value === '') return;
+
+          const label = labelMap[key] || key.replace(/_/g, ' ');
+          rows.push(`
+            <div class="flex justify-between text-[11px] text-gray-200">
+              <span>${label}</span>
+              <span class="font-medium">${value}</span>
+            </div>
+          `);
+        });
+
+        if (nutrition.serving_size || nutrition.calories !== undefined || rows.length) {
+          nutritionHTML = `
+            <div class="mt-6 bg-gray-900 border border-gray-700 rounded-lg p-4">
+              <p class="text-white text-sm font-semibold mb-1">Nutrition Facts</p>
+              ${
+                nutrition.serving_size
+                  ? `<p class="text-[11px] text-gray-300 mb-2">Serving size ${nutrition.serving_size}</p>`
+                  : ''
+              }
+              ${
+                nutrition.calories !== undefined
+                  ? `
+                    <div class="flex justify-between items-baseline border-t border-gray-700 pt-2 pb-2 mb-1">
+                      <span class="text-[11px] text-gray-300 uppercase tracking-wide">Calories</span>
+                      <span class="text-xl font-bold text-white">${nutrition.calories}</span>
+                    </div>
+                  `
+                  : ''
+              }
+              ${rows.length ? `<div class="space-y-1 border-t border-gray-800 pt-2">${rows.join('')}</div>` : ''}
+            </div>
+          `;
+        }
+      }
+
+      productDetail.innerHTML = `
+        <div class="product-image-container">
+          <img src="${imageSrc}" alt="${product.name || ''}" class="w-full h-full object-cover">
+        </div>
+        
+        <div class="product-info">
+          <h2 class="product-name">${product.name}</h2>
+          
+          <p class="product-description">${product.description || ''}</p>
+          
+          <div class="product-price-container">
+            <span class="product-price">
+              ${price && price.display ? price.display : ''}
+            </span>
+            ${price && price.original ? `<span class="product-price-original">${price.original}</span>` : ''}
+          </div>
+          
+          ${product.variants && product.variants[0] && product.variants[0].size 
+            ? `<div class="text-xs text-gray-400 mb-3">${product.variants[0].size}</div>` 
+            : ''}
+          
+          ${tagsHTML ? `<div class="product-meta mb-4">${tagsHTML}</div>` : ''}
+          
+          ${product.rating 
+            ? `<div class="flex items-center gap-2 mb-4">
+                 <span class="text-yellow-400 text-sm">★ ${product.rating}</span>
+                 <span class="text-xs text-gray-400">(${product.rating_count || 0} reviews)</span>
+               </div>`
+            : ''}
+          
+          <div class="quantity-controls">
+            <button class="quantity-button" onclick="changeQuantity(-1)">−</button>
+            <span class="quantity-display" id="quantity">1</span>
+            <button class="quantity-button" onclick="changeQuantity(1)">+</button>
+          </div>
+          
+          <button class="add-to-cart-button" onclick="addToCart()">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            <span id="add-to-cart-text">Add to Cart</span>
+          </button>
+
+          ${nutritionHTML}
+        </div>
+      `;
+
+      // Store product data for cart functionality
+      window.currentProduct = product;
+      window.currentQuantity = 1;
     }
 
-    productTitle.textContent = product.name;
-    const price = DataAPI.getEffectivePrice(product);
-
-    const PRODUCT_IMAGE_MAP = {
-      101: 'img/bananas.png',
-      102: 'img/honeycrisp_apple.png',
-      103: 'img/baby_spinach.png',
-      201: 'img/85lean_beef.png',
-      202: 'img/salmon.png',
-      203: 'img/free_range_chicken.png',
-      301: 'img/milk.png',
-      302: 'img/eggs.png',
-      303: 'img/greek_yogurt.png',
-      801: 'img/rotisserie_chicken.png',
-      401: 'img/sourdough.png'
-    };
-
-    const imageSrc =
-      PRODUCT_IMAGE_MAP[product.id] ||
-      product.image_url ||
-      'img/placeholder.png';
-
-    // Build dietary/badge tags
-    const tags = [];
-    if (product.dietary && product.dietary.length > 0) {
-      tags.push(...product.dietary);
-    }
-    if (product.badges && product.badges.length > 0) {
-      tags.push(...product.badges);
-    }
-
-    const tagsHTML = tags.length > 0 
-      ? tags.map(tag => `<span class="product-meta-item">${tag}</span>`).join('')
-      : '';
-
-    productDetail.innerHTML = `
-      <div class="product-image-container">
-        <img src="${imageSrc}" alt="${product.name || ''}" class="w-full h-full object-cover">
-      </div>
+    function changeQuantity(delta) {
+      const quantityEl = document.getElementById('quantity');
+      let newQuantity = window.currentQuantity + delta;
+      if (newQuantity < 1) newQuantity = 1;
+      if (newQuantity > 99) newQuantity = 99;
       
-      <div class="product-info">
-        <h2 class="product-name">${product.name}</h2>
-        
-        <p class="product-description">${product.description || ''}</p>
-        
-        <div class="product-price-container">
-          <span class="product-price">
-            ${price && price.display ? price.display : ''}
-          </span>
-          ${price && price.original ? `<span class="product-price-original">${price.original}</span>` : ''}
-        </div>
-        
-        ${product.variants && product.variants[0] && product.variants[0].size 
-          ? `<div class="text-xs text-gray-400 mb-3">${product.variants[0].size}</div>` 
-          : ''}
-        
-        ${tagsHTML ? `<div class="product-meta mb-4">${tagsHTML}</div>` : ''}
-        
-        ${product.rating 
-          ? `<div class="flex items-center gap-2 mb-4">
-               <span class="text-yellow-400 text-sm">★ ${product.rating}</span>
-               <span class="text-xs text-gray-400">(${product.rating_count || 0} reviews)</span>
-             </div>`
-          : ''}
-        
-        <div class="quantity-controls">
-          <button class="quantity-button" onclick="changeQuantity(-1)">−</button>
-          <span class="quantity-display" id="quantity">1</span>
-          <button class="quantity-button" onclick="changeQuantity(1)">+</button>
-        </div>
-        
-        <button class="add-to-cart-button" onclick="addToCart()">
-          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-          </svg>
-          <span id="add-to-cart-text">Add to Cart</span>
-        </button>
-      </div>
-    `;
+      window.currentQuantity = newQuantity;
+      quantityEl.textContent = newQuantity;
+    }
 
-    // Store product data for cart functionality
-    window.currentProduct = product;
-    window.currentQuantity = 1;
-  }
+    function addToCart() {
+      if (!window.currentProduct || !window.cartManager) return;
+      
+      const button = document.querySelector('.add-to-cart-button');
+      const buttonText = document.getElementById('add-to-cart-text');
+      
+      window.cartManager.addItem(window.currentProduct, window.currentQuantity);
+      
+      button.classList.add('added');
+      buttonText.textContent = 'Added!';
+      
+      setTimeout(() => {
+        button.classList.remove('added');
+        buttonText.textContent = 'Add to Cart';
+      }, 1500);
+      
+      window.currentQuantity = 1;
+      document.getElementById('quantity').textContent = '1';
+    }
 
-  function changeQuantity(delta) {
-    const quantityEl = document.getElementById('quantity');
-    let newQuantity = window.currentQuantity + delta;
-    if (newQuantity < 1) newQuantity = 1;
-    if (newQuantity > 99) newQuantity = 99;
-    
-    window.currentQuantity = newQuantity;
-    quantityEl.textContent = newQuantity;
-  }
-
-  function addToCart() {
-    if (!window.currentProduct || !window.cartManager) return;
-    
-    const button = document.querySelector('.add-to-cart-button');
-    const buttonText = document.getElementById('add-to-cart-text');
-    
-    // Add to cart
-    window.cartManager.addItem(window.currentProduct, window.currentQuantity);
-    
-    // Visual feedback
-    button.classList.add('added');
-    buttonText.textContent = 'Added!';
-    
-    setTimeout(() => {
-      button.classList.remove('added');
-      buttonText.textContent = 'Add to Cart';
-    }, 1500);
-    
-    // Reset quantity
-    window.currentQuantity = 1;
-    document.getElementById('quantity').textContent = '1';
-  }
-
-  renderProduct();
-</script>
+    renderProduct();
+  </script>
   <script src="cart-manager.js"></script>
 </body>
 </html>

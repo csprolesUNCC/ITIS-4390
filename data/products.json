@@ -10,7 +10,12 @@
       "nutrition": {
         "serving_size": "118g (1 medium banana)",
         "calories": 105,
+        "fat": "0.4g",
+        "saturated_fat": "0.1g",
+        "cholesterol": "0mg",
+        "sodium": "1mg",
         "carbohydrates": "27g",
+        "fiber": "3g",
         "sugar": "14g",
         "protein": "1.3g"
       },
@@ -26,18 +31,9 @@
       ],
       "rating": 4.8,
       "rating_count": 213,
-      "tags": [
-        "organic",
-        "fruit",
-        "staple"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "fruit", "staple"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -50,7 +46,12 @@
       "nutrition": {
         "serving_size": "182g (1 medium apple)",
         "calories": 95,
+        "fat": "0.3g",
+        "saturated_fat": "0.1g",
+        "cholesterol": "0mg",
+        "sodium": "2mg",
         "carbohydrates": "25g",
+        "fiber": "4g",
         "sugar": "19g",
         "protein": "0.5g"
       },
@@ -66,18 +67,9 @@
       ],
       "rating": 4.9,
       "rating_count": 158,
-      "tags": [
-        "organic",
-        "fruit"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
-      "badges": [
-        "Organic",
-        "Customer Favorite"
-      ],
+      "tags": ["organic", "fruit"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic", "Customer Favorite"],
       "is_active": true
     },
     {
@@ -90,7 +82,12 @@
       "nutrition": {
         "serving_size": "85g (3 cups)",
         "calories": 20,
+        "fat": "0.3g",
+        "saturated_fat": "0.1g",
+        "cholesterol": "0mg",
+        "sodium": "65mg",
         "carbohydrates": "3g",
+        "fiber": "2g",
         "sugar": "0g",
         "protein": "2g"
       },
@@ -106,19 +103,9 @@
       ],
       "rating": 4.6,
       "rating_count": 94,
-      "tags": [
-        "organic",
-        "greens",
-        "salad"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free",
-        "keto_friendly"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "greens", "salad"],
+      "dietary": ["vegan", "gluten_free", "keto_friendly"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -131,7 +118,12 @@
       "nutrition": {
         "serving_size": "152g (1 cup halves)",
         "calories": 49,
+        "fat": "0.5g",
+        "saturated_fat": "0g",
+        "cholesterol": "0mg",
+        "sodium": "1mg",
         "carbohydrates": "12g",
+        "fiber": "3g",
         "sugar": "8g",
         "protein": "1g"
       },
@@ -147,18 +139,9 @@
       ],
       "rating": 4.7,
       "rating_count": 125,
-      "tags": [
-        "organic",
-        "fruit",
-        "berry"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "fruit", "berry"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -171,7 +154,12 @@
       "nutrition": {
         "serving_size": "136g (1 medium avocado)",
         "calories": 227,
+        "fat": "21g",
+        "saturated_fat": "3g",
+        "cholesterol": "0mg",
+        "sodium": "10mg",
         "carbohydrates": "12g",
+        "fiber": "9g",
         "sugar": "1g",
         "protein": "3g"
       },
@@ -187,19 +175,9 @@
       ],
       "rating": 4.6,
       "rating_count": 210,
-      "tags": [
-        "organic",
-        "fruit",
-        "staple"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free",
-        "keto_friendly"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "fruit", "staple"],
+      "dietary": ["vegan", "gluten_free", "keto_friendly"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -212,7 +190,12 @@
       "nutrition": {
         "serving_size": "148g (1 cup)",
         "calories": 55,
+        "fat": "0.6g",
+        "saturated_fat": "0.1g",
+        "cholesterol": "0mg",
+        "sodium": "50mg",
         "carbohydrates": "11g",
+        "fiber": "5g",
         "sugar": "2g",
         "protein": "4g"
       },
@@ -228,20 +211,12 @@
       ],
       "rating": 4.5,
       "rating_count": 88,
-      "tags": [
-        "organic",
-        "vegetable"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free",
-        "keto_friendly"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "vegetable"],
+      "dietary": ["vegan", "gluten_free", "keto_friendly"],
+      "badges": ["Organic"],
       "is_active": true
     },
+
     {
       "id": 201,
       "name": "Grass-Fed Ground Beef 85% Lean",
@@ -252,7 +227,12 @@
       "nutrition": {
         "serving_size": "113g (4 oz)",
         "calories": 240,
+        "fat": "17g",
+        "saturated_fat": "6g",
+        "cholesterol": "80mg",
+        "sodium": "75mg",
         "carbohydrates": "0g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "21g"
       },
@@ -268,16 +248,9 @@
       ],
       "rating": 4.7,
       "rating_count": 76,
-      "tags": [
-        "grass_fed",
-        "meat"
-      ],
-      "dietary": [
-        "keto_friendly"
-      ],
-      "badges": [
-        "Responsibly Raised"
-      ],
+      "tags": ["grass_fed", "meat"],
+      "dietary": ["keto_friendly"],
+      "badges": ["Responsibly Raised"],
       "is_active": true
     },
     {
@@ -290,7 +263,12 @@
       "nutrition": {
         "serving_size": "113g (4 oz)",
         "calories": 230,
+        "fat": "14g",
+        "saturated_fat": "3g",
+        "cholesterol": "70mg",
+        "sodium": "60mg",
         "carbohydrates": "0g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "23g"
       },
@@ -306,17 +284,9 @@
       ],
       "rating": 4.8,
       "rating_count": 51,
-      "tags": [
-        "seafood",
-        "wild_caught"
-      ],
-      "dietary": [
-        "pescatarian",
-        "keto_friendly"
-      ],
-      "badges": [
-        "Sustainably Sourced"
-      ],
+      "tags": ["seafood", "wild_caught"],
+      "dietary": ["pescatarian", "keto_friendly"],
+      "badges": ["Sustainably Sourced"],
       "is_active": true
     },
     {
@@ -329,7 +299,12 @@
       "nutrition": {
         "serving_size": "113g (4 oz)",
         "calories": 120,
+        "fat": "2.5g",
+        "saturated_fat": "0.7g",
+        "cholesterol": "70mg",
+        "sodium": "65mg",
         "carbohydrates": "0g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "26g"
       },
@@ -345,16 +320,9 @@
       ],
       "rating": 4.5,
       "rating_count": 63,
-      "tags": [
-        "organic",
-        "meat"
-      ],
-      "dietary": [
-        "keto_friendly"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "meat"],
+      "dietary": ["keto_friendly"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -367,7 +335,12 @@
       "nutrition": {
         "serving_size": "113g (4 oz)",
         "calories": 140,
+        "fat": "4g",
+        "saturated_fat": "1.5g",
+        "cholesterol": "75mg",
+        "sodium": "55mg",
         "carbohydrates": "0g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "24g"
       },
@@ -383,13 +356,8 @@
       ],
       "rating": 4.6,
       "rating_count": 45,
-      "tags": [
-        "meat",
-        "pork"
-      ],
-      "dietary": [
-        "keto_friendly"
-      ],
+      "tags": ["meat", "pork"],
+      "dietary": ["keto_friendly"],
       "badges": [],
       "is_active": true
     },
@@ -403,7 +371,12 @@
       "nutrition": {
         "serving_size": "113g (4 oz)",
         "calories": 160,
+        "fat": "2g",
+        "saturated_fat": "0.5g",
+        "cholesterol": "55mg",
+        "sodium": "50mg",
         "carbohydrates": "0g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "33g"
       },
@@ -419,20 +392,12 @@
       ],
       "rating": 4.9,
       "rating_count": 31,
-      "tags": [
-        "seafood",
-        "sushi_grade"
-      ],
-      "dietary": [
-        "pescatarian",
-        "keto_friendly"
-      ],
-      "badges": [
-        "Sustainably Sourced",
-        "Premium"
-      ],
+      "tags": ["seafood", "sushi_grade"],
+      "dietary": ["pescatarian", "keto_friendly"],
+      "badges": ["Sustainably Sourced", "Premium"],
       "is_active": true
     },
+
     {
       "id": 301,
       "name": "Organic Whole Milk",
@@ -443,7 +408,12 @@
       "nutrition": {
         "serving_size": "240ml (1 cup)",
         "calories": 150,
+        "fat": "8g",
+        "saturated_fat": "5g",
+        "cholesterol": "35mg",
+        "sodium": "120mg",
         "carbohydrates": "12g",
+        "fiber": "0g",
         "sugar": "11g",
         "protein": "8g"
       },
@@ -459,16 +429,9 @@
       ],
       "rating": 4.6,
       "rating_count": 82,
-      "tags": [
-        "organic",
-        "milk"
-      ],
-      "dietary": [
-        "vegetarian"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "milk"],
+      "dietary": ["vegetarian"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -481,7 +444,12 @@
       "nutrition": {
         "serving_size": "50g (1 egg)",
         "calories": 70,
+        "fat": "5g",
+        "saturated_fat": "1.5g",
+        "cholesterol": "185mg",
+        "sodium": "70mg",
         "carbohydrates": "0g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "6g"
       },
@@ -497,17 +465,9 @@
       ],
       "rating": 4.4,
       "rating_count": 69,
-      "tags": [
-        "eggs",
-        "cage_free"
-      ],
-      "dietary": [
-        "vegetarian",
-        "keto_friendly"
-      ],
-      "badges": [
-        "Cage-Free"
-      ],
+      "tags": ["eggs", "cage_free"],
+      "dietary": ["vegetarian", "keto_friendly"],
+      "badges": ["Cage-Free"],
       "is_active": true
     },
     {
@@ -520,7 +480,12 @@
       "nutrition": {
         "serving_size": "170g (3/4 cup)",
         "calories": 130,
+        "fat": "4g",
+        "saturated_fat": "2.5g",
+        "cholesterol": "15mg",
+        "sodium": "60mg",
         "carbohydrates": "5g",
+        "fiber": "0g",
         "sugar": "5g",
         "protein": "17g"
       },
@@ -536,18 +501,9 @@
       ],
       "rating": 4.7,
       "rating_count": 55,
-      "tags": [
-        "organic",
-        "yogurt",
-        "high_protein"
-      ],
-      "dietary": [
-        "vegetarian",
-        "keto_friendly"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "yogurt", "high_protein"],
+      "dietary": ["vegetarian", "keto_friendly"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -560,7 +516,12 @@
       "nutrition": {
         "serving_size": "28g (1 oz)",
         "calories": 110,
+        "fat": "9g",
+        "saturated_fat": "6g",
+        "cholesterol": "30mg",
+        "sodium": "180mg",
         "carbohydrates": "1g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "7g"
       },
@@ -576,16 +537,9 @@
       ],
       "rating": 4.8,
       "rating_count": 98,
-      "tags": [
-        "cheese",
-        "aged"
-      ],
-      "dietary": [
-        "vegetarian"
-      ],
-      "badges": [
-        "Customer Favorite"
-      ],
+      "tags": ["cheese", "aged"],
+      "dietary": ["vegetarian"],
+      "badges": ["Customer Favorite"],
       "is_active": true
     },
     {
@@ -598,7 +552,12 @@
       "nutrition": {
         "serving_size": "14g (1 tbsp)",
         "calories": 100,
+        "fat": "11g",
+        "saturated_fat": "7g",
+        "cholesterol": "30mg",
+        "sodium": "0mg",
         "carbohydrates": "0g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "0g"
       },
@@ -614,17 +573,12 @@
       ],
       "rating": 4.5,
       "rating_count": 77,
-      "tags": [
-        "butter",
-        "dairy"
-      ],
-      "dietary": [
-        "vegetarian",
-        "keto_friendly"
-      ],
+      "tags": ["butter", "dairy"],
+      "dietary": ["vegetarian", "keto_friendly"],
       "badges": [],
       "is_active": true
     },
+
     {
       "id": 401,
       "name": "Sourdough Artisan Bread Loaf",
@@ -635,7 +589,12 @@
       "nutrition": {
         "serving_size": "57g (1 slice)",
         "calories": 160,
+        "fat": "1.5g",
+        "saturated_fat": "0.3g",
+        "cholesterol": "0mg",
+        "sodium": "320mg",
         "carbohydrates": "32g",
+        "fiber": "2g",
         "sugar": "1g",
         "protein": "6g"
       },
@@ -651,14 +610,9 @@
       ],
       "rating": 4.9,
       "rating_count": 132,
-      "tags": [
-        "bread",
-        "fresh_baked"
-      ],
+      "tags": ["bread", "fresh_baked"],
       "dietary": [],
-      "badges": [
-        "Baked In-Store"
-      ],
+      "badges": ["Baked In-Store"],
       "is_active": true
     },
     {
@@ -671,7 +625,12 @@
       "nutrition": {
         "serving_size": "28g (2 cookies)",
         "calories": 140,
+        "fat": "7g",
+        "saturated_fat": "3.5g",
+        "cholesterol": "15mg",
+        "sodium": "110mg",
         "carbohydrates": "18g",
+        "fiber": "1g",
         "sugar": "10g",
         "protein": "2g"
       },
@@ -687,16 +646,9 @@
       ],
       "rating": 4.3,
       "rating_count": 41,
-      "tags": [
-        "gluten_free",
-        "dessert"
-      ],
-      "dietary": [
-        "gluten_free"
-      ],
-      "badges": [
-        "Gluten-Free"
-      ],
+      "tags": ["gluten_free", "dessert"],
+      "dietary": ["gluten_free"],
+      "badges": ["Gluten-Free"],
       "is_active": true
     },
     {
@@ -709,7 +661,12 @@
       "nutrition": {
         "serving_size": "99g (1 bagel)",
         "calories": 270,
+        "fat": "3g",
+        "saturated_fat": "0.5g",
+        "cholesterol": "0mg",
+        "sodium": "430mg",
         "carbohydrates": "53g",
+        "fiber": "3g",
         "sugar": "7g",
         "protein": "10g"
       },
@@ -725,17 +682,9 @@
       ],
       "rating": 4.7,
       "rating_count": 89,
-      "tags": [
-        "bread",
-        "fresh_baked"
-      ],
-      "dietary": [
-        "vegetarian"
-      ],
-      "badges": [
-        "Baked In-Store",
-        "Customer Favorite"
-      ],
+      "tags": ["bread", "fresh_baked"],
+      "dietary": ["vegetarian"],
+      "badges": ["Baked In-Store", "Customer Favorite"],
       "is_active": true
     },
     {
@@ -748,7 +697,12 @@
       "nutrition": {
         "serving_size": "71g (1 muffin)",
         "calories": 290,
+        "fat": "12g",
+        "saturated_fat": "3g",
+        "cholesterol": "40mg",
+        "sodium": "260mg",
         "carbohydrates": "42g",
+        "fiber": "1g",
         "sugar": "24g",
         "protein": "4g"
       },
@@ -764,19 +718,12 @@
       ],
       "rating": 4.5,
       "rating_count": 61,
-      "tags": [
-        "muffins",
-        "fresh_baked",
-        "dessert"
-      ],
-      "dietary": [
-        "vegetarian"
-      ],
-      "badges": [
-        "Baked In-Store"
-      ],
+      "tags": ["muffins", "fresh_baked", "dessert"],
+      "dietary": ["vegetarian"],
+      "badges": ["Baked In-Store"],
       "is_active": true
     },
+
     {
       "id": 501,
       "name": "Organic Black Beans, No Salt Added",
@@ -787,7 +734,12 @@
       "nutrition": {
         "serving_size": "130g (1/2 cup)",
         "calories": 110,
+        "fat": "0.5g",
+        "saturated_fat": "0.1g",
+        "cholesterol": "0mg",
+        "sodium": "10mg",
         "carbohydrates": "20g",
+        "fiber": "8g",
         "sugar": "1g",
         "protein": "7g"
       },
@@ -803,18 +755,9 @@
       ],
       "rating": 4.6,
       "rating_count": 73,
-      "tags": [
-        "organic",
-        "beans",
-        "no_added_salt"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "beans", "no_added_salt"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -827,7 +770,12 @@
       "nutrition": {
         "serving_size": "15ml (1 tbsp)",
         "calories": 120,
+        "fat": "14g",
+        "saturated_fat": "2g",
+        "cholesterol": "0mg",
+        "sodium": "0mg",
         "carbohydrates": "0g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "0g"
       },
@@ -843,19 +791,9 @@
       ],
       "rating": 4.7,
       "rating_count": 64,
-      "tags": [
-        "organic",
-        "oil",
-        "staple"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free",
-        "keto_friendly"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "oil", "staple"],
+      "dietary": ["vegan", "gluten_free", "keto_friendly"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -868,7 +806,12 @@
       "nutrition": {
         "serving_size": "56g (2 oz dry)",
         "calories": 200,
+        "fat": "1.5g",
+        "saturated_fat": "0.3g",
+        "cholesterol": "0mg",
+        "sodium": "5mg",
         "carbohydrates": "41g",
+        "fiber": "5g",
         "sugar": "3g",
         "protein": "8g"
       },
@@ -884,13 +827,8 @@
       ],
       "rating": 4.4,
       "rating_count": 52,
-      "tags": [
-        "pasta",
-        "whole_grain"
-      ],
-      "dietary": [
-        "vegan"
-      ],
+      "tags": ["pasta", "whole_grain"],
+      "dietary": ["vegan"],
       "badges": [],
       "is_active": true
     },
@@ -904,7 +842,12 @@
       "nutrition": {
         "serving_size": "125g (1/2 cup)",
         "calories": 60,
+        "fat": "1.5g",
+        "saturated_fat": "0.3g",
+        "cholesterol": "0mg",
+        "sodium": "380mg",
         "carbohydrates": "12g",
+        "fiber": "2g",
         "sugar": "9g",
         "protein": "2g"
       },
@@ -920,18 +863,9 @@
       ],
       "rating": 4.6,
       "rating_count": 85,
-      "tags": [
-        "organic",
-        "sauce",
-        "staple"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "sauce", "staple"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -944,7 +878,12 @@
       "nutrition": {
         "serving_size": "40g (1/2 cup dry)",
         "calories": 150,
+        "fat": "3g",
+        "saturated_fat": "0.5g",
+        "cholesterol": "0mg",
+        "sodium": "0mg",
         "carbohydrates": "27g",
+        "fiber": "4g",
         "sugar": "1g",
         "protein": "5g"
       },
@@ -960,18 +899,9 @@
       ],
       "rating": 4.8,
       "rating_count": 102,
-      "tags": [
-        "organic",
-        "grains",
-        "high_fiber"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "grains", "high_fiber"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -984,7 +914,12 @@
       "nutrition": {
         "serving_size": "28g (1/4 cup)",
         "calories": 170,
+        "fat": "15g",
+        "saturated_fat": "1g",
+        "cholesterol": "0mg",
+        "sodium": "0mg",
         "carbohydrates": "6g",
+        "fiber": "3g",
         "sugar": "1g",
         "protein": "6g"
       },
@@ -1000,19 +935,12 @@
       ],
       "rating": 4.9,
       "rating_count": 74,
-      "tags": [
-        "nuts",
-        "keto_friendly",
-        "high_protein"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free",
-        "keto_friendly"
-      ],
+      "tags": ["nuts", "keto_friendly", "high_protein"],
+      "dietary": ["vegan", "gluten_free", "keto_friendly"],
       "badges": [],
       "is_active": true
     },
+
     {
       "id": 601,
       "name": "Organic Frozen Blueberries",
@@ -1023,7 +951,12 @@
       "nutrition": {
         "serving_size": "140g (1 cup)",
         "calories": 80,
+        "fat": "0.5g",
+        "saturated_fat": "0g",
+        "cholesterol": "0mg",
+        "sodium": "0mg",
         "carbohydrates": "21g",
+        "fiber": "4g",
         "sugar": "14g",
         "protein": "1g"
       },
@@ -1039,18 +972,9 @@
       ],
       "rating": 4.8,
       "rating_count": 89,
-      "tags": [
-        "organic",
-        "fruit",
-        "frozen"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "fruit", "frozen"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -1063,7 +987,12 @@
       "nutrition": {
         "serving_size": "90g (1 cup)",
         "calories": 50,
+        "fat": "0g",
+        "saturated_fat": "0g",
+        "cholesterol": "0mg",
+        "sodium": "15mg",
         "carbohydrates": "10g",
+        "fiber": "3g",
         "sugar": "4g",
         "protein": "3g"
       },
@@ -1079,14 +1008,8 @@
       ],
       "rating": 4.4,
       "rating_count": 47,
-      "tags": [
-        "frozen",
-        "vegetables"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
+      "tags": ["frozen", "vegetables"],
+      "dietary": ["vegan", "gluten_free"],
       "badges": [],
       "is_active": true
     },
@@ -1100,7 +1023,12 @@
       "nutrition": {
         "serving_size": "125g (1/5 pizza)",
         "calories": 300,
+        "fat": "12g",
+        "saturated_fat": "5g",
+        "cholesterol": "30mg",
+        "sodium": "650mg",
         "carbohydrates": "34g",
+        "fiber": "2g",
         "sugar": "4g",
         "protein": "14g"
       },
@@ -1116,10 +1044,7 @@
       ],
       "rating": 4.2,
       "rating_count": 112,
-      "tags": [
-        "pizza",
-        "frozen_dinner"
-      ],
+      "tags": ["pizza", "frozen_dinner"],
       "dietary": [],
       "badges": [],
       "is_active": true
@@ -1134,7 +1059,12 @@
       "nutrition": {
         "serving_size": "85g (1/2 cup)",
         "calories": 90,
+        "fat": "3g",
+        "saturated_fat": "0.5g",
+        "cholesterol": "0mg",
+        "sodium": "15mg",
         "carbohydrates": "8g",
+        "fiber": "4g",
         "sugar": "1g",
         "protein": "8g"
       },
@@ -1150,18 +1080,12 @@
       ],
       "rating": 4.6,
       "rating_count": 58,
-      "tags": [
-        "vegan",
-        "high_protein",
-        "appetizer"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
+      "tags": ["vegan", "high_protein", "appetizer"],
+      "dietary": ["vegan", "gluten_free"],
       "badges": [],
       "is_active": true
     },
+
     {
       "id": 701,
       "name": "Sparkling Mineral Water, Lime",
@@ -1172,7 +1096,12 @@
       "nutrition": {
         "serving_size": "355ml (12 fl oz)",
         "calories": 0,
+        "fat": "0g",
+        "saturated_fat": "0g",
+        "cholesterol": "0mg",
+        "sodium": "0mg",
         "carbohydrates": "0g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "0g"
       },
@@ -1188,18 +1117,9 @@
       ],
       "rating": 4.5,
       "rating_count": 91,
-      "tags": [
-        "sparkling",
-        "no_sugar"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free",
-        "keto_friendly"
-      ],
-      "badges": [
-        "No Added Sugar"
-      ],
+      "tags": ["sparkling", "no_sugar"],
+      "dietary": ["vegan", "gluten_free", "keto_friendly"],
+      "badges": ["No Added Sugar"],
       "is_active": true
     },
     {
@@ -1212,7 +1132,12 @@
       "nutrition": {
         "serving_size": "118ml (4 fl oz, diluted)",
         "calories": 15,
+        "fat": "0g",
+        "saturated_fat": "0g",
+        "cholesterol": "0mg",
+        "sodium": "5mg",
         "carbohydrates": "3g",
+        "fiber": "0g",
         "sugar": "1g",
         "protein": "0g"
       },
@@ -1228,14 +1153,8 @@
       ],
       "rating": 4.6,
       "rating_count": 38,
-      "tags": [
-        "coffee",
-        "cold_brew"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
+      "tags": ["coffee", "cold_brew"],
+      "dietary": ["vegan", "gluten_free"],
       "badges": [],
       "is_active": true
     },
@@ -1249,7 +1168,12 @@
       "nutrition": {
         "serving_size": "240ml (1 cup)",
         "calories": 110,
+        "fat": "0g",
+        "saturated_fat": "0g",
+        "cholesterol": "0mg",
+        "sodium": "5mg",
         "carbohydrates": "26g",
+        "fiber": "1g",
         "sugar": "21g",
         "protein": "2g"
       },
@@ -1265,17 +1189,9 @@
       ],
       "rating": 4.7,
       "rating_count": 66,
-      "tags": [
-        "organic",
-        "juice"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
-      "badges": [
-        "Organic"
-      ],
+      "tags": ["organic", "juice"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Organic"],
       "is_active": true
     },
     {
@@ -1288,7 +1204,12 @@
       "nutrition": {
         "serving_size": "240ml (1 cup)",
         "calories": 30,
+        "fat": "2.5g",
+        "saturated_fat": "0.2g",
+        "cholesterol": "0mg",
+        "sodium": "150mg",
         "carbohydrates": "1g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "1g"
       },
@@ -1304,20 +1225,12 @@
       ],
       "rating": 4.4,
       "rating_count": 81,
-      "tags": [
-        "dairy_free",
-        "vegan"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free",
-        "keto_friendly"
-      ],
-      "badges": [
-        "Dairy-Free"
-      ],
+      "tags": ["dairy_free", "vegan"],
+      "dietary": ["vegan", "gluten_free", "keto_friendly"],
+      "badges": ["Dairy-Free"],
       "is_active": true
     },
+
     {
       "id": 801,
       "name": "Lemon Herb Rotisserie Chicken",
@@ -1328,7 +1241,12 @@
       "nutrition": {
         "serving_size": "85g (3 oz)",
         "calories": 170,
+        "fat": "9g",
+        "saturated_fat": "2.5g",
+        "cholesterol": "80mg",
+        "sodium": "320mg",
         "carbohydrates": "0g",
+        "fiber": "0g",
         "sugar": "0g",
         "protein": "23g"
       },
@@ -1344,16 +1262,9 @@
       ],
       "rating": 4.7,
       "rating_count": 112,
-      "tags": [
-        "hot_bar",
-        "ready_to_eat"
-      ],
-      "dietary": [
-        "keto_friendly"
-      ],
-      "badges": [
-        "Prepared In-Store"
-      ],
+      "tags": ["hot_bar", "ready_to_eat"],
+      "dietary": ["keto_friendly"],
+      "badges": ["Prepared In-Store"],
       "is_active": true
     },
     {
@@ -1366,7 +1277,12 @@
       "nutrition": {
         "serving_size": "198g (1 cup)",
         "calories": 220,
+        "fat": "9g",
+        "saturated_fat": "1.5g",
+        "cholesterol": "0mg",
+        "sodium": "260mg",
         "carbohydrates": "30g",
+        "fiber": "5g",
         "sugar": "5g",
         "protein": "8g"
       },
@@ -1382,16 +1298,9 @@
       ],
       "rating": 4.4,
       "rating_count": 57,
-      "tags": [
-        "salad",
-        "high_fiber"
-      ],
-      "dietary": [
-        "vegan"
-      ],
-      "badges": [
-        "Prepared In-Store"
-      ],
+      "tags": ["salad", "high_fiber"],
+      "dietary": ["vegan"],
+      "badges": ["Prepared In-Store"],
       "is_active": true
     },
     {
@@ -1404,7 +1313,12 @@
       "nutrition": {
         "serving_size": "296ml (1.25 cups)",
         "calories": 190,
+        "fat": "8g",
+        "saturated_fat": "3g",
+        "cholesterol": "15mg",
+        "sodium": "820mg",
         "carbohydrates": "28g",
+        "fiber": "3g",
         "sugar": "18g",
         "protein": "6g"
       },
@@ -1420,19 +1334,12 @@
       ],
       "rating": 4.6,
       "rating_count": 71,
-      "tags": [
-        "soup",
-        "ready_to_eat"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
-      "badges": [
-        "Prepared In-Store"
-      ],
+      "tags": ["soup", "ready_to_eat"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Prepared In-Store"],
       "is_active": true
     },
+
     {
       "id": 901,
       "name": "Sea Salt Potato Chips",
@@ -1443,7 +1350,12 @@
       "nutrition": {
         "serving_size": "28g (15 chips)",
         "calories": 160,
+        "fat": "10g",
+        "saturated_fat": "1g",
+        "cholesterol": "0mg",
+        "sodium": "170mg",
         "carbohydrates": "16g",
+        "fiber": "1g",
         "sugar": "0g",
         "protein": "2g"
       },
@@ -1459,14 +1371,8 @@
       ],
       "rating": 4.5,
       "rating_count": 154,
-      "tags": [
-        "chips",
-        "savory"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
+      "tags": ["chips", "savory"],
+      "dietary": ["vegan", "gluten_free"],
       "badges": [],
       "is_active": true
     },
@@ -1480,7 +1386,12 @@
       "nutrition": {
         "serving_size": "40g (3 squares)",
         "calories": 220,
+        "fat": "15g",
+        "saturated_fat": "9g",
+        "cholesterol": "5mg",
+        "sodium": "60mg",
         "carbohydrates": "24g",
+        "fiber": "3g",
         "sugar": "18g",
         "protein": "2g"
       },
@@ -1496,18 +1407,9 @@
       ],
       "rating": 4.8,
       "rating_count": 93,
-      "tags": [
-        "chocolate",
-        "dessert",
-        "sweet"
-      ],
-      "dietary": [
-        "vegan",
-        "gluten_free"
-      ],
-      "badges": [
-        "Customer Favorite"
-      ],
+      "tags": ["chocolate", "dessert", "sweet"],
+      "dietary": ["vegan", "gluten_free"],
+      "badges": ["Customer Favorite"],
       "is_active": true
     }
   ]
