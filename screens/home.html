@@ -223,15 +223,19 @@
         }
 
         function createCategoryChip(category) {
-            const chip = document.createElement('button');
-            chip.type = "button";
-            chip.className = "px-3 py-1.5 rounded-full text-xs font-medium bg-gradient-to-r from-gray-800 to-gray-900 text-gray-100 border border-gray-600 hover:border-green-500 hover:text-green-400 transition-all shadow-sm";
-            chip.textContent = category.name || `Category #${category.id}`;
-            chip.addEventListener('click', () => {
-                window.location.href = `category.html?id=${category.id}`;
-            });
-            return chip;
-        }
+  const chip = document.createElement('button');
+  chip.type = "button";
+  chip.className = "px-3 py-1.5 rounded-full text-xs font-medium bg-gradient-to-r from-gray-800 to-gray-900 text-gray-100 border border-gray-600 hover:border-green-500 hover:text-green-400 transition-all shadow-sm";
+  chip.textContent = category.name || `Category #${category.id}`;
+
+  chip.addEventListener('click', () => {
+    // use slug,category.html expects ?slug=
+    window.location.href = `category.html?slug=${encodeURIComponent(category.slug)}`;
+  });
+
+  return chip;
+}
+
 
         function formatOrderDate(dateStr) {
             if (!dateStr) return '';
