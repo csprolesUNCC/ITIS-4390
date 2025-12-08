@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="app.css">
   <style>
-    /* Optional: Match home page horizontal scrollbar styling */
+    /*  */
     .custom-scrollbar::-webkit-scrollbar {
       height: 6px;
     }
@@ -54,14 +54,14 @@
         </div>
       </div>
 
-      <!-- Order History (reuses Supabase carousel logic from Home) -->
+      <!-- Order History  -->
       <div class="mb-8">
         <div class="flex items-center justify-between header-bg text-white text-base py-2 px-3 rounded-md mb-3">
           <span>Order History</span>
           <a href="tracking.html" class="text-green-300 text-xs font-medium">View All →</a>
         </div>
         <div id="order-history-list" class="flex space-x-3 overflow-x-auto px-1 pb-2 custom-scrollbar">
-          <!-- recent order tiles + "start new order" card injected via JS -->
+          
         </div>
       </div>
 
@@ -74,7 +74,7 @@
               <p class="text-sm text-gray-400">Name:</p>
               <p id="profile-name" class="font-medium">Loading…</p>
             </div>
-            <button class="text-green-500 text-2xl pr-2">&#x270E;</button>
+            <a href="preferences.html"><button class="text-green-500 text-2xl pr-2">&#x270E;</button></a>
           </div>
 
           <div class="flex items-center justify-between border-l-4 border-green-700 pl-3 py-1">
@@ -102,9 +102,18 @@
       </div>
 
       <div class="space-y-4 mb-20">
-        <a href="payinfo.html" class="block w-full header-bg text-white font-medium py-3 rounded-md text-center">Payment Info</a>
-        <a href="settings.html" class="w-full header-bg text-white font-medium py-3 rounded-md block text-center">Profile Settings</a>
-        <button id="logout-button" class="w-full bg-red-700/80 hover:bg-red-700 text-white font-medium py-3 rounded-md text-sm">Log Out</button>
+        <a href="payinfo.html" class="block w-full header-bg text-white font-medium py-3 rounded-md text-center">
+          Payment Info
+        </a>
+        <a href="preferences.html" class="block w-full header-bg text-white font-medium py-3 rounded-md text-center">
+          Preferences
+        </a>
+        <a href="settings.html" class="block w-full header-bg text-white font-medium py-3 rounded-md text-center">
+          Notification Settings
+        </a>
+        <button id="logout-button" class="w-full bg-red-700/80 hover:bg-red-700 text-white font-medium py-3 rounded-md text-sm">
+          Log Out
+        </button>
       </div>
     </div>
 
@@ -197,14 +206,14 @@
       const orderHistoryList = document.getElementById('order-history-list');
 
       try {
-        // Load JSON data + auth in parallel
+        // Load JSON data + auth
         const [_, session] = await Promise.all([
           DataAPI.loadEverything(),
           SupabaseAuth.getCurrentUserWithProfile()
         ]);
 
         if (!session || !session.user) {
-          // Guest / no active session
+          // Guest
           greetingEl.textContent = "You’re browsing as a guest.";
           nameEl.textContent = "Guest";
           emailEl.textContent = "Not signed in";
@@ -215,7 +224,6 @@
           logoutBtn.disabled = true;
           logoutBtn.classList.add('opacity-60', 'cursor-not-allowed');
 
-          // For guests, show only "Start a new order" tile
           orderHistoryList.innerHTML = '';
           orderHistoryList.appendChild(createStartNewOrderTile());
           return;
@@ -248,13 +256,13 @@
           window.location.href = 'onboarding.html';
         });
 
-        // ----- Recent Orders Carousel (Supabase + 4-image grid) -----
+       
         try {
           const orders = await OrdersAPI.getOrdersForCurrentUser();
           orderHistoryList.innerHTML = '';
 
           if (!orders || !orders.length) {
-            // No orders yet → just show "Start new order"
+            // No orders yetjust show "Start new order"
             orderHistoryList.appendChild(createStartNewOrderTile());
           } else {
             const maxToShow = 5;
@@ -297,7 +305,7 @@
                 "rounded-lg overflow-hidden relative shadow-lg border border-gray-700 " +
                 "hover:border-green-600 transition-colors";
 
-              const gridCells = thumbs.map((prod, idx) => {
+              const gridCells = thumbs.map((prod) => {
                 const src = prod && prod.image_url ? prod.image_url : 'img/placeholder.png';
                 const alt = prod && prod.name ? prod.name : 'Grocery item';
                 return `

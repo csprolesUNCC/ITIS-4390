@@ -4,7 +4,7 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-//Regular Auth
+//reg auth
 const SupabaseAuth = {
   async login(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -42,7 +42,7 @@ const SupabaseAuth = {
 
     return user;
   },
-  //Use for dynamic data loading
+  //  dynamic data loading
   async getCurrentUser() {
     const { data } = await supabase.auth.getUser();
     return data.user || null;
@@ -64,7 +64,7 @@ const SupabaseAuth = {
     return { user, profile };
   },
 
-  //Method to update profile
+  //method to update profile
   async updateProfile(fields) {
     // fields: { name?, default_store_id?, dietary_preferences?, favorite_categories? }
     const { data: userData, error: userError } = await supabase.auth.getUser();
