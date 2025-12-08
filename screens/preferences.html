@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile Settings – Whole Foods</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="app.css" />
+
+  <style>
+    /*  */
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(31, 41, 55, 0.5);
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(34, 197, 94, 0.5);
+      border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(34, 197, 94, 0.7);
+    }
+    .custom-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(34, 197, 94, 0.5) rgba(31, 41, 55, 0.5);
+    }
+  </style>
+</head>
+
+<body class="bg-black">
+  <div class="mobile-container">
+    <div class="content-area">
+
+      <!-- Header -->
+      <div class="flex items-center mb-2">
+        <button onclick="history.back()" class="text-white mr-3 text-lg">
+          ←
+        </button>
+        <div class="w-16 h-16 bg-green-700 rounded-full flex items-center justify-center mr-4">
+          <img src="img/logo.png" alt="Whole Foods Logo" class="h-full w-full object-cover">
+        </div>
+        <div>
+          <h1 class="text-white text-3xl font-light">Profile Settings</h1>
+          <p id="settings-subtitle" class="text-gray-400 text-xs mt-1">Manage your preferences</p>
+        </div>
+      </div>
+
+      <!-- Guest message  -->
+      <div id="guest-message" class="mb-4 hidden">
+        <div class="bg-yellow-900/40 border border-yellow-700 text-yellow-100 rounded-md px-3 py-2 text-xs">
+          <p class="font-medium mb-1">You’re not signed in.</p>
+          <p class="mb-2">Sign in to save and sync your preferences.</p>
+          <div class="flex space-x-2">
+            <a href="login.html" class="px-3 py-1 rounded-md bg-yellow-500 text-black font-medium">Login</a>
+            <a href="onboarding.html" class="px-3 py-1 rounded-md bg-gray-800 text-gray-100">Back to Start</a>
+          </div>
+        </div>
+      </div>
+
+     
+      <div id="status" class="hidden mb-4 text-xs rounded-md px-3 py-2"></div>
+
+      <!-- account -->
+      <div class="mb-6">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-4">
+          Account Basics
+        </div>
+
+        <div class="space-y-4 text-white">
+          <div>
+            <label for="name" class="block text-xs text-gray-400 mb-1">
+              Display Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              class="w-full bg-black border border-gray-700 rounded-md text-sm text-white px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+              placeholder="Your name"
+            />
+            <p class="mt-1 text-[11px] text-gray-500">
+              This is how we’ll greet you in the app.
+            </p>
+          </div>
+
+          <div>
+            <label for="default-store" class="block text-xs text-gray-400 mb-1">
+              Default Store
+            </label>
+            <select
+              id="default-store"
+              class="w-full bg-black border border-gray-700 rounded-md text-sm text-white px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+            >
+              <!-- options injected -->
+            </select>
+            <p class="mt-1 text-[11px] text-gray-500">
+              Used for pricing, inventory, and delivery windows.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- fav categories-->
+      <div class="mb-6">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          Favorite Categories
+        </div>
+        <p class="text-[11px] text-gray-400 mb-3">
+          We’ll prioritize these when showing recommendations and promotions.
+        </p>
+
+        <div
+          id="favorite-category-pills"
+          class="flex flex-wrap gap-2 text-xs text-white"
+        >
+          <!-- pills injected  -->
+        </div>
+      </div>
+
+      <!-- Dietary Preferences -->
+      <div class="mb-8">
+        <div class="header-bg text-white text-base py-2 px-3 rounded-md mb-3">
+          Dietary Preferences
+        </div>
+        <p class="text-[11px] text-gray-400 mb-3">
+          These help us highlight products that match how you eat.
+        </p>
+
+        <div
+          id="dietary-pills"
+          class="flex flex-wrap gap-2 text-xs text-white"
+        >
+          
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="space-y-3 mb-20">
+        <button
+          id="save-btn"
+          class="w-full header-bg hover:bg-emerald-700 text-white font-medium py-3 rounded-md text-sm transition-colors"
+        >
+          Save Preferences
+        </button>
+
+        <a
+          href="profile.html"
+          class="block w-full bg-gray-800 text-gray-100 font-medium py-3 rounded-md text-xs text-center"
+        >
+          ← Back to Profile
+        </a>
+      </div>
+    </div>
+
+    <!-- Bottom nav  -->
+    <nav class="absolute bottom-0 left-0 right-0 max-w-sm mx-auto bg-green-800 text-white flex justify-around py-3">
+      <a href="home.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/home-2.png" alt="Home" class="w-6 h-6 mb-1">
+        Home
+      </a>
+      <a href="shop.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/shop.png" alt="Shop" class="w-6 h-6 mb-1">
+        Shop
+      </a>
+      <a href="search.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/Edit Square.png" alt="Search" class="w-6 h-6 mb-1">
+        Search
+      </a>
+      <a href="profile.html" class="flex flex-col items-center text-xs text-gray-500">
+        <img src="img/profile.png" alt="Profile" class="w-6 h-6 mb-1">
+        Profile
+      </a>
+    </nav>
+  </div>
+
+  <!-- Supabase + APIs -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/data/supabaseAuth.js"></script>
+  <script src="/data/data_api.js"></script>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const guestMessageEl = document.getElementById('guest-message');
+    const nameInput = document.getElementById('name');
+    const defaultStoreSelect = document.getElementById('default-store');
+
+    const favoriteCategoryPillsEl = document.getElementById('favorite-category-pills');
+    const dietaryPillsEl = document.getElementById('dietary-pills');
+    const saveBtn = document.getElementById('save-btn');
+
+    
+    const DIETARY_OPTIONS = [
+      { value: 'vegan', label: 'Vegan' },
+      { value: 'vegetarian', label: 'Vegetarian' },
+      { value: 'gluten_free', label: 'Gluten-free' },
+      { value: 'keto_friendly', label: 'Keto-friendly' },
+      { value: 'pescatarian', label: 'Pescatarian' }
+    ];
+
+    function showStatus(message, type = 'success') {
+      statusEl.textContent = message;
+      statusEl.classList.remove('hidden');
+      statusEl.classList.remove('bg-red-900', 'text-red-200', 'bg-emerald-900', 'text-emerald-200');
+
+      if (type === 'error') {
+        statusEl.classList.add('bg-red-900', 'text-red-200');
+      } else {
+        statusEl.classList.add('bg-emerald-900', 'text-emerald-200');
+      }
+    }
+
+    function createPill(label, value, selected = false) {
+      const pill = document.createElement('button');
+      pill.type = 'button';
+      pill.dataset.value = String(value);
+      pill.className =
+        'px-3 py-1 rounded-full border text-[11px] transition-colors ' +
+        (selected
+          ? 'bg-emerald-600 border-emerald-400 text-white'
+          : 'bg-gray-900 border-gray-700 text-gray-200');
+
+      pill.textContent = label;
+
+      pill.addEventListener('click', () => {
+        const isSelected = pill.classList.contains('bg-emerald-600');
+        if (isSelected) {
+          // OFF
+          pill.classList.remove('bg-emerald-600', 'border-emerald-400', 'text-white');
+          pill.classList.add('bg-gray-900', 'border-gray-700', 'text-gray-200');
+        } else {
+          // ON
+          pill.classList.remove('bg-gray-900', 'border-gray-700', 'text-gray-200');
+          pill.classList.add('bg-emerald-600', 'border-emerald-400', 'text-white');
+        }
+      });
+
+      return pill;
+    }
+
+    function getSelectedValuesFromPills(containerEl, numeric = false) {
+      const values = [];
+      const pills = containerEl.querySelectorAll('button[data-value]');
+      pills.forEach((pill) => {
+        const isSelected = pill.classList.contains('bg-emerald-600');
+        if (isSelected) {
+          const raw = pill.dataset.value;
+          values.push(numeric ? parseInt(raw, 10) : raw);
+        }
+      });
+      return values;
+    }
+
+    async function loadSettings() {
+      try {
+        // load data + user
+        const [_, session] = await Promise.all([
+          DataAPI.loadEverything(),
+          SupabaseAuth.getCurrentUserWithProfile()
+        ]);
+
+        if (!session || !session.user) {
+          guestMessageEl.classList.remove('hidden');
+          saveBtn.disabled = true;
+          saveBtn.classList.add('opacity-60', 'cursor-not-allowed');
+          showStatus('You must be logged in to save settings.', 'error');
+          return;
+        }
+
+        const { user, profile } = session;
+
+        //display name
+        const displayName =
+          (profile && profile.name) ||
+          (user.email ? user.email.split('@')[0] : '');
+        nameInput.value = displayName;
+
+        // Populate stores
+        const stores = (DataAPI.getStoreLocations && DataAPI.getStoreLocations()) || [];
+        defaultStoreSelect.innerHTML = '';
+        stores.forEach((store) => {
+          const opt = document.createElement('option');
+          opt.value = store.id;
+          opt.textContent = store.name;
+          defaultStoreSelect.appendChild(opt);
+        });
+
+        const defaultStoreId =
+          (profile && profile.default_store_id) ||
+          (stores[0] ? stores[0].id : '');
+        if (defaultStoreId) {
+          defaultStoreSelect.value = defaultStoreId;
+        }
+
+        // Favorite category pills from DataAPI categories
+        const categories = (DataAPI.getCategories && DataAPI.getCategories()) || [];
+        const selectedCategoryIds =
+          (profile && Array.isArray(profile.favorite_categories)
+            ? profile.favorite_categories
+            : []);
+
+        favoriteCategoryPillsEl.innerHTML = '';
+        categories.forEach((cat) => {
+          const isSelected = selectedCategoryIds.includes(cat.id);
+          const pill = createPill(cat.name, cat.id, isSelected);
+          favoriteCategoryPillsEl.appendChild(pill);
+        });
+
+        // Dietary pills
+        const selectedDietary =
+          (profile && Array.isArray(profile.dietary_preferences)
+            ? profile.dietary_preferences
+            : []);
+
+        dietaryPillsEl.innerHTML = '';
+        DIETARY_OPTIONS.forEach((opt) => {
+          const isSelected = selectedDietary.includes(opt.value);
+          const pill = createPill(opt.label, opt.value, isSelected);
+          dietaryPillsEl.appendChild(pill);
+        });
+
+      } catch (err) {
+        console.error('[Settings] load error:', err);
+        showStatus('Unable to load settings.', 'error');
+      }
+    }
+
+    async function saveSettings() {
+      saveBtn.disabled = true;
+      const originalText = saveBtn.textContent;
+      saveBtn.textContent = 'Saving…';
+
+      try {
+        const fields = {
+          name: nameInput.value.trim(),
+          default_store_id: parseInt(defaultStoreSelect.value, 10),
+          favorite_categories: getSelectedValuesFromPills(favoriteCategoryPillsEl, true),
+          dietary_preferences: getSelectedValuesFromPills(dietaryPillsEl, false)
+        };
+
+        const result = await SupabaseAuth.updateProfile(fields);
+
+        if (!result || !result.profile) {
+          showStatus('Saved, but could not reload your profile.', 'error');
+        } else {
+          showStatus('Preferences updated.', 'success');
+        }
+      } catch (err) {
+        console.error('[Settings] save error:', err);
+        showStatus(err.message || 'Error saving settings.', 'error');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = originalText;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadSettings();
+      saveBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        saveSettings();
+      });
+    });
+  </script>
+</body>
+</html>
