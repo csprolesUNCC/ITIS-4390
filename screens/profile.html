@@ -168,33 +168,31 @@
       return newOrderCard;
     }
 
-    async function handleReorder(orderId) {
-      try {
-        if (!orderId) return;
+  async function handleReorder(orderId) {
+  try {
+    if (!orderId) return;
 
-        const { order, items } = await OrdersAPI.getOrderWithItems(orderId);
-        if (!items || !items.length) {
-          alert('This order has no items to reorder.');
-          return;
-        }
-
-        const simpleItems = items.map((item) => ({
-          product_id: item.product_id,
-          name: item.product_name,
-          unit_price: Number(item.unit_price) || 0,
-          quantity: Number(item.quantity) || 1
-        }));
-
-        if (window.cartManager && typeof cartManager.loadFromOrderItems === 'function') {
-          cartManager.loadFromOrderItems(simpleItems);
-        }
-
-        window.location.href = 'cart.html';
-      } catch (err) {
-        console.error('[Profile] handleReorder error:', err);
-        alert('Could not load order into cart.');
-      }
+    const { order, items } = await OrdersAPI.getOrderWithItems(orderId);
+    if (!items || !items.length) {
+      alert('This order has no items to reorder.');
+      return;
     }
+
+    if (window.cartManager && typeof cartManager.loadFromOrder === 'function') {
+      cartManager.loadFromOrder(order, items);
+    } else {
+      console.error('[Profile] cartManager.loadFromOrder is not available');
+      alert('Could not load order into cart.');
+      return;
+    }
+
+    window.location.href = 'cart.html';
+  } catch (err) {
+    console.error('[Profile] handleReorder error:', err);
+    alert('Could not load order into cart.');
+  }
+}
+
 
     document.addEventListener('DOMContentLoaded', async () => {
       const greetingEl = document.getElementById('profile-greeting');
